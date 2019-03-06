@@ -30,10 +30,35 @@
         <form id="logoutForm" method="POST" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
+        <form id="adaugaMasaForm" method="POST" action="${contextPath}/adaugaMasa">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
 
-        <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
+        <h3>Welcome ${pageContext.request.userPrincipal.name}</h3>
+        <h3><a id="logout" onclick="document.forms['logoutForm'].submit()">Logout</a></h3>
+
+        <div class="anchors">
+            <h4>
+                <a href="/administrareOspatari">Ospatari</a>
+            </h4>
+            <h4>
+                <a href="/meniuriRestaurant">Meniu</a>
+            </h4>
+
+            <h4>
+                <a onclick="document.forms['adaugaMasaForm'].submit()">Adauga masa</a>
+            </h4>
+            <c:if test="${not empty listaMese}">
+                <ul>
+                   <c:forEach var="masa" items="${listaMese}">
+                        <li>Masa ${masa.id}</li>
+                </c:forEach>
+                </ul>
+            </c:if>
+        </div>
 
     </c:if>
+
 
 </div>
 <!-- /container -->

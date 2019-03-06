@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Log in with your account</title>
+    <title>Editare meniu</title>
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
@@ -29,23 +29,29 @@
 <body>
 
 <div class="container">
+    <h3> <a href="/welcome">Home</a></h3>
+    <h2 class="form-signin-heading">Lista produse</h2>
 
-    <form method="POST" action="${contextPath}/login" class="form-signin">
-        <h2 class="form-heading">Log in</h2>
+    <c:if test="${not empty listaProduse}">
 
-        <div class="form-group ${error != null ? 'has-error' : ''}">
-            <span>${message}</span>
-            <input name="username" type="text" class="form-control" placeholder="Email admin"
-                   autofocus="true"/>
-            <input name="password" type="password" class="form-control" placeholder="Parola"/>
-            <span>${error}</span>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <table>
+            <c:forEach var="produs" items="${listaProduse}">
+                <tr>
+                    <td>
+                        <a href="${contextPath}/gestionareProdus?meniu_id=${produs.meniu.id}"></a>
+                    </td>
+                    <td>
+                        ${produs.denumire}
+                    </td>
+                    <td>
+                            ${produs.pret} lei
+                    </td>
+                </tr>
+            </c:forEach>
+            </table>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-            <h4 class="text-center"><a href="${contextPath}/registration">Create an account</a></h4>
-        </div>
-
-    </form>
+    </c:if>
+    <a href="${contextPath}/gestionareProdus?meniu_id=${meniu_id_param}">Adauga un produs nou</a>
 
 </div>
 <!-- /container -->

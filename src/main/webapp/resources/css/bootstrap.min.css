@@ -7197,3 +7197,6 @@ button.close {
         display: none !important
     }
 }
+#logout{
+    margin-left: 60vw;
+}

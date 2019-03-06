@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Create an account</title>
+    <title>Gestionare produs</title>
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
@@ -29,43 +29,44 @@
 <body>
 
 <div class="container">
+    <h3> <a href="/welcome">Home</a></h3>
+   <h2>Gestionare produs</h2>
+    <form:form method="POST" modelAttribute="produsForm" class="form-signin">
 
-    <form:form method="POST" modelAttribute="adminForm" class="form-signin">
-        <h2 class="form-signin-heading">Create your account</h2>
-        <spring:bind path="nume">
+        <spring:bind path="denumire">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="nume" class="form-control" placeholder="Nume"
+                <form:input type="text" path="denumire" class="form-control" placeholder="Denumire"
                             autofocus="true"></form:input>
-                <form:errors path="nume"></form:errors>
-            </div>
-        </spring:bind>
-        <spring:bind path="prenume">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="prenume" class="form-control" placeholder="Prenume"
-                            autofocus="true"></form:input>
-                <form:errors path="prenume"></form:errors>
-            </div>
-        </spring:bind>
-        <spring:bind path="username">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="username" class="form-control" placeholder="Email admin"
-                            autofocus="true"></form:input>
-                <form:errors path="username"></form:errors>
+                <form:errors path="denumire"></form:errors>
             </div>
         </spring:bind>
 
-        <spring:bind path="password">
+        <spring:bind path="pret">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="password" path="password" class="form-control" placeholder="Parola"></form:input>
-                <form:errors path="password"></form:errors>
+                <form:input type="text" path="pret" class="form-control" placeholder="Pret"></form:input>
+                <form:errors path="pret"></form:errors>
             </div>
         </spring:bind>
 
-        <spring:bind path="passwordConfirm">
+        <spring:bind path="gramaj">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="password" path="passwordConfirm" class="form-control"
-                            placeholder="Confirma parola"></form:input>
-                <form:errors path="passwordConfirm"></form:errors>
+                <form:input type="text" path="gramaj" class="form-control"
+                            placeholder="Gramaj"></form:input>
+                <form:errors path="gramaj"></form:errors>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="categorie">
+
+            <form:select path="categorie">
+                <form:options items="${categoriiProduse}" />
+            </form:select>
+        </spring:bind>
+        <spring:bind path="descriere">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="descriere" class="form-control"
+                            placeholder="Descriere"></form:input>
+                <form:errors path="descriere"></form:errors>
             </div>
         </spring:bind>
 

@@ -1,9 +1,11 @@
 package com.hellokoding.auth.web;
 
-import com.hellokoding.auth.model.User;
+import com.hellokoding.auth.model.Admin;
+import com.hellokoding.auth.model.Masa;
+import com.hellokoding.auth.service.MasaService;
 import com.hellokoding.auth.service.SecurityService;
-import com.hellokoding.auth.service.UserService;
-import com.hellokoding.auth.validator.UserValidator;
+import com.hellokoding.auth.service.AdminService;
+import com.hellokoding.auth.validator.AdminValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,35 +14,39 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @Controller
-public class UserController {
+public class AdminController {
     @Autowired
-    private UserService userService;
+    private AdminService adminService;
+    @Autowired
+    MasaService masaService;
 
     @Autowired
     private SecurityService securityService;
 
     @Autowired
-    private UserValidator userValidator;
+    private AdminValidator adminValidator;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
-        model.addAttribute("userForm", new User());
+        model.addAttribute("adminForm", new Admin());
 
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-        userValidator.validate(userForm, bindingResult);
+    public String registration(@ModelAttribute("adminForm") Admin adminForm, BindingResult bindingResult, Model model) {
+        adminValidator.validate(adminForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "registration";
         }
 
-        userService.save(userForm);
+        adminService.save(adminForm);
 
-        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+        securityService.autologin(adminForm.getUsername(), adminForm.getPasswordConfirm());
 
         return "redirect:/welcome";
     }
@@ -58,6 +64,8 @@ public class UserController {
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
+
+        model.addAttribute("listaMese",masaService.findAll());
         return "welcome";
     }
 }
