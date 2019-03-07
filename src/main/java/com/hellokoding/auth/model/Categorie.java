@@ -13,14 +13,16 @@ public class Categorie {
     private Long id;
     private String denumire;
     private String descriere;
+    private String urlImagine;
     private Set<Produs> produse;
     public Categorie() {
 
     }
 
-    public Categorie(String denumire) {
+    public Categorie(String denumire, String url) {
 
         this.denumire = denumire;
+        this.urlImagine=url;
     }
 
     @Id
@@ -55,5 +57,13 @@ public class Categorie {
 
     public void setDescriere(String descriere) {
         this.descriere = descriere;
+    }
+
+    public String getUrlImagine() {
+        return urlImagine;
+    }
+
+    public void setUrlImagine(String urlImagine) {
+        this.urlImagine = urlImagine;
     }
 }

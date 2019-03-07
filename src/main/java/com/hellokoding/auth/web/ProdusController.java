@@ -42,12 +42,13 @@ public class ProdusController {
 
         List<Categorie> categoriiProduse= categorieService.findAll();
         if(categoriiProduse.size()==0) {
-        categorieService.save(new Categorie("Pizza"));
-        categorieService.save(new Categorie("Paste"));
-        categorieService.save(new Categorie("Salate"));
-        categorieService.save(new Categorie("Ciorbe"));
-        categorieService.save(new Categorie("Cafea"));
-        categorieService.save(new Categorie("Sucuri"));
+        categorieService.save(new Categorie("Pizza","https://i.imgur.com/fGrqDIv.jpg"));
+        categorieService.save(new Categorie("Paste","https://i.imgur.com/AHsYYrJ.jpg"));
+        categorieService.save(new Categorie("Salate","https://i.imgur.com/BQTYi26.jpg"));
+        categorieService.save(new Categorie("Ciorbe","https://i.imgur.com/alHT8b6.jpg"));
+        categorieService.save(new Categorie("Burgeri","https://i.imgur.com/y3PEZub.jpg"));
+        categorieService.save(new Categorie("Cafea","https://i.imgur.com/gqLWZiv.jpg"));
+        categorieService.save(new Categorie("Cocktail-uri","https://i.imgur.com/PQm6hCW.jpg"));
         }
         categoriiProduse= categorieService.findAll();
         HashMap<Long,String> categorii= new HashMap<>();
