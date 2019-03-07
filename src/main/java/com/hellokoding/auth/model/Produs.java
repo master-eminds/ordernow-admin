@@ -13,6 +13,7 @@ public class Produs {
     private Float pret;
     private Integer gramaj;
     private String descriere;
+    private String urlImagine;
     private Categorie categorie;
     private Meniu meniu;
 
@@ -101,6 +102,14 @@ public class Produs {
 
     public void setListaItemComanda(Set<ItemComanda> listaItemComanda) {
         this.listaItemComanda = listaItemComanda;
+    }
+
+    public String getUrlImagine() {
+        return urlImagine;
+    }
+
+    public void setUrlImagine(String urlImagine) {
+        this.urlImagine = urlImagine;
     }
 
     @OneToMany(cascade=ALL, mappedBy="produs")

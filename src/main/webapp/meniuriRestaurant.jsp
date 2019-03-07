@@ -47,12 +47,18 @@
                             <td>
                                     ${produs.pret} lei
                             </td>
+                            <td>
+                                <img src="${produs.urlImagine}" alt="" height="80" width="150"/>
+                            </td>
                         </tr>
                         </c:forEach>
 
                     </table>
                 </c:forEach>
         </c:if>
+<c:if test="${not empty meniuri}">
+    <a href="${contextPath}/gestionareCategorie">Adauga o categorie noua</a>
+</c:if>
 <form:form method="POST" modelAttribute="meniuForm" class="form-signin">
     <h2 class="form-signin-heading">Meniuri restaurant</h2>
 

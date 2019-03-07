@@ -43,19 +43,7 @@ public class MeniuController {
         meniuService.save(meniuForm);
         return "redirect:/meniuriRestaurant";
     }
-    /*@RequestMapping(value = "/adaugaMeniu", method = RequestMethod.GET)
-    public String adaugareMeniu(Model model) {
-        model.addAttribute("meniuForm", new Meniu());
-        return "adaugaMeniu";
-    }
-    @RequestMapping(value = "/adaugaMeniu", method = RequestMethod.POST)
-    public String adaugareMeniu(@ModelAttribute("meniuForm") Meniu meniuForm, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "adaugaMeniu";
-        }
-        meniuService.save(meniuForm);
-        return "redirect:/meniuriRestaurant";
-    }*/
+
     @RequestMapping(value = "/editareMeniu", method = RequestMethod.GET)
     public ModelAndView editareMeniu(@RequestParam("id") Long id) {
         ModelAndView model = new ModelAndView("editareMeniu");

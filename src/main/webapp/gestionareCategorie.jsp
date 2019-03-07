@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Gestionare produs</title>
+    <title>Gestionare categorie</title>
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
@@ -30,8 +30,25 @@
 
 <div class="container">
     <h3> <a href="/welcome">Home</a></h3>
-   <h2>Gestionare produs</h2>
-    <form:form method="POST" modelAttribute="produsForm" class="form-signin">
+   <h2>Gestionare categorie</h2>
+    <c:if test="${not empty listaCategorii}">
+
+        <table>
+            <c:forEach var="categorie" items="${listaCategorii}">
+                <tr>
+
+                    <td>
+                            ${categorie.denumire}
+                    </td>
+                    <td>
+                          <img src="${categorie.urlImagine}" alt="" height="150" width="200"/>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+
+    </c:if>
+    <form:form method="POST" modelAttribute="categorieForm" class="form-signin">
 
         <spring:bind path="denumire">
             <div class="form-group ${status.error ? 'has-error' : ''}">
@@ -41,20 +58,6 @@
             </div>
         </spring:bind>
 
-        <spring:bind path="pret">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="pret" class="form-control" placeholder="Pret"></form:input>
-                <form:errors path="pret"></form:errors>
-            </div>
-        </spring:bind>
-
-        <spring:bind path="gramaj">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="gramaj" class="form-control"
-                            placeholder="Gramaj"></form:input>
-                <form:errors path="gramaj"></form:errors>
-            </div>
-        </spring:bind>
         <spring:bind path="urlImagine">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="urlImagine" class="form-control" placeholder="URL imagine"></form:input>
@@ -62,19 +65,6 @@
             </div>
         </spring:bind>
 
-        <spring:bind path="categorie">
-
-            <form:select path="categorie">
-                <form:options items="${categoriiProduse}" />
-            </form:select>
-        </spring:bind>
-        <spring:bind path="descriere">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="descriere" class="form-control"
-                            placeholder="Descriere"></form:input>
-                <form:errors path="descriere"></form:errors>
-            </div>
-        </spring:bind>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
     </form:form>

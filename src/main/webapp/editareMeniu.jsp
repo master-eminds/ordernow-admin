@@ -46,12 +46,17 @@
                     <td>
                             ${produs.pret} lei
                     </td>
+                    <td>
+                        <img src="${produs.urlImagine}" alt="" height="80" width="150"/>
+                    </td>
                 </tr>
             </c:forEach>
             </table>
 
     </c:if>
     <a href="${contextPath}/gestionareProdus?meniu_id=${meniu_id_param}">Adauga un produs nou</a>
+
+
 
 </div>
 <!-- /container -->

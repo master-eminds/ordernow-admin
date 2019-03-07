@@ -41,7 +41,7 @@ public class ProdusController {
     public String gestionareProdus(Model model,@RequestParam("meniu_id") Long meniu_id) {
 
         List<Categorie> categoriiProduse= categorieService.findAll();
-        if(categoriiProduse.size()==0) {
+        /*if(categoriiProduse.size()==0) {
         categorieService.save(new Categorie("Pizza","https://i.imgur.com/fGrqDIv.jpg"));
         categorieService.save(new Categorie("Paste","https://i.imgur.com/AHsYYrJ.jpg"));
         categorieService.save(new Categorie("Salate","https://i.imgur.com/BQTYi26.jpg"));
@@ -49,8 +49,8 @@ public class ProdusController {
         categorieService.save(new Categorie("Burgeri","https://i.imgur.com/y3PEZub.jpg"));
         categorieService.save(new Categorie("Cafea","https://i.imgur.com/gqLWZiv.jpg"));
         categorieService.save(new Categorie("Cocktail-uri","https://i.imgur.com/PQm6hCW.jpg"));
-        }
-        categoriiProduse= categorieService.findAll();
+        }*/
+        //categoriiProduse= categorieService.findAll();
         HashMap<Long,String> categorii= new HashMap<>();
 
         for(int i=0;i< categoriiProduse.size();i++){
