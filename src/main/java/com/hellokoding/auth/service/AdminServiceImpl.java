@@ -20,7 +20,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void save(Admin admin) {
-       // admin.setPassword(bCryptPasswordEncoder.encode(admin.getPassword()));
+        admin.setPassword(bCryptPasswordEncoder.encode(admin.getPassword()));
         admin.setRoles(new HashSet<>(roleRepository.findAll()));
         adminRepository.save(admin);
     }
