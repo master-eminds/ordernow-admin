@@ -55,6 +55,9 @@
                 <form:errors path="gramaj"></form:errors>
             </div>
         </spring:bind>
+<%--
+        aici ar trebui sa pot incarca o poza din calculator, nu sa pun url
+--%>
         <spring:bind path="urlImagine">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="urlImagine" class="form-control" placeholder="URL imagine"></form:input>

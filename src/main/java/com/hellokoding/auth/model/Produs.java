@@ -13,6 +13,7 @@ public class Produs {
     private Float pret;
     private Integer gramaj;
     private String descriere;
+    //aici ar trebui un byte[] imagine
     private String urlImagine;
     private Categorie categorie;
     private Meniu meniu;

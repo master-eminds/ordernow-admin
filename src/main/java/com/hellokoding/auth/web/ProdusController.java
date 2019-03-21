@@ -1,6 +1,5 @@
 package com.hellokoding.auth.web;
 
-import com.hellokoding.auth.model.Admin;
 import com.hellokoding.auth.model.Categorie;
 import com.hellokoding.auth.model.Meniu;
 import com.hellokoding.auth.model.Produs;
@@ -16,13 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 public class ProdusController {
@@ -41,7 +36,7 @@ public class ProdusController {
     public String gestionareProdus(Model model,@RequestParam("meniu_id") Long meniu_id) {
 
         List<Categorie> categoriiProduse= categorieService.findAll();
-        /*if(categoriiProduse.size()==0) {
+       /* if(categoriiProduse.size()==0) {
         categorieService.save(new Categorie("Pizza","https://i.imgur.com/fGrqDIv.jpg"));
         categorieService.save(new Categorie("Paste","https://i.imgur.com/AHsYYrJ.jpg"));
         categorieService.save(new Categorie("Salate","https://i.imgur.com/BQTYi26.jpg"));
@@ -49,8 +44,8 @@ public class ProdusController {
         categorieService.save(new Categorie("Burgeri","https://i.imgur.com/y3PEZub.jpg"));
         categorieService.save(new Categorie("Cafea","https://i.imgur.com/gqLWZiv.jpg"));
         categorieService.save(new Categorie("Cocktail-uri","https://i.imgur.com/PQm6hCW.jpg"));
-        }*/
-        //categoriiProduse= categorieService.findAll();
+        }
+        categoriiProduse= categorieService.findAll();*/
         HashMap<Long,String> categorii= new HashMap<>();
 
         for(int i=0;i< categoriiProduse.size();i++){
