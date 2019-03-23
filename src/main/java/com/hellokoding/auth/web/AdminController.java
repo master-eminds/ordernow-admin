@@ -1,12 +1,13 @@
 package com.hellokoding.auth.web;
 
 import com.hellokoding.auth.model.Admin;
-import com.hellokoding.auth.model.Masa;
+import com.hellokoding.auth.service.AdminService;
 import com.hellokoding.auth.service.MasaService;
 import com.hellokoding.auth.service.SecurityService;
-import com.hellokoding.auth.service.AdminService;
 import com.hellokoding.auth.validator.AdminValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,14 +15,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.List;
-
 @Controller
 public class AdminController {
     @Autowired
     private AdminService adminService;
     @Autowired
-    MasaService masaService;
+    private MasaService masaService;
 
     @Autowired
     private SecurityService securityService;
@@ -65,7 +64,11 @@ public class AdminController {
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        Admin admin = adminService.findByUsername(currentPrincipalName);
         model.addAttribute("listaMese",masaService.findAll());
+        model.addAttribute("user",admin);
         return "welcome";
     }
 }
