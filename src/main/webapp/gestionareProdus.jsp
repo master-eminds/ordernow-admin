@@ -75,6 +75,13 @@
                 <form:errors path="descriere"></form:errors>
             </div>
         </spring:bind>
+        <spring:bind path="ingrediente">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="ingrediente" class="form-control"
+                            placeholder="Ingrediente"></form:input>
+                <form:errors path="ingrediente"></form:errors>
+            </div>
+        </spring:bind>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
     </form:form>

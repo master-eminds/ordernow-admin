@@ -30,31 +30,48 @@
 
 <div class="container">
     <h3> <a href="/welcome">Home</a></h3>
-    <h2 class="form-signin-heading">Lista produse</h2>
+    <h2 class="form-signin-heading">Lista categorii si produse</h2>
 
-    <c:if test="${not empty listaProduse}">
+    <c:if test="${not empty listaCategorii}">
 
             <table>
-            <c:forEach var="produs" items="${listaProduse}">
+            <c:forEach var="categorie" items="${listaCategorii}">
                 <tr>
-                    <td>
-                        <a href="${contextPath}/gestionareProdus?meniu_id=${produs.meniu.id}"></a>
-                    </td>
-                    <td>
-                        ${produs.denumire}
-                    </td>
-                    <td>
-                            ${produs.pret} lei
-                    </td>
-                    <td>
-                        <img src="${produs.urlImagine}" alt="" height="80" width="150"/>
-                    </td>
+
+                <td>
+                        ${categorie.denumire}
+                </td>
+
+                <td>
+                    <img src="${categorie.urlImagine}" alt="" height="80" width="150"/>
+                </td>
                 </tr>
+                <%--<c:forEach var="produs" items="${categorie.produse}">
+                    <tr>
+                        <td>
+                            <a href="${contextPath}/gestionareProdus?meniu_id=${produs.meniu.id}"></a>
+                        </td>
+                        <td>
+                                ${produs.denumire}
+                        </td>
+                        <td>
+                                ${produs.pret} lei
+                        </td>
+                        <td>
+                            <img src="${produs.urlImagine}" alt="" height="80" width="150"/>
+                        </td>
+                    </tr>
+                </c:forEach>--%>
             </c:forEach>
+
             </table>
 
     </c:if>
-    <a href="${contextPath}/gestionareProdus?meniu_id=${meniu_id_param}">Adauga un produs nou</a>
+    <c:if test="${not empty listaCategorii}">
+
+        <a href="${contextPath}/gestionareProdus?meniu_id=${meniu_id_param}">Adauga un produs nou</a>
+    </c:if>
+    <a href="${contextPath}/gestionareCategorie?meniu_id=${meniu_id_param}">Adauga o categorie noua</a>
 
 
 

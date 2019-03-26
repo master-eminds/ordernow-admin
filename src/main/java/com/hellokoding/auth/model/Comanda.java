@@ -15,6 +15,7 @@ public class Comanda {
     private Ospatar ospatar;
     private Masa masa;
     private Date data;
+    private String stare;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -49,5 +50,21 @@ public class Comanda {
 
     public void setMasa(Masa masa) {
         this.masa = masa;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public String getStare() {
+        return stare;
+    }
+
+    public void setStare(String stare) {
+        this.stare = stare;
     }
 }

@@ -1,10 +1,12 @@
 package com.hellokoding.auth.service;
 
 import com.hellokoding.auth.model.Categorie;
+import com.hellokoding.auth.model.Produs;
 import com.hellokoding.auth.repository.CategorieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 
@@ -24,10 +26,16 @@ public class CategorieServiceImpl implements CategorieService {
         return categorieRepository.findOne(id);
     }
 
-
+EntityManager entityManager;
 
     @Override
     public List<Categorie> findAll() {
         return categorieRepository.findAll();
     }
+
+
+    /*public List<Categorie> findAllByMeniuId(Long id_meniu) {
+    List<Categorie> categorii = entityManager.createQuery("SELECT id, denumire, url_imagine FROM categorii c WHERE c.meniu_id=id").setParameter("id", id).getResultList();
+        return categorii;
+    }*/
 }

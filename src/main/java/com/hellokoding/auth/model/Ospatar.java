@@ -14,6 +14,7 @@ public class Ospatar {
     private String nume;
     private String email;
     private String parola;
+    private String status;
     private Set<Review> reviews;
     private Set<Comanda> listaComenzi;
     @Id
@@ -49,6 +50,15 @@ public class Ospatar {
     public void setParola(String parola) {
         this.parola = parola;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @OneToMany(cascade=ALL, mappedBy="ospatar")
     public Set<Review> getReviews() {
         return reviews;

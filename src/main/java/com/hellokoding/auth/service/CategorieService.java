@@ -10,4 +10,5 @@ public interface CategorieService {
 
     Categorie findById(Long id);
     List<Categorie> findAll();
+    //List<Categorie> findAllByMeniuId(Long id);
 }

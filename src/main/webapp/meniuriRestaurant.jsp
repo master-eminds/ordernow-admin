@@ -37,18 +37,15 @@
                 <c:forEach var="meniu" items="${meniuri}">
                     <a href="/editareMeniu?id=${meniu.id}">${meniu.denumire}</a>
 
-                    <table id="tabelProduse">
+                    <table id="tabelCategorii">
 
-                        <c:forEach var="produs" items="${meniu.produse}">
+                        <c:forEach var="categorie" items="${meniu.categorii}">
                         <tr>
                             <td>
-                                ${produs.denumire}
+                                ${categorie.denumire}
                             </td>
                             <td>
-                                    ${produs.pret} lei
-                            </td>
-                            <td>
-                                <img src="${produs.urlImagine}" alt="" height="80" width="150"/>
+                                <img src="${categorie.urlImagine}" alt="" height="80" width="150"/>
                             </td>
                         </tr>
                         </c:forEach>
@@ -56,9 +53,7 @@
                     </table>
                 </c:forEach>
         </c:if>
-<c:if test="${not empty meniuri}">
-    <a href="${contextPath}/gestionareCategorie">Adauga o categorie noua</a>
-</c:if>
+
 <form:form method="POST" modelAttribute="meniuForm" class="form-signin">
     <h2 class="form-signin-heading">Meniuri restaurant</h2>
 

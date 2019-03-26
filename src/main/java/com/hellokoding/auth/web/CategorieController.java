@@ -27,12 +27,14 @@ public class CategorieController {
     @Autowired
     private CategorieService categorieService;
     @Autowired
+    private MeniuService meniuService;
+    @Autowired
     private SecurityService securityService;
 
 
 
     @RequestMapping(value = "/gestionareCategorie", method = RequestMethod.GET)
-    public String gestionareProdus(Model model) {
+    public String gestionareCategorie(Model model) {
         List<Categorie> categorii= categorieService.findAll();
 
         model.addAttribute("categorieForm", new Categorie());
@@ -41,12 +43,14 @@ public class CategorieController {
     }
 
     @RequestMapping(value = "/gestionareCategorie", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("categorieForm") Categorie categorieForm,  BindingResult bindingResult, Model model) {
-
+    public String registration(@ModelAttribute("categorieForm") Categorie categorieForm,@RequestParam("meniu_id") Long meniu_id,  BindingResult bindingResult, Model model) {
+        Meniu meniu= meniuService.findById(meniu_id);
+        categorieForm.setMeniu(meniu);
         if (bindingResult.hasErrors()) {
             return "gestionareCategorie";
         }
+
         categorieService.save(categorieForm);
-        return "redirect:/meniuriRestaurant";
+        return "redirect:/editareMeniu?id="+meniu_id;
     }
 }
