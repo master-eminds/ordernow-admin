@@ -39,6 +39,7 @@ public class OspatarController {
     @RequestMapping(value = "/gestionareOspatar", method = RequestMethod.POST)
     public String adaugareMeniu(@ModelAttribute("ospatarForm") Ospatar ospatarForm, BindingResult bindingResult, Model model) {
         //ospatarValidator.validate(ospatarForm, bindingResult);
+        ospatarForm.setStatus("online");
         if (bindingResult.hasErrors()) {
             return "gestionareOspatar";
         }

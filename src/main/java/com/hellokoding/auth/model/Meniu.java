@@ -11,7 +11,7 @@ public class Meniu {
     private Long id;
     private String denumire;
     private Set<Categorie> categorii;
-
+    private String stare;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,6 +37,14 @@ public class Meniu {
 
     public void setDenumire(String denumire) {
         this.denumire = denumire;
+    }
+
+    public String getStare() {
+        return stare;
+    }
+
+    public void setStare(String stare) {
+        this.stare = stare;
     }
 
     @Override

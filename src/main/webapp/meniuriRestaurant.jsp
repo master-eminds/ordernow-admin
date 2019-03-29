@@ -47,6 +47,7 @@
                             <td>
                                 <img src="${categorie.urlImagine}" alt="" height="80" width="150"/>
                             </td>
+
                         </tr>
                         </c:forEach>
 

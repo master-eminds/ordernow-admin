@@ -14,7 +14,7 @@ public class Comanda {
     private Set<ItemComanda> listaItemComanda;
     private Ospatar ospatar;
     private Masa masa;
-    private Date data;
+    private String data;
     private String stare;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -52,11 +52,11 @@ public class Comanda {
         this.masa = masa;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
