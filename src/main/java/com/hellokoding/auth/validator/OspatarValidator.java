@@ -24,18 +24,30 @@ public class OspatarValidator implements Validator {
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nume", "NotEmpty");
-
-        if (ospatar.getEmail().length() < 6 || ospatar.getEmail().length() > 32) {
-            errors.rejectValue("email", "Size.ospatarForm.email");
-        }
-        if (ospatarService.findById(ospatar.getId()) != null) {
-            errors.rejectValue("email", "Duplicate.ospatarForm.email");
-        }
-
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "parola", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "passwordConfirm", "NotEmpty");
+
+
+        if (ospatar.getId() == null) {
+            if (ospatarService.findByEmail(ospatar.getEmail()) != null) {
+                errors.rejectValue("email", "Duplicate.ospatarForm.email");
+            }
+        }
+
         if (ospatar.getParola().length() < 4 || ospatar.getParola().length() > 32) {
             errors.rejectValue("parola", "Size.ospatarForm.parola");
         }
+
+        if (ospatar.getPasswordConfirm().length() < 4 || ospatar.getParola().length() > 32) {
+            errors.rejectValue("passwordConfirm", "Size.ospatarForm.passwordConfirm");
+        }
+
+        if(!ospatar.getPasswordConfirm().equals(ospatar.getParola())){
+            errors.rejectValue("parola", "Diff.ospatarForm.passwordConfirm");
+            errors.rejectValue("passwordConfirm", "Diff.ospatarForm.passwordConfirm");
+        }
+
+
 
     }
 }

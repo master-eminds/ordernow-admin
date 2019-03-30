@@ -14,6 +14,8 @@ public class Ospatar {
     private String nume;
     private String email;
     private String parola;
+    private String passwordConfirm;
+    private String status;
     private Set<Review> reviews;
     private Set<Comanda> listaComenzi;
     @Id
@@ -64,5 +66,22 @@ public class Ospatar {
 
     public void setListaComenzi(Set<Comanda> listaComenzi) {
         this.listaComenzi = listaComenzi;
+    }
+
+    @Transient
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

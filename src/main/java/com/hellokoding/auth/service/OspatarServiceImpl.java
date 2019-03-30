@@ -21,6 +21,7 @@ public class OspatarServiceImpl implements OspatarService {
         ospatarRepository.save(ospatar);
     }
 
+
     @Override
     public Ospatar findById(Long id) {
 

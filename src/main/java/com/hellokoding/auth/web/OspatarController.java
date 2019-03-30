@@ -9,11 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 @Controller
 public class OspatarController {
@@ -25,11 +24,17 @@ public class OspatarController {
     private OspatarService ospatarService;
 
 
-    @RequestMapping(value = "/administrareOspatari", method = RequestMethod.GET)
-    public ModelAndView veziOspatari() {
+    @RequestMapping(value = "/administrareOspatari/{id}", method = RequestMethod.GET)
+    public ModelAndView veziOspatari(@PathVariable("id") Long id) {
         ModelAndView model = new ModelAndView("administrareOspatari");
-        List<Ospatar> listaOspatari=ospatarService.findAll();
-        model.addObject("listaOspatari", listaOspatari);
+        if(id == 0 ){
+            model.addObject("ospatarForm", new Ospatar());
+            model.addObject("add","true");
+        }else{
+            Ospatar o = ospatarService.findById(id);
+            model.addObject("ospatarForm",o);
+            model.addObject("add","false");
+        }
         return model;
     }
     @RequestMapping(value = "/gestionareOspatar", method = RequestMethod.GET)
@@ -37,13 +42,16 @@ public class OspatarController {
         model.addAttribute("ospatarForm", new Ospatar());
         return "gestionareOspatar";
     }
-    @RequestMapping(value = "/gestionareOspatar", method = RequestMethod.POST)
+    @RequestMapping(value = "/salvareOspatar", method = RequestMethod.POST)
     public String adaugareMeniu(@ModelAttribute("ospatarForm") Ospatar ospatarForm, BindingResult bindingResult, Model model) {
-        //ospatarValidator.validate(ospatarForm, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "gestionareOspatar";
+
+        ospatarValidator.validate(ospatarForm,bindingResult);
+       // ospatarService.save(ospatarForm);
+         if(bindingResult.hasErrors()){
+            return "administrareOspatari";
         }
+
         ospatarService.save(ospatarForm);
-        return "redirect:/administrareOspatari";
+        return "redirect:/administrareOspatari/0";
     }
 }

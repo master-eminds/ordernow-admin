@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -71,24 +74,22 @@ public class AdminController {
     }
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-    public String welcome(Model model) {
+    public String welcome(Model model) throws ParseException {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         Admin admin = adminService.findByUsername(currentPrincipalName);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        String dateString = format.format( new Date()   );
+        Date   date       = format.parse (dateString );
         List<Masa> listaMese = masaService.findAll();
         List<ListaMese> meseList = listaMeses(listaMese);
         List<Ospatar> ospatarList = ospatarService.findAll();
-        //Ospatar Test
-        Ospatar ospatar = new Ospatar();
-        ospatar.setNume("Ospatar1");
-        ospatar.setEmail("ospatar@email.ro");
-        ospatar.setParola("parolaOspatar");
-        ospatarList.add(ospatar);
-        //
         model.addAttribute("listaMese",meseList);
         model.addAttribute("listaOspatari",ospatarList);
         model.addAttribute("user",admin);
+        model.addAttribute("data",date);
         return "welcome";
     }
 

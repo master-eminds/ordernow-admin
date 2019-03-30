@@ -1,6 +1,9 @@
 <!DOCTYPE html>
+<%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
-
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <head>
     <!-- Required meta tags-->
     <meta charset="UTF-8">
@@ -446,41 +449,63 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong>Company</strong>
-                                    <small> Form</small>
+                                    <strong>Angajati </strong>
+                                    <small>Administrare</small>
                                 </div>
                                 <div class="card-body card-block">
-                                    <div class="form-group">
-                                        <label for="company" class=" form-control-label">Company</label>
-                                        <input type="text" id="company" placeholder="Enter your company name" class="form-control">
+                                <form:form method="post" action="${contextPath}/salvareOspatar" modelAttribute="ospatarForm" class="form-signin">
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+                                    <spring:bind path="id">
+                                        <div class="form-group">
+                                        <form:input type="hidden" id="nume" path="id" name="id"  class="form-control"></form:input>
+                                     </spring:bind>
+                                      <spring:bind path="nume">
+                                            <div class="form-group ${status.error ? 'has-error' : ''}">
+                                                <label for="nume" class=" form-control-label">Nume</label>
+                                                <form:input type="text" id="nume" path="nume" name="nume" placeholder="nume" class="form-control"></form:input>
+                                          <form:errors path="nume"></form:errors>
+                                      </spring:bind>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="vat" class=" form-control-label">VAT</label>
-                                        <input type="text" id="vat" placeholder="DE1234567890" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="street" class=" form-control-label">Street</label>
-                                        <input type="text" id="street" placeholder="Enter street name" class="form-control">
-                                    </div>
+                                        <spring:bind path="email">
+                                            <div class="form-group ${status.error ? 'has-error' : ''}">
+                                                <label for="email" class=" form-control-label">Email</label>
+                                                <form:input type="email" id="email" path="email" name="email" placeholder="Email"
+                                                       class="form-control"></form:input>
+                                                <form:errors path="email"></form:errors>
+                                            </div>
+                                        </spring:bind >
                                     <div class="row form-group">
                                         <div class="col-8">
-                                            <div class="form-group">
-                                                <label for="city" class=" form-control-label">City</label>
-                                                <input type="text" id="city" placeholder="Enter your city" class="form-control">
+                                        <spring:bind path="parola">
+                                            <div class="form-group ${status.error ? 'has-error' : ''}">
+                                                <label for="parola" class=" form-control-label">Parola</label>
+                                                <form:input type="password" path="parola" id="parola" name="parola" class="form-control"></form:input>
+                                                <form:errors path="parola"></form:errors>
                                             </div>
+                                         </spring:bind>
                                         </div>
                                         <div class="col-8">
-                                            <div class="form-group">
-                                                <label for="postal-code" class=" form-control-label">Postal Code</label>
-                                                <input type="text" id="postal-code" placeholder="Postal Code" class="form-control">
-                                            </div>
+                                            <spring:bind path="passwordConfirm">
+                                                <div class="form-group ${status.error ? 'has-error' : ''}">
+                                                    <label for="passwordConfirm" class=" form-control-label">RepetaParola</label>
+                                                    <form:input type="password" path="passwordConfirm" id="passwordConfirm" name="passwordConfirm"
+                                                           class="form-control"></form:input>
+                                                    <form:errors path="passwordConfirm"></form:errors>
+                                                </div>
+                                            </spring:bind>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="country" class=" form-control-label">Country</label>
-                                        <input type="text" id="country" placeholder="Country name" class="form-control">
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <i class="fa fa-dot-circle-o"></i> <c:if test="${add!=false}"> Submit </c:if> <c:if test="${add==false}"> Update </c:if>
+                                        </button>
+                                        <button type="reset" class="btn btn-danger btn-sm">
+                                            <i class="fa fa-ban"></i> Reset
+                                        </button>
                                     </div>
                                 </div>
+                                </form:form>
                             </div>
                         </div>
                     </div>
@@ -495,9 +520,8 @@
             </div>
         </div>
     </div>
-
 </div>
-
+</div>
 <!-- Jquery JS-->
 <script src="${contextPath}/resources/tema/vendor/jquery-3.2.1.min.js"></script>
 <!-- Bootstrap JS-->

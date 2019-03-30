@@ -652,9 +652,9 @@
                                 <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');">
                                     <div class="bg-overlay bg-overlay--blue"></div>
                                     <h3>
-                                        <i class="zmdi zmdi-account-calendar"></i>26 April, 2018</h3>
+                                        <i class="zmdi zmdi-account-calendar"></i>${data}</h3>
                                     <button class="au-btn-plus">
-                                        <a href="/administrareOspatari"><i class="zmdi zmdi-plus"></i></a>
+                                        <a href="/administrareOspatari/${0}"><i class="zmdi zmdi-plus"></i></a>
                                     </button>
                                 </div>
 
@@ -672,6 +672,13 @@
                                                     <a href="#">${ospatar.nume}</a>
                                                 </h5>
                                                 <span class="time">${ospatar.email}</span>
+                                                <c:if test="${ospatar.status == 'online' }">
+                                                <span class="role member">Conectat</span>
+                                                </c:if>
+                                                <c:if test="${ospatar.status != 'online' }">
+                                                    <span class="role admin">Deconectat</span>
+                                                </c:if>
+                                                <a href="/administrareOspatari/${ospatar.id}"><span class="role user">EDITARE</span></a>
                                             </div>
                                             </c:forEach>
                                         </div>
