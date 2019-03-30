@@ -1,6 +1,5 @@
 package com.hellokoding.auth.web;
 
-import com.hellokoding.auth.model.Meniu;
 import com.hellokoding.auth.model.Ospatar;
 import com.hellokoding.auth.service.OspatarService;
 import com.hellokoding.auth.service.SecurityService;
@@ -24,6 +23,8 @@ public class OspatarController {
     private OspatarValidator ospatarValidator;
     @Autowired
     private OspatarService ospatarService;
+
+
     @RequestMapping(value = "/administrareOspatari", method = RequestMethod.GET)
     public ModelAndView veziOspatari() {
         ModelAndView model = new ModelAndView("administrareOspatari");
