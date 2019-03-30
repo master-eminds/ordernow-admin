@@ -32,16 +32,13 @@ public class OspatarController {
             model.addObject("add","true");
         }else{
             Ospatar o = ospatarService.findById(id);
+            o.setParola(null);
             model.addObject("ospatarForm",o);
             model.addObject("add","false");
         }
         return model;
     }
-    @RequestMapping(value = "/gestionareOspatar", method = RequestMethod.GET)
-    public String adaugareMeniu(Model model) {
-        model.addAttribute("ospatarForm", new Ospatar());
-        return "gestionareOspatar";
-    }
+
     @RequestMapping(value = "/salvareOspatar", method = RequestMethod.POST)
     public String adaugareMeniu(@ModelAttribute("ospatarForm") Ospatar ospatarForm, BindingResult bindingResult, Model model) {
 
@@ -50,7 +47,10 @@ public class OspatarController {
          if(bindingResult.hasErrors()){
             return "administrareOspatari";
         }
-
+        if(ospatarForm.getId()!=null&& ospatarForm.getId()!=null){
+            Ospatar old = ospatarService.findById(ospatarForm.getId());
+            ospatarForm.setParola(old.getParola());
+        }
         ospatarService.save(ospatarForm);
         return "redirect:/administrareOspatari/0";
     }

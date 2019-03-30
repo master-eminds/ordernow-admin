@@ -22,32 +22,53 @@ public class OspatarValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Ospatar ospatar = (Ospatar) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nume", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "parola", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "passwordConfirm", "NotEmpty");
-
-
         if (ospatar.getId() == null) {
+
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nume", "NotEmpty");
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "parola", "NotEmpty");
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "passwordConfirm", "NotEmpty");
+
             if (ospatarService.findByEmail(ospatar.getEmail()) != null) {
                 errors.rejectValue("email", "Duplicate.ospatarForm.email");
             }
+
+
+            if (ospatar.getParola().length() < 4 || ospatar.getParola().length() > 32) {
+                errors.rejectValue("parola", "Size.ospatarForm.parola");
+            }
+
+            if (ospatar.getPasswordConfirm().length() < 4 || ospatar.getParola().length() > 32) {
+                errors.rejectValue("passwordConfirm", "Size.ospatarForm.passwordConfirm");
+            }
+
+            if (!ospatar.getPasswordConfirm().equals(ospatar.getParola())) {
+                errors.rejectValue("parola", "Diff.ospatarForm.passwordConfirm");
+                errors.rejectValue("passwordConfirm", "Diff.ospatarForm.passwordConfirm");
+            }
         }
 
-        if (ospatar.getParola().length() < 4 || ospatar.getParola().length() > 32) {
-            errors.rejectValue("parola", "Size.ospatarForm.parola");
+        if (ospatar.getId() != null) {
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nume", "NotEmpty");
+
+            if ((!ospatar.getParola().equals("") || ospatar.getParola() != null) &&
+                    (!ospatar.getPasswordConfirm().equals("") || ospatar.getPasswordConfirm() != null)) {
+                if (ospatar.getParola().length() < 4 || ospatar.getParola().length() > 32) {
+                    errors.rejectValue("parola", "Size.ospatarForm.parola");
+                }
+
+
+                if (ospatar.getPasswordConfirm().length() < 4 || ospatar.getParola().length() > 32) {
+                    errors.rejectValue("passwordConfirm", "Size.ospatarForm.passwordConfirm");
+                }
+
+                if (!ospatar.getPasswordConfirm().equals(ospatar.getParola())) {
+                    errors.rejectValue("parola", "Diff.ospatarForm.passwordConfirm");
+                    errors.rejectValue("passwordConfirm", "Diff.ospatarForm.passwordConfirm");
+                }
+            }
         }
-
-        if (ospatar.getPasswordConfirm().length() < 4 || ospatar.getParola().length() > 32) {
-            errors.rejectValue("passwordConfirm", "Size.ospatarForm.passwordConfirm");
-        }
-
-        if(!ospatar.getPasswordConfirm().equals(ospatar.getParola())){
-            errors.rejectValue("parola", "Diff.ospatarForm.passwordConfirm");
-            errors.rejectValue("passwordConfirm", "Diff.ospatarForm.passwordConfirm");
-        }
-
-
 
     }
 }

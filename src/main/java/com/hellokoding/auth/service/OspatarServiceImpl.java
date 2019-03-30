@@ -18,6 +18,7 @@ public class OspatarServiceImpl implements OspatarService {
     @Override
     public void save(Ospatar ospatar) {
         ospatar.setParola(bCryptPasswordEncoder.encode(ospatar.getParola()));
+        ospatar.setStatus("offline");
         ospatarRepository.save(ospatar);
     }
 
