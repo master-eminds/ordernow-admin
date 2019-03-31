@@ -10,8 +10,8 @@ import static javax.persistence.CascadeType.ALL;
 public class Meniu {
     private Long id;
     private String denumire;
-    private Set<Produs> produse;
-
+    private Set<Categorie> categorii;
+    private String stare;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,12 +23,12 @@ public class Meniu {
         this.id = id;
     }
     @OneToMany(cascade=ALL, mappedBy="meniu")
-    public Set<Produs> getProduse() {
-        return produse;
+    public Set<Categorie> getCategorii() {
+        return categorii;
     }
 
-    public void setProduse(Set<Produs> produse) {
-        this.produse = produse;
+    public void setCategorii(Set<Categorie> categorii) {
+        this.categorii = categorii;
     }
 
     public String getDenumire() {
@@ -39,9 +39,17 @@ public class Meniu {
         this.denumire = denumire;
     }
 
+    public String getStare() {
+        return stare;
+    }
+
+    public void setStare(String stare) {
+        this.stare = stare;
+    }
+
     @Override
     public String toString() {
         return "Meniu: " + denumire +
-                "Produse: " + produse ;
+                "Categorii: " + categorii ;
     }
 }

@@ -15,6 +15,7 @@ public class Categorie {
     private String descriere;
     private String urlImagine;
     private Set<Produs> produse;
+    private Meniu meniu;
     public Categorie() {
 
     }
@@ -65,5 +66,14 @@ public class Categorie {
 
     public void setUrlImagine(String urlImagine) {
         this.urlImagine = urlImagine;
+    }
+    @ManyToOne
+    @JoinColumn(name="meniu_id", nullable=false)
+    public Meniu getMeniu() {
+        return meniu;
+    }
+
+    public void setMeniu(Meniu meniu) {
+        this.meniu = meniu;
     }
 }

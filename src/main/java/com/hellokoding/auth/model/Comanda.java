@@ -14,7 +14,8 @@ public class Comanda {
     private Set<ItemComanda> listaItemComanda;
     private Ospatar ospatar;
     private Masa masa;
-    private Date data;
+    private String data;
+    private String stare;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -49,5 +50,21 @@ public class Comanda {
 
     public void setMasa(Masa masa) {
         this.masa = masa;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getStare() {
+        return stare;
+    }
+
+    public void setStare(String stare) {
+        this.stare = stare;
     }
 }

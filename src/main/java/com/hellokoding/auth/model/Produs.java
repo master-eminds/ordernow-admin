@@ -15,18 +15,16 @@ public class Produs {
     private String descriere;
     private String urlImagine;
     private Categorie categorie;
-    private Meniu meniu;
-
+    private String ingrediente;
     private Set<ItemComanda> listaItemComanda;
     private Set<Review> reviews;
 
-    public Produs(Long id, String denumire, Float pret, Integer gramaj, String descriere, Meniu meniu, Set<ItemComanda> listaItemComanda, Set<Review> reviews) {
+    public Produs(Long id, String denumire, Float pret, Integer gramaj, String descriere, Set<ItemComanda> listaItemComanda, Set<Review> reviews) {
         this.id = id;
         this.denumire = denumire;
         this.pret = pret;
         this.gramaj = gramaj;
         this.descriere = descriere;
-        this.meniu = meniu;
         this.listaItemComanda = listaItemComanda;
         this.reviews = reviews;
     }
@@ -86,15 +84,6 @@ public class Produs {
         this.categorie = categorie;
     }
 
-    @ManyToOne
-    @JoinColumn(name="meniu_id", nullable=false)
-    public Meniu getMeniu() {
-        return meniu;
-    }
-
-    public void setMeniu(Meniu meniu) {
-        this.meniu = meniu;
-    }
     @OneToMany(cascade=ALL, mappedBy="produs")
     public Set<ItemComanda> getListaItemComanda() {
         return listaItemComanda;
@@ -110,6 +99,14 @@ public class Produs {
 
     public void setUrlImagine(String urlImagine) {
         this.urlImagine = urlImagine;
+    }
+
+    public String getIngrediente() {
+        return ingrediente;
+    }
+
+    public void setIngrediente(String ingrediente) {
+        this.ingrediente = ingrediente;
     }
 
     @OneToMany(cascade=ALL, mappedBy="produs")

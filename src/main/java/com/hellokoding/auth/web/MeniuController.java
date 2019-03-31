@@ -1,9 +1,6 @@
 package com.hellokoding.auth.web;
 
-import com.hellokoding.auth.model.Admin;
-import com.hellokoding.auth.model.Meniu;
-import com.hellokoding.auth.model.Ospatar;
-import com.hellokoding.auth.model.Produs;
+import com.hellokoding.auth.model.*;
 import com.hellokoding.auth.service.MeniuService;
 import com.hellokoding.auth.service.ProdusService;
 import com.hellokoding.auth.service.SecurityService;
@@ -39,7 +36,7 @@ public class MeniuController {
     }
     @RequestMapping(value = "/meniuriRestaurant", method = RequestMethod.POST)
     public String registration(@ModelAttribute("meniuForm") Meniu meniuForm, BindingResult bindingResult, Model model) {
-
+        meniuForm.setStare("activ");
         meniuService.save(meniuForm);
         return "redirect:/meniuriRestaurant";
     }
@@ -48,10 +45,11 @@ public class MeniuController {
     public ModelAndView editareMeniu(@RequestParam("id") Long id) {
         ModelAndView model = new ModelAndView("editareMeniu");
         Meniu meniu=meniuService.findById(id);
-        Set<Produs> listaProduse=meniu.getProduse();
-        model.addObject("listaProduse", listaProduse);
+        Set<Categorie> listaCategorii=meniu.getCategorii();
+        model.addObject("listaCategorii", listaCategorii);
         model.addObject("meniu_id_param", id);
         return model;
     }
+
 
 }
