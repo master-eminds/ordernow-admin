@@ -46,13 +46,7 @@ public class MeniuController {
         ModelAndView model = new ModelAndView("editareMeniu");
         Meniu meniu=meniuService.findById(id);
         Set<Categorie> listaCategorii=meniu.getCategorii();
-      /*  Set<Produs> listaProduse = null;
-        for(Categorie categorie : listaCategorii){
-          //  Set<Produs> listaProduse= produsService.findAllByIdCategorie(categorie.getId());
-            listaProduse.addAll(categorie.getProduse());
-        }*/
         model.addObject("listaCategorii", listaCategorii);
-        //model.addObject("listaProduse",listaProduse);
         model.addObject("meniu_id_param", id);
         return model;
     }
