@@ -1,7 +1,6 @@
 package com.hellokoding.auth.model;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Set;
 
 import static javax.persistence.CascadeType.ALL;
@@ -14,7 +13,7 @@ public class Comanda {
     private Set<ItemComanda> listaItemComanda;
     private Ospatar ospatar;
     private Masa masa;
-    private Date data;
+    private String data;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -49,5 +48,13 @@ public class Comanda {
 
     public void setMasa(Masa masa) {
         this.masa = masa;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 }

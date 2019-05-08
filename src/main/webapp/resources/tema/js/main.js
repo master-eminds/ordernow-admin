@@ -3,6 +3,8 @@
   // USE STRICT
   "use strict";
 
+  var inputThisWeek = document.getElementById("listaThisWeek");
+  debugger;
   try {
     //WidgetChart 1
     var ctx = document.getElementById("widgetChart1");

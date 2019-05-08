@@ -10,7 +10,10 @@ import static javax.persistence.CascadeType.ALL;
 public class Meniu {
     private Long id;
     private String denumire;
+    private String stare;
     private Set<Produs> produse;
+    @Lob
+    private byte[] image;
 
 
     @Id
@@ -37,6 +40,22 @@ public class Meniu {
 
     public void setDenumire(String denumire) {
         this.denumire = denumire;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getStare() {
+        return stare;
+    }
+
+    public void setStare(String stare) {
+        this.stare = stare;
     }
 
     @Override

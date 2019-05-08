@@ -1,22 +1,19 @@
 package com.hellokoding.auth.web;
 
-import com.hellokoding.auth.model.Admin;
 import com.hellokoding.auth.model.Meniu;
-import com.hellokoding.auth.model.Ospatar;
 import com.hellokoding.auth.model.Produs;
 import com.hellokoding.auth.service.MeniuService;
 import com.hellokoding.auth.service.ProdusService;
 import com.hellokoding.auth.service.SecurityService;
+import com.hellokoding.auth.validator.MeniuValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
@@ -26,6 +23,8 @@ public class MeniuController {
     private MeniuService meniuService;
     @Autowired
     private ProdusService produsService;
+    @Autowired
+    private MeniuValidator meniuValidator;
 
     @Autowired
     private SecurityService securityService;
@@ -37,14 +36,23 @@ public class MeniuController {
         model.addObject("meniuForm", new Meniu());
         return model;
     }
-    @RequestMapping(value = "/meniuriRestaurant", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("meniuForm") Meniu meniuForm, BindingResult bindingResult, Model model) {
+    @RequestMapping(value = "/administrareMeniu/{id}", method = RequestMethod.GET)
+    public ModelAndView registration(@PathVariable("id") Long id) {
+        ModelAndView model = new ModelAndView("administrareMeniu");
+        if(id == 0 ){
+            model.addObject("meniuForm", new Meniu());
+            model.addObject("add","true");
+        }else{
+            Meniu m = meniuService.findById(id);
 
-        meniuService.save(meniuForm);
-        return "redirect:/meniuriRestaurant";
+            //String encodedImage=Base64.encode(m.getImage());
+            model.addObject("meniuForm",m);
+            model.addObject("add","false");
+        }
+        return model;
     }
 
-    @RequestMapping(value = "/editareMeniu", method = RequestMethod.GET)
+    @RequestMapping(value = "/editareMeniu/{id}", method = RequestMethod.GET)
     public ModelAndView editareMeniu(@RequestParam("id") Long id) {
         ModelAndView model = new ModelAndView("editareMeniu");
         Meniu meniu=meniuService.findById(id);
@@ -53,5 +61,31 @@ public class MeniuController {
         model.addObject("meniu_id_param", id);
         return model;
     }
+    @RequestMapping(value = "/salvareMeniu", method = RequestMethod.POST)
+    public String adaugareMeniu(@ModelAttribute("meniuForm") Meniu meniuForm, BindingResult bindingResult) throws UnsupportedEncodingException, SQLException {
 
+        meniuValidator.validate(meniuForm,bindingResult);
+
+        if(bindingResult.hasErrors()){
+            return "administrareMeniu";
+        }
+        if(meniuForm.getId()!=null&& meniuForm.getId()!=null){
+            Meniu old = meniuService.findById(meniuForm.getId());
+        }
+/*
+       File file = new File();
+        byte[] bFile = meniuForm.getImage();
+
+        try {
+            FileInputStream fileInputStream = new FileInputStream(String.valueOf(file));
+            fileInputStream.read(bFile);
+            fileInputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+
+
+        meniuService.save(meniuForm);
+        return "redirect:/administrareMeniu/0";
+    }
 }

@@ -1,13 +1,8 @@
 package com.hellokoding.auth.web;
 
-import com.hellokoding.auth.model.Admin;
-import com.hellokoding.auth.model.ListaMese;
-import com.hellokoding.auth.model.Masa;
-import com.hellokoding.auth.model.Ospatar;
-import com.hellokoding.auth.service.AdminService;
-import com.hellokoding.auth.service.MasaService;
-import com.hellokoding.auth.service.OspatarService;
-import com.hellokoding.auth.service.SecurityService;
+import com.hellokoding.auth.model.*;
+import com.hellokoding.auth.service.*;
+import com.hellokoding.auth.util.DateNecesare;
 import com.hellokoding.auth.validator.AdminValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -33,9 +28,12 @@ public class AdminController {
     private MasaService masaService;
     @Autowired
     private OspatarService ospatarService;
-
     @Autowired
     private SecurityService securityService;
+    @Autowired
+    private ComandaService comandaService;
+
+    private DateNecesare dateNecesare = new DateNecesare();
 
     @Autowired
     private AdminValidator adminValidator;
@@ -80,19 +78,31 @@ public class AdminController {
         String currentPrincipalName = authentication.getName();
         Admin admin = adminService.findByUsername(currentPrincipalName);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
         String dateString = format.format( new Date()   );
-        Date   date       = format.parse (dateString );
         List<Masa> listaMese = masaService.findAll();
         List<ListaMese> meseList = listaMeses(listaMese);
         List<Ospatar> ospatarList = ospatarService.findAll();
+        List<Comanda> comandas = comandaService.findAll();
+        //alte date necesare
+        DateNecesare dateNecesareList = dateNecesare(ospatarList,meseList,comandas);
         model.addAttribute("listaMese",meseList);
         model.addAttribute("listaOspatari",ospatarList);
         model.addAttribute("user",admin);
-        model.addAttribute("data",date);
+        model.addAttribute("data",dateString);
+        model.addAttribute("counterThisWeek",dateNecesareList.getCounterComenziThisWeek());
+        model.addAttribute("listaThisWeek",dateNecesareList.getNrComenziThisWeek());
+
+        //grafice
+        model.addAttribute("membriOnline",dateNecesareList.getNrOspatariOnline());
+        model.addAttribute("comenziVandute",dateNecesareList.getNrComenziVandute());
         return "welcome";
     }
 
+
+    private DateNecesare dateNecesare(List<Ospatar> listaOspatari,List<ListaMese> mese,List<Comanda> comandas) throws ParseException {
+        DateNecesare date = dateNecesare.dateNecesare(listaOspatari,mese,comandas);
+        return date;
+    }
     private List<ListaMese> listaMeses (List<Masa> list){
         List<ListaMese> listaMeses = new ArrayList<>();
         for(Masa m:list){
