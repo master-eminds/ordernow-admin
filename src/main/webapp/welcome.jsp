@@ -589,12 +589,12 @@
                             <div class="au-card au-card--bg-blue au-card-top-countries m-b-40">
                                 <div class="au-card-inner">
                                     <div class="table-responsive">
-                                        <table class="table table-top-countries">
+                                        <table class="table table-top-countries" style="background-color: #3873ff">
                                             <thead>
                                             <tr>
-                                                <th>Numar Masa</th>
-                                                <th>Numar Comenzi</th>
-                                                <th>Vizualizare comenzi</th>
+                                                <th style="color:white;">Numar Masa</th>
+                                                <th style="color:white;">Numar Comenzi</th>
+                                                <th style="color:white;">Vizualizare comenzi</th>
                                             </tr>
                                             <tbody>
                                             <c:forEach var="masa" items="${listaMese}">
@@ -636,17 +636,29 @@
                                         <div class="au-task__item au-task__item--danger">
                                             <c:forEach var="ospatar" items="${listaOspatari}">
                                             <div class="au-task__item-inner">
-                                                <h5 class="task">
-                                                    <a href="#">${ospatar.nume}</a>
-                                                </h5>
-                                                <span class="time">${ospatar.email}</span>
-                                                <c:if test="${ospatar.status == 'online' }">
-                                                <span class="role member">Conectat</span>
-                                                </c:if>
-                                                <c:if test="${ospatar.status != 'online' }">
-                                                    <span class="role admin">Deconectat</span>
-                                                </c:if>
-                                                <a href="/administrareOspatari/${ospatar.id}"><span class="role user">EDITARE</span></a>
+                                                <table>
+                                                <tr>
+                                                    <h5 class="task">
+                                                        <a href="#">${ospatar.nume}</a>
+                                                    </h5>
+                                                </tr>
+                                               <tr>
+                                                   <td width="200">
+                                                       <span class="time">${ospatar.email}</span>
+                                                   </td>
+                                                   <td width="120">
+                                                       <c:if test="${ospatar.status == 'online' }">
+                                                           <span class="role member">Conectat</span>
+                                                       </c:if>
+                                                       <c:if test="${ospatar.status != 'online' }">
+                                                           <span class="role admin">Deconectat</span>
+                                                       </c:if>
+                                                   </td>
+                                                   <td width="120">
+                                                       <a href="/administrareOspatari/${ospatar.id}"><span class="role user">EDITARE</span></a>
+                                                   </td>
+                                               </tr>
+                                                </table>
                                             </div>
                                             </c:forEach>
                                         </div>
