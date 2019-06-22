@@ -11,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -53,7 +55,11 @@ public class AdminController {
             return "registration";
         }
 
-        adminService.save(adminForm);
+        try {
+            adminService.save(adminForm);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         securityService.autologin(adminForm.getUsername(), adminForm.getPasswordConfirm());
 
@@ -95,6 +101,7 @@ public class AdminController {
         //grafice
         model.addAttribute("membriOnline",dateNecesareList.getNrOspatariOnline());
         model.addAttribute("comenziVandute",dateNecesareList.getNrComenziVandute());
+        model.addAttribute("incasari",dateNecesare.getTotalIncasari().toString());
         return "welcome";
     }
 
@@ -108,9 +115,26 @@ public class AdminController {
         for(Masa m:list){
             ListaMese l = new ListaMese();
             l.setIdMasa(m.getId());
-            l.setNumarComenzi(m.getComanda().size());
+            l.setNumarComenzi(m.getComenzi().size());
             listaMeses.add(l);
         }
         return listaMeses;
     }
-}
+
+    @RequestMapping(value = "/getComenziMese/{nrMasa}", method = RequestMethod.GET)
+    public ModelAndView getComenzi(@PathVariable Long nrMasa) throws ParseException {
+        ModelAndView model = new ModelAndView("getComenziMese");
+        Masa masa= masaService.findById(nrMasa);
+        for(Comanda comanda: masa.getComenzi()){
+            float valoareTotala=0;
+            for(ItemComanda item: comanda.getListaItemComanda()){
+                valoareTotala+=item.getCantitate()*item.getProdus().getPret();
+            }
+            model.addObject("valoareTotalaComanda",valoareTotala);
+        }
+        model.addObject("listaComenzi",masa.getComenzi());
+        return model;
+    }
+
+
+    }

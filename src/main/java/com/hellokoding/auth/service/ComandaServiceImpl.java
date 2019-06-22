@@ -19,4 +19,9 @@ public class ComandaServiceImpl implements ComandaService {
     public List<Comanda> findAll() {
         return comandaRepository.findAll();
     }
+
+    @Override
+    public Comanda findById(Long id) {
+        return comandaRepository.findOne(id);
+    }
 }

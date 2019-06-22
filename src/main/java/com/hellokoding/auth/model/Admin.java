@@ -12,6 +12,7 @@ public class Admin {
     private String username;
     private String password;
     private String passwordConfirm;
+    private String parolaAndroid;
     private Set<Role> roles;
 
     @Id
@@ -73,5 +74,13 @@ public class Admin {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getParolaAndroid() {
+        return parolaAndroid;
+    }
+
+    public void setParolaAndroid(String parolaAndroid) {
+        this.parolaAndroid = parolaAndroid;
     }
 }

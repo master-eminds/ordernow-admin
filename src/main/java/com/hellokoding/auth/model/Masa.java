@@ -22,11 +22,11 @@ public class Masa {
     }
     @OneToMany(cascade=ALL, mappedBy="masa")
 
-    public Set<Comanda> getComanda() {
+    public Set<Comanda> getComenzi() {
         return comenzi;
     }
 
-    public void setComanda(Set<Comanda> comenzi) {
+    public void setComenzi(Set<Comanda> comenzi) {
         this.comenzi = comenzi;
     }
 }

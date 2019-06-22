@@ -455,7 +455,7 @@
                                         </div>
                                         <div class="text">
                                             <h2>${membriOnline}</h2>
-                                            <span>members online</span>
+                                            <span>Ospatari online</span>
                                         </div>
                                     </div>
                                     <div class="overview-chart">
@@ -473,7 +473,7 @@
                                         </div>
                                         <div class="text">
                                             <h2>${comenziVandute}</h2>
-                                            <span>items solid</span>
+                                            <span>Total comenzi</span>
                                         </div>
                                     </div>
                                     <div class="overview-chart">
@@ -492,7 +492,7 @@
                                         <div class="text">
                                             <h2>${counterThisWeek}</h2>
                                             <input id="listaThisWeek" type="hidden" value=${listaThisWeek}/>
-                                            <span>this week</span>
+                                            <span>Comenzi utima saptamana</span>
                                         </div>
                                     </div>
                                     <div class="overview-chart">
@@ -509,8 +509,8 @@
                                             <i class="zmdi zmdi-money"></i>
                                         </div>
                                         <div class="text">
-                                            <h2>$1,060,386</h2>
-                                            <span>total earnings</span>
+                                            <h2>${incasari}</h2>
+                                            <span>Valoare totala comenzi</span>
                                         </div>
                                     </div>
                                     <div class="overview-chart">
@@ -601,8 +601,8 @@
                                                 <tr>
                                                     <td>${masa.idMasa}</td>
                                                     <td>${masa.numarComenzi}</td>
-                                                    <td><a>
-                                                        <i class="fas fa-eye"></i></a>
+                                                    <td>
+                                                        <a href="/getComenziMese/${masa.idMasa}">a<i class="fas fa-eye"></i></a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
