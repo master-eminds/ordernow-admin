@@ -602,7 +602,7 @@
                                                     <td>${masa.idMasa}</td>
                                                     <td>${masa.numarComenzi}</td>
                                                     <td>
-                                                        <a href="/getComenziMese/${masa.idMasa}">a<i class="fas fa-eye"></i></a>
+                                                        <a href="/vizualizareComenzi/${masa.idMasa}">a<i class="fas fa-eye"></i></a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

@@ -30,9 +30,9 @@ public class ComandaController {
         return "welcome";
     }*/
 
-    @RequestMapping(value = "/getProduseComanda/{idComanda}", method = RequestMethod.GET)
+    @RequestMapping(value = "/vizualizareProduse/{idComanda}", method = RequestMethod.GET)
     public ModelAndView getComenzi(@PathVariable Long idComanda) throws ParseException {
-        ModelAndView model = new ModelAndView("getProduseComanda");
+        ModelAndView model = new ModelAndView("vizualizareProduse");
 
         Comanda comanda= comandaService.findById(idComanda);
         float valoareTotala=0;

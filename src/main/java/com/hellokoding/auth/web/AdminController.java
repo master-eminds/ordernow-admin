@@ -83,7 +83,7 @@ public class AdminController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         Admin admin = adminService.findByUsername(currentPrincipalName);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         String dateString = format.format( new Date()   );
         List<Masa> listaMese = masaService.findAll();
         List<ListaMese> meseList = listaMeses(listaMese);
@@ -121,9 +121,9 @@ public class AdminController {
         return listaMeses;
     }
 
-    @RequestMapping(value = "/getComenziMese/{nrMasa}", method = RequestMethod.GET)
+    @RequestMapping(value = "/vizualizareComenzi/{nrMasa}", method = RequestMethod.GET)
     public ModelAndView getComenzi(@PathVariable Long nrMasa) throws ParseException {
-        ModelAndView model = new ModelAndView("getComenziMese");
+        ModelAndView model = new ModelAndView("vizualizareComenzi");
         Masa masa= masaService.findById(nrMasa);
         for(Comanda comanda: masa.getComenzi()){
             float valoareTotala=0;

@@ -7,49 +7,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Autentificare</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="${contextPath}/resources/tema/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="${contextPath}/resources/tema/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="${contextPath}/resources/tema/libs/css/style.css">
+    <link rel="stylesheet" href="${contextPath}/resources/tema/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
 
-    <title>Log in with your account</title>
-
-    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="splash-container">
+    <div class="card ">
+        <div class="card-header text-center"><a href="#"></a><span class="splash-description">Introduceti informatiile contului dumneavoastra</span></div>
 
-    <form method="POST" action="${contextPath}/login" class="form-signin">
-        <h2 class="form-heading">Log in</h2>
-
-        <div class="form-group ${error != null ? 'has-error' : ''}">
-            <span>${message}</span>
-            <input name="username" type="text" class="form-control" placeholder="Email admin"
-                   autofocus="true"/>
-            <input name="password" type="password" class="form-control" placeholder="Parola"/>
-            <span>${error}</span>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-            <h4 class="text-center"><a href="${contextPath}/registration">Create an account</a></h4>
+        <div class="card-body">
+            <form method="POST" action="${contextPath}/login" class="form-signin">
+                <div class="form-group ${error != null ? 'has-error' : ''}">
+                <span>${message}</span>
+                <input class="form-control form-control-lg" id="username"  name="username" type="text" class="form-control" placeholder="Email admin"
+                       autofocus="true"/>
+                </div>
+                <div class="form-group">
+                <input name="password" type="password" id="password" class="form-control form-control-lg" placeholder="Parola"/>
+                </div>
+                    <span>${error}</span>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Autentificare</button>
+            </form>
         </div>
+        <div class="card-footer bg-white p-0  ">
+            <div class="card-footer-item card-footer-item-bordered">
+                <a href="${contextPath}/registration" class="footer-link">Creeaza un cont</a></div>
 
-    </form>
+        </div>
+    </div>
 
-</div>
-<!-- /container -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+
+<!-- Optional JavaScript -->
+<script src="${contextPath}/resources/tema/vendor/jquery/jquery-3.3.1.min.js"></script>
+<script src="${contextPath}/resources/tema/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 </body>
 </html>
