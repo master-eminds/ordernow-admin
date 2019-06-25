@@ -12,7 +12,8 @@ public class Meniu {
     private String denumire;
     private String stare;
     private Set<Produs> produse;
-    @Lob
+    @Lob @Basic(fetch = FetchType.LAZY)
+    @Column(length=100000)
     private byte[] image;
 
 

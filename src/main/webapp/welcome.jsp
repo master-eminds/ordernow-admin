@@ -474,6 +474,7 @@
                                         <div class="text">
                                             <h2>${comenziVandute}</h2>
                                             <span>Total comenzi</span>
+                                            <input type="hidden" value="${dateChart2}" id="valoriChar2"/>
                                         </div>
                                     </div>
                                     <div class="overview-chart">
@@ -602,7 +603,7 @@
                                                     <td>${masa.idMasa}</td>
                                                     <td>${masa.numarComenzi}</td>
                                                     <td>
-                                                        <a href="/vizualizareComenzi/${masa.idMasa}">a<i class="fas fa-eye"></i></a>
+                                                        <a href="/vizualizareComenzi/${masa.idMasa}"><i class="fas fa-eye" style="color: whitesmoke"></i></a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

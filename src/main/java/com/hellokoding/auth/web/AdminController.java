@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AdminController {
@@ -87,12 +88,12 @@ public class AdminController {
         String dateString = format.format( new Date()   );
         List<Masa> listaMese = masaService.findAll();
         List<ListaMese> meseList = listaMeses(listaMese);
-        List<Ospatar> ospatarList = ospatarService.findAll();
-        List<Comanda> comandas = comandaService.findAll();
+        List<Ospatar> ospatari = ospatarService.findAll();
+        List<Comanda> comenzi = comandaService.findAll();
         //alte date necesare
-        DateNecesare dateNecesareList = dateNecesare(ospatarList,meseList,comandas);
+        DateNecesare dateNecesareList = dateNecesare(ospatari,meseList,comenzi);
         model.addAttribute("listaMese",meseList);
-        model.addAttribute("listaOspatari",ospatarList);
+        model.addAttribute("listaOspatari",ospatari);
         model.addAttribute("user",admin);
         model.addAttribute("data",dateString);
         model.addAttribute("counterThisWeek",dateNecesareList.getCounterComenziThisWeek());
@@ -102,6 +103,66 @@ public class AdminController {
         model.addAttribute("membriOnline",dateNecesareList.getNrOspatariOnline());
         model.addAttribute("comenziVandute",dateNecesareList.getNrComenziVandute());
         model.addAttribute("incasari",dateNecesare.getTotalIncasari().toString());
+        Map<String,Integer> comenziPeLuna=dateNecesareList.getNrComenziOnMonth();
+
+      StringBuilder stringLuni=new StringBuilder();
+        StringBuilder stringNumarcomenzi=new StringBuilder();
+        for(String luna: comenziPeLuna.keySet()){
+            stringLuni.append(luna.split("-")[1]);
+            stringLuni.append(",");
+            stringNumarcomenzi.append(comenziPeLuna.get(luna));
+            stringNumarcomenzi.append(",");
+        }
+        String lunile="";
+       for(String luna: stringLuni.toString().split(",")){
+           switch(luna) {
+               case "01":
+                   lunile += "Ian,";
+                   break;
+               case "02":
+                   lunile += "Feb,";
+                   break;
+
+               case "03":
+                   lunile += "Mar,";
+                   break;
+               case "04":
+                   lunile += "Apr,";
+                   break;
+               case "05":
+                   lunile += "Mai,";
+                   break;
+               case "06":
+                   lunile += "Iun,";
+                   break;
+               case "07":
+                   lunile += "Iul,";
+                   break;
+               case "08":
+                   lunile += "Aug,";
+                   break;
+               case "09":
+                   lunile += "Sep,";
+                   break;
+               case "10":
+                   lunile += "Oct,";
+                   break;
+               case "11":
+                   lunile += "Noi,";
+                   break;
+               case "12":
+                   lunile += "Dec,";
+                   break;
+           }
+       }
+       lunile=lunile.substring(0,lunile.length()-1);
+       lunile+=";";
+       for(String nr:  stringNumarcomenzi.toString().split(",")){
+           lunile+=nr+",";
+       }
+        String dateChar2 = "Ianuarie,Feb,Mar,Apr,Mai;15,16,17,18,19";
+        String  dateChart2=lunile.substring(0,lunile.length()-1);
+        model.addAttribute("dateChart2",dateChart2);
         return "welcome";
     }
 

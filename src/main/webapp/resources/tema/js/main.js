@@ -4,7 +4,6 @@
   "use strict";
 
   var inputThisWeek = document.getElementById("listaThisWeek");
-  debugger;
   try {
     //WidgetChart 1
     var ctx = document.getElementById("widgetChart1");
@@ -74,15 +73,23 @@
 
     //WidgetChart 2
     var ctx = document.getElementById("widgetChart2");
+    var valori =  document.getElementById("valoriChar2").value;
+    debugger;
+
+    var v= [];
+    var valoriString = valori.split(";")[1].split(",");
+    for(var i =0;i<valoriString.length;i++){
+    v.push(parseInt(valoriString[i]))
+    }
     if (ctx) {
       ctx.height = 130;
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+          labels: valori.split(";")[0].split(","),
           type: 'line',
           datasets: [{
-            data: [1, 18, 9, 17, 34, 22],
+            data: v,
             label: 'Dataset',
             backgroundColor: 'transparent',
             borderColor: 'rgba(255,255,255,.55)',

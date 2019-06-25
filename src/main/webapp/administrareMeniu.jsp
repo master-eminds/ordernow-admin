@@ -449,7 +449,7 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong>Angajati </strong>
+                                    <strong>Meniu </strong>
                                     <small>Administrare</small>
                                 </div>
                                 <div class="card-body card-block">
@@ -473,9 +473,19 @@
                                             </div>
                                             <div class="col-12 col-md-9">
                                                 <form:select id="stare" path="stare" name="stare" class="form-control">
-                                                     <option value="0">Alegeti starea</option>
-                                                     <option value="activ">Activ</option>
-                                                     <option value="inactiv">Inactiv</option>
+                                                    <option value="0" >Alegeti starea</option>
+                                                    <c:if test="${meniuForm.stare==null}">
+                                                        <option value="activ" >Activ</option>
+                                                        <option value="inactiv">Inactiv</option>
+                                                    </c:if>
+                                                    <c:if test="${meniuForm.stare=='activ'}">
+                                                        <option value="activ" selected>Activ</option>
+                                                        <option value="inactiv">Inactiv</option>
+                                                    </c:if>
+                                                    <c:if test="${meniuForm.stare=='inactiv'}">
+                                                        <option value="activ" >Activ</option>
+                                                        <option value="inactiv" selected>Inactiv</option>
+                                                    </c:if>
                                                 </form:select>
                                             </div>
                                           <form:errors path="stare"></form:errors>
@@ -484,8 +494,10 @@
                                             <div class="form-group">
                                                 <div class="col col-md-3">
                                                     <label for="image" class=" form-control-label">File input</label>
-                                                    <form:input type="file" id="image" path="image" name="image" class="form-control-file"/>
-                                                    <input type="file" id="uploadingFiles" name="uploadingFiles"/>
+                                                    <input type="file" id="image" class="form-control-file"/>
+                                                    <form:input type="hidden" name="image" path="image" id="idS" />
+                                                    <img src="" id="preview">
+                                                    <img src="${imageSrc}" id="imagePreview">
                                                 </div>
                                             </div>
                                         </spring:bind>
@@ -538,7 +550,33 @@
 
 <!-- Main JS-->
 <script src="${contextPath}/resources/tema/js/main.js"></script>
+<script>
+    function getBase64(file) {
+        var preview = document.getElementById("preview");
 
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            console.log(reader.result);
+            document.getElementById("idS").value = reader.result;
+            console.log('a ajuns aici');
+            preview.setAttribute('src', e.target.result);
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    }
+
+
+    $('#image').bind('change', function (e) {
+        var files = document.getElementById('image').files;
+        if (files.length > 0) {
+            getBase64(files[0]);
+        }});
+
+
+
+</script>
 </body>
 
 </html>

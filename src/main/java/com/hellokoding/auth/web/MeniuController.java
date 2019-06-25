@@ -28,6 +28,7 @@ public class MeniuController {
 
     @Autowired
     private SecurityService securityService;
+
     @RequestMapping(value = "/meniuriRestaurant", method = RequestMethod.GET)
     public ModelAndView veziMeniu() {
         ModelAndView model = new ModelAndView("meniuriRestaurant");
@@ -39,15 +40,17 @@ public class MeniuController {
     @RequestMapping(value = "/administrareMeniu/{id}", method = RequestMethod.GET)
     public ModelAndView registration(@PathVariable("id") Long id) {
         ModelAndView model = new ModelAndView("administrareMeniu");
+
         if(id == 0 ){
             model.addObject("meniuForm", new Meniu());
             model.addObject("add","true");
         }else{
             Meniu m = meniuService.findById(id);
-
             //String encodedImage=Base64.encode(m.getImage());
             model.addObject("meniuForm",m);
             model.addObject("add","false");
+            model.addObject("imageSrc",new String(m.getImage()));
+
         }
         return model;
     }
@@ -65,6 +68,8 @@ public class MeniuController {
     public String adaugareMeniu(@ModelAttribute("meniuForm") Meniu meniuForm, BindingResult bindingResult) throws UnsupportedEncodingException, SQLException {
 
         meniuValidator.validate(meniuForm,bindingResult);
+        byte[] file = meniuForm.getImage();
+        System.out.println(new String(file));
 
         if(bindingResult.hasErrors()){
             return "administrareMeniu";
@@ -72,18 +77,6 @@ public class MeniuController {
         if(meniuForm.getId()!=null&& meniuForm.getId()!=null){
             Meniu old = meniuService.findById(meniuForm.getId());
         }
-/*
-       File file = new File();
-        byte[] bFile = meniuForm.getImage();
-
-        try {
-            FileInputStream fileInputStream = new FileInputStream(String.valueOf(file));
-            fileInputStream.read(bFile);
-            fileInputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-
 
         meniuService.save(meniuForm);
         return "redirect:/administrareMeniu/0";
