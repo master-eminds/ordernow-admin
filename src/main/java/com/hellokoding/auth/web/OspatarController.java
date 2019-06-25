@@ -40,10 +40,9 @@ public class OspatarController {
     }
 
     @RequestMapping(value = "/salvareOspatar", method = RequestMethod.POST)
-    public String adaugareMeniu(@ModelAttribute("ospatarForm") Ospatar ospatarForm, BindingResult bindingResult, Model model) {
+    public String adaugareOspatar(@ModelAttribute("ospatarForm") Ospatar ospatarForm, BindingResult bindingResult, Model model) {
 
         ospatarValidator.validate(ospatarForm,bindingResult);
-       // ospatarService.save(ospatarForm);
          if(bindingResult.hasErrors()){
             return "administrareOspatari";
         }

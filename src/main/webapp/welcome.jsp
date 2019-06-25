@@ -164,7 +164,7 @@
         <c:if test="${not empty user}">
             <div style="    max-width: 46%;margin-left: 23%;">
                 <a href="#">
-                    <img src="${contextPath}/resources/tema/images/icon/logo_geo.png" alt="Logo" />
+                    <img src="${contextPath}/resources/tema/images/icon/logo_administrare1Cc.png" alt="Logo" />
                 </a>
             </div>
         </c:if>
@@ -492,7 +492,7 @@
                                         <div class="text">
                                             <h2>${counterThisWeek}</h2>
                                             <input id="listaThisWeek" type="hidden" value=${listaThisWeek}/>
-                                            <span>Comenzi utima saptamana</span>
+                                            <span>Numar comenzi din ultima saptamana</span>
                                         </div>
                                     </div>
                                     <div class="overview-chart">
