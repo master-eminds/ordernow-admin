@@ -103,66 +103,36 @@ public class AdminController {
         model.addAttribute("membriOnline",dateNecesareList.getNrOspatariOnline());
         model.addAttribute("comenziVandute",dateNecesareList.getNrComenziVandute());
         model.addAttribute("incasari",dateNecesare.getTotalIncasari().toString());
+
+
+
         Map<String,Integer> comenziPeLuna=dateNecesareList.getNrComenziOnMonth();
 
-      StringBuilder stringLuni=new StringBuilder();
+        StringBuilder stringLuni=new StringBuilder();
         StringBuilder stringNumarcomenzi=new StringBuilder();
-        for(String luna: comenziPeLuna.keySet()){
-            stringLuni.append(luna.split("-")[1]);
-            stringLuni.append(",");
-            stringNumarcomenzi.append(comenziPeLuna.get(luna));
-            stringNumarcomenzi.append(",");
-        }
-        String lunile="";
-       for(String luna: stringLuni.toString().split(",")){
-           switch(luna) {
-               case "01":
-                   lunile += "Ian,";
-                   break;
-               case "02":
-                   lunile += "Feb,";
-                   break;
+        String[] luni={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+            for(String luna:luni){
+                if(comenziPeLuna.containsKey(luna)){
+                    stringLuni.append(luna).append(",");
+                    stringNumarcomenzi.append(comenziPeLuna.get(luna)).append(",");
+                }
+            }
 
-               case "03":
-                   lunile += "Mar,";
-                   break;
-               case "04":
-                   lunile += "Apr,";
-                   break;
-               case "05":
-                   lunile += "Mai,";
-                   break;
-               case "06":
-                   lunile += "Iun,";
-                   break;
-               case "07":
-                   lunile += "Iul,";
-                   break;
-               case "08":
-                   lunile += "Aug,";
-                   break;
-               case "09":
-                   lunile += "Sep,";
-                   break;
-               case "10":
-                   lunile += "Oct,";
-                   break;
-               case "11":
-                   lunile += "Noi,";
-                   break;
-               case "12":
-                   lunile += "Dec,";
-                   break;
-           }
-       }
-       lunile=lunile.substring(0,lunile.length()-1);
-       lunile+=";";
-       for(String nr:  stringNumarcomenzi.toString().split(",")){
-           lunile+=nr+",";
-       }
-        String dateChar2 = "Ianuarie,Feb,Mar,Apr,Mai;15,16,17,18,19";
-        String  dateChart2=lunile.substring(0,lunile.length()-1);
+        String dateChart2= stringLuni.toString().substring(0,stringLuni.length()-1).concat(";").concat(stringNumarcomenzi.toString().substring(0,stringNumarcomenzi.length()-1));
         model.addAttribute("dateChart2",dateChart2);
+
+        Map<String,Integer> comenziPeZile=dateNecesareList.getNrComenziThisWeek();
+
+        StringBuilder stringZile=new StringBuilder();
+        StringBuilder stringNumarcomenziZile=new StringBuilder();
+        for( String zi: comenziPeZile.keySet()){
+            stringZile.append(zi.substring(0,5)).append(",");
+            stringNumarcomenziZile.append(comenziPeZile.get(zi)).append(",");
+        }
+
+
+        String dateChart3= stringZile.toString().substring(0,stringZile.length()-1).concat(";").concat(stringNumarcomenziZile.toString().substring(0,stringNumarcomenziZile.length()-1));
+        model.addAttribute("dateChart3",dateChart3);
         return "welcome";
     }
 
@@ -198,4 +168,4 @@ public class AdminController {
     }
 
 
-    }
+}

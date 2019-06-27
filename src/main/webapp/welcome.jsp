@@ -493,6 +493,7 @@
                                         <div class="text">
                                             <h2>${counterThisWeek}</h2>
                                             <input id="listaThisWeek" type="hidden" value=${listaThisWeek}/>
+                                            <input type="hidden" value="${dateChart3}" id="valoriChar3"/>
                                             <span>Numar comenzi din ultima saptamana</span>
                                         </div>
                                     </div>

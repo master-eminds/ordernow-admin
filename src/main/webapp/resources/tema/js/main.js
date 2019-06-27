@@ -90,7 +90,7 @@
           type: 'line',
           datasets: [{
             data: v,
-            label: 'Dataset',
+            label: 'Nr comenzi',
             backgroundColor: 'transparent',
             borderColor: 'rgba(255,255,255,.55)',
           },]
@@ -151,17 +151,25 @@
 
 
     //WidgetChart 3
-    var ctx = document.getElementById("widgetChart3");
-    if (ctx) {
-      ctx.height = 130;
-      var myChart = new Chart(ctx, {
+    var ctx3 = document.getElementById("widgetChart3");
+    var valori3 =  document.getElementById("valoriChar3").value;
+    debugger;
+
+    var v3= [];
+    var valoriString3 = valori3.split(";")[1].split(",");
+    for(var i3 =0;i3<valoriString3.length;i3++){
+      v3.push(parseInt(valoriString3[i3]))
+    }
+    if (ctx3) {
+      ctx3.height = 130;
+      var myChart3 = new Chart(ctx3, {
         type: 'line',
         data: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+          labels: valori3.split(";")[0].split(",") ,
           type: 'line',
           datasets: [{
-            data: [65, 59, 84, 84, 51, 55],
-            label: 'Dataset',
+            data: v3,
+            label: 'Nr comenzi',
             backgroundColor: 'transparent',
             borderColor: 'rgba(255,255,255,.55)',
           },]
