@@ -508,6 +508,10 @@
                                         <button type="reset" class="btn btn-danger btn-sm">
                                             <i class="fa fa-ban"></i> Reset
                                         </button>
+                                                   <button href="${contextPath}/administrareCategorie/0/${meniuForm.id}" class="btn btn-danger btn-sm" >
+                                                       <i class="fa fa-ban"></i> Adaugare categorie
+                                                   </button>
+                                                   <a  href="${contextPath}/administrareCategorie/0/${meniuForm.id}">Adauga o categorie</a>
                                     </div>
                                 </div>
                                 </form:form>
@@ -526,6 +530,8 @@
         </div>
     </div>
 </div>
+</div>
+    </div>
 </div>
 <!-- Jquery JS-->
 <script src="${contextPath}/resources/tema/vendor/jquery-3.2.1.min.js"></script>

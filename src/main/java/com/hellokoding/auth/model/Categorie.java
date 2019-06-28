@@ -28,6 +28,10 @@ public class Categorie {
         this.urlImagine=url;
     }
 
+    public Categorie(Meniu meniu) {
+        this.meniu = meniu;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
