@@ -449,53 +449,60 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong>Meniu </strong>
+                                    <strong>Categorie </strong>
                                     <small>Administrare</small>
                                 </div>
                                 <div class="card-body card-block">
-                                <form:form method="post" action="${contextPath}/salvareMeniu" modelAttribute="meniuForm" class="form-signin">
+                                <form:form method="post" action="${contextPath}/salvareProdus/${meniu_id}" modelAttribute="produsForm" class="form-signin">
                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                                     <spring:bind path="id">
                                         <div class="form-group">
                                         <form:input type="hidden" id="nume" path="id" name="id"  class="form-control"></form:input>
                                      </spring:bind>
-                                      <spring:bind path="denumire">
-                                            <div class="form-group ${status.error ? 'has-error' : ''}">
-                                                <label for="denumire" class=" form-control-label">Denumire</label>
-                                                <form:input type="text" id="denumire" path="denumire" name="denumire" placeholder="nume" class="form-control"></form:input>
-                                          <form:errors path="denumire"></form:errors>
-                                      </spring:bind>
-                                       <spring:bind path="stare">
-                                           <div class="form-group ${status.error ? 'has-error' : ''}">
-                                                    <div class="col col-md-3">
-                                                        <label for="stare" class=" form-control-label">Stare</label>
-                                            </div>
-                                            <div class="col-12 col-md-9">
-                                                <form:select id="stare" path="stare" name="stare" class="form-control">
-                                                    <option value="0" >Alegeti starea</option>
-                                                    <c:if test="${meniuForm.stare==null}">
-                                                        <option value="activ" >Activ</option>
-                                                        <option value="inactiv">Inactiv</option>
-                                                    </c:if>
-                                                    <c:if test="${meniuForm.stare=='activ'}">
-                                                        <option value="activ" selected>Activ</option>
-                                                        <option value="inactiv">Inactiv</option>
-                                                    </c:if>
-                                                    <c:if test="${meniuForm.stare=='inactiv'}">
-                                                        <option value="activ" >Activ</option>
-                                                        <option value="inactiv" selected>Inactiv</option>
-                                                    </c:if>
-                                                </form:select>
-                                            </div>
-                                          <form:errors path="stare"></form:errors>
-                                        </spring:bind>
-                                        <spring:bind path="image">
+                                    <spring:bind path="denumire">
+                                        <div class="form-group ${status.error ? 'has-error' : ''}">
+                                            <form:input type="text" path="denumire" class="form-control" placeholder="Denumire"
+                                                        autofocus="true"></form:input>
+                                            <form:errors path="denumire"></form:errors>
+                                        </div>
+                                    </spring:bind>
+
+                                    <spring:bind path="pret">
+                                        <div class="form-group ${status.error ? 'has-error' : ''}">
+                                            <form:input type="text" path="pret" class="form-control" placeholder="Pret"></form:input>
+                                            <form:errors path="pret"></form:errors>
+                                        </div>
+                                    </spring:bind>
+
+                                    <spring:bind path="gramaj">
+                                        <div class="form-group ${status.error ? 'has-error' : ''}">
+                                            <form:input type="text" path="gramaj" class="form-control"
+                                                        placeholder="Gramaj"></form:input>
+                                            <form:errors path="gramaj"></form:errors>
+                                        </div>
+                                    </spring:bind>
+
+                                    <spring:bind path="categorie">
+
+                                        <form:select path="categorie">
+                                            <form:options items="${categoriiProduse}" />
+                                        </form:select>
+                                    </spring:bind>
+                                    <spring:bind path="descriere">
+                                        <div class="form-group ${status.error ? 'has-error' : ''}">
+                                            <form:input type="text" path="descriere" class="form-control"
+                                                        placeholder="Descriere"></form:input>
+                                            <form:errors path="descriere"></form:errors>
+                                        </div>
+                                    </spring:bind>
+
+                                        <spring:bind path="imagine">
                                             <div class="form-group">
                                                 <div class="col col-md-3">
-                                                    <label for="image" class=" form-control-label">File input</label>
-                                                    <input type="file" id="image" class="form-control-file"/>
-                                                    <form:input type="hidden" name="image" path="image" id="idS" />
+                                                    <label for="imagine" class=" form-control-label">File input</label>
+                                                    <input type="file" id="imagine" class="form-control-file"/>
+                                                    <form:input type="hidden" name="imagine" path="imagine" id="idS" />
                                                     <img src="" id="preview">
                                                     <img src="${imageSrc}" id="imagePreview">
                                                 </div>
@@ -508,13 +515,7 @@
                                         <button type="reset" class="btn btn-danger btn-sm">
                                             <i class="fa fa-ban"></i> Reset
                                         </button>
-
-                                                   <a  href="${contextPath}/administrareCategorie/0/${meniuForm.id}">Adauga o categorie</a>
-                                                   <c:if test="${meniuForm.categorii.size()!=0}">
-                                                       <a  href="${contextPath}/administrareProdus/0/${meniuForm.id}">Adauga un produs</a>
-                                                   </c:if>
-
-                                               </div>
+                                    </div>
                                 </div>
                                 </form:form>
                             </div>
@@ -576,8 +577,8 @@
     }
 
 
-    $('#image').bind('change', function (e) {
-        var files = document.getElementById('image').files;
+    $('#imagine').bind('change', function (e) {
+        var files = document.getElementById('imagine').files;
         if (files.length > 0) {
             getBase64(files[0]);
         }});
@@ -585,6 +586,7 @@
 
 
 </script>
+
 </body>
 
 </html>

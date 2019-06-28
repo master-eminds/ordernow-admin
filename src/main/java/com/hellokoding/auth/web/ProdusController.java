@@ -9,15 +9,16 @@ import com.hellokoding.auth.service.ProdusService;
 import com.hellokoding.auth.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 
 @Controller
 public class ProdusController {
@@ -32,7 +33,7 @@ public class ProdusController {
 
 
 
-    @RequestMapping(value = "/gestionareProdus", method = RequestMethod.GET)
+   /* @RequestMapping(value = "/gestionareProdus", method = RequestMethod.GET)
     public String gestionareProdus(Model model,@RequestParam("meniu_id") Long meniu_id) {
 
         List<Categorie> categoriiProduse= categorieService.findAll();
@@ -54,7 +55,7 @@ public class ProdusController {
         model.addAttribute("produsForm", new Produs());
         model.addAttribute("categoriiProduse", categorii);
         return "gestionareProdus";
-    }
+    }*/
 
    /* @RequestMapping(value = "/gestionareProdus", method = RequestMethod.POST)
     public String registration(@ModelAttribute("produsForm") Produs produsForm, @ModelAttribute("categoriiProduse") Categorie categorie, @RequestParam("meniu_id") Long meniu_id, BindingResult bindingResult, Model model) {
@@ -66,4 +67,45 @@ public class ProdusController {
         produsService.save(produsForm);
         return "redirect:/editareMeniu?id="+produsForm.getMeniu().getId();
     }*/
+
+
+
+    @RequestMapping(value = "/administrareProdus/{produs_id}/{meniu_id}", method = RequestMethod.GET)
+    public ModelAndView registration(@PathVariable("produs_id") Long produs_id, @PathVariable("meniu_id") Long meniu_id) {
+        ModelAndView model = new ModelAndView("administrareProdus");
+        Meniu meniu= meniuService.findById(meniu_id);
+        HashMap<Long,String> categorii= new HashMap<>();
+        for(Categorie categorie: meniu.getCategorii()){
+            categorii.put(categorie.getId(),categorie.getDenumire());
+        }
+        if(produs_id == 0 ){
+            model.addObject("produsForm", new Produs());
+            model.addObject("add","true");
+            model.addObject("categoriiProduse",categorii );
+        }else{
+            Produs p = produsService.findById(produs_id);
+            model.addObject("produseForm",p);
+            model.addObject("add","false");
+            model.addObject("imageSrc",new String(p.getImagine()));
+
+        }
+        return model;
+    }
+
+
+    @RequestMapping(value = "/salvareProdus/{meniu_id}", method = RequestMethod.POST)
+    public String adaugareMeniu(@ModelAttribute("produsForm") Produs produsForm, @PathVariable("meniu_id") Long meniu_id, BindingResult bindingResult) throws UnsupportedEncodingException, SQLException {
+
+        byte[] file = produsForm.getImagine();
+        //produsForm.setMeniu(meniuService.findById(meniu_id));
+        if(bindingResult.hasErrors()){
+            return "administrareProdus";
+        }
+        if(produsForm.getId()!=null){
+            Produs old = produsService.findById(produsForm.getId());
+        }
+
+        produsService.save(produsForm);
+        return "redirect:/administrareMeniu/"+meniu_id;
+    }
 }
