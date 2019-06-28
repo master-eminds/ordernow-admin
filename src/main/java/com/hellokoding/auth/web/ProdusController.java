@@ -56,7 +56,7 @@ public class ProdusController {
         return "gestionareProdus";
     }
 
-    @RequestMapping(value = "/gestionareProdus", method = RequestMethod.POST)
+   /* @RequestMapping(value = "/gestionareProdus", method = RequestMethod.POST)
     public String registration(@ModelAttribute("produsForm") Produs produsForm, @ModelAttribute("categoriiProduse") Categorie categorie, @RequestParam("meniu_id") Long meniu_id, BindingResult bindingResult, Model model) {
         Meniu meniu= meniuService.findById(meniu_id);
         produsForm.setMeniu(meniu);
@@ -65,5 +65,5 @@ public class ProdusController {
         }
         produsService.save(produsForm);
         return "redirect:/editareMeniu?id="+produsForm.getMeniu().getId();
-    }
+    }*/
 }

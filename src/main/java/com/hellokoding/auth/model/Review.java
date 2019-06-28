@@ -3,11 +3,12 @@ package com.hellokoding.auth.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="reviewuri")
+@Table(name="review")
 public class Review {
 
     private Long id;
-    private boolean like ;
+    private String comentariu;
+    private float nota;
     private Produs produs;
     private Ospatar ospatar;
 
@@ -21,15 +22,24 @@ public class Review {
         this.id = id;
     }
 
-    public boolean isLike() {
-        return like;
+    public String getComentariu() {
+        return comentariu;
     }
 
-    public void setLike(boolean like) {
-        this.like = like;
+    public void setComentariu(String comentariu) {
+        this.comentariu = comentariu;
     }
+
+    public float getNota() {
+        return nota;
+    }
+
+    public void setNota(float nota) {
+        this.nota = nota;
+    }
+
     @ManyToOne
-    @JoinColumn(name="produs_id", nullable=false)
+    @JoinColumn(name="id_produs", nullable=false)
     public Produs getProdus() {
         return produs;
     }
@@ -38,7 +48,7 @@ public class Review {
         this.produs = produs;
     }
     @ManyToOne
-    @JoinColumn(name="ospatar_id", nullable=false)
+    @JoinColumn(name="id_ospatar", nullable=false)
     public Ospatar getOspatar() {
         return ospatar;
     }

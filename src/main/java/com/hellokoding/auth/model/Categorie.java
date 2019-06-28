@@ -1,7 +1,6 @@
 package com.hellokoding.auth.model;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Set;
 
 import static javax.persistence.CascadeType.ALL;
@@ -14,7 +13,11 @@ public class Categorie {
     private String denumire;
     private String descriere;
     private String urlImagine;
+    @Lob @Basic(fetch = FetchType.LAZY)
+    @Column(length=100000)
+    private byte[] imagine;
     private Set<Produs> produse;
+    private Meniu meniu;
     public Categorie() {
 
     }
@@ -65,5 +68,23 @@ public class Categorie {
 
     public void setUrlImagine(String urlImagine) {
         this.urlImagine = urlImagine;
+    }
+
+    public byte[] getImagine() {
+        return imagine;
+    }
+
+    public void setImagine(byte[] imagine) {
+        this.imagine = imagine;
+    }
+
+    @ManyToOne
+    @JoinColumn(name="meniu_id", nullable=false)
+    public Meniu getMeniu() {
+        return meniu;
+    }
+
+    public void setMeniu(Meniu meniu) {
+        this.meniu = meniu;
     }
 }

@@ -15,26 +15,27 @@ public class Produs {
     private String descriere;
     //aici ar trebui un byte[] imagine
     private String urlImagine;
+    @Lob @Basic(fetch = FetchType.LAZY)
+    @Column(length=100000)
+    private byte[] imagine;
     private Categorie categorie;
-    private Meniu meniu;
-
     private Set<ItemComanda> listaItemComanda;
     private Set<Review> reviews;
 
-    public Produs(Long id, String denumire, Float pret, Integer gramaj, String descriere, Meniu meniu, Set<ItemComanda> listaItemComanda, Set<Review> reviews) {
+    public Produs(Long id, String denumire, Float pret, Integer gramaj, String descriere, Categorie categorie, Set<ItemComanda> listaItemComanda, Set<Review> reviews, byte[] imagine) {
         this.id = id;
         this.denumire = denumire;
         this.pret = pret;
         this.gramaj = gramaj;
         this.descriere = descriere;
-        this.meniu = meniu;
+        this.categorie = categorie;
         this.listaItemComanda = listaItemComanda;
         this.reviews = reviews;
+        this.imagine=imagine;
     }
+public Produs(){}
 
-    public Produs() {
-        this.categorie=new Categorie();
-    }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -87,15 +88,7 @@ public class Produs {
         this.categorie = categorie;
     }
 
-    @ManyToOne
-    @JoinColumn(name="meniu_id", nullable=false)
-    public Meniu getMeniu() {
-        return meniu;
-    }
 
-    public void setMeniu(Meniu meniu) {
-        this.meniu = meniu;
-    }
     @OneToMany(cascade=ALL, mappedBy="produs")
     public Set<ItemComanda> getListaItemComanda() {
         return listaItemComanda;
@@ -128,5 +121,13 @@ public class Produs {
                 denumire + "   "+
                 pret +" lei";
 
+    }
+
+    public byte[] getImagine() {
+        return imagine;
+    }
+
+    public void setImagine(byte[] imagine) {
+        this.imagine = imagine;
     }
 }

@@ -1,7 +1,6 @@
 package com.hellokoding.auth.web;
 
 import com.hellokoding.auth.model.Meniu;
-import com.hellokoding.auth.model.Produs;
 import com.hellokoding.auth.service.MeniuService;
 import com.hellokoding.auth.service.ProdusService;
 import com.hellokoding.auth.service.SecurityService;
@@ -9,13 +8,15 @@ import com.hellokoding.auth.validator.MeniuValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class MeniuController {
@@ -55,7 +56,7 @@ public class MeniuController {
         return model;
     }
 
-    @RequestMapping(value = "/editareMeniu/{id}", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/editareMeniu/{id}", method = RequestMethod.GET)
     public ModelAndView editareMeniu(@RequestParam("id") Long id) {
         ModelAndView model = new ModelAndView("editareMeniu");
         Meniu meniu=meniuService.findById(id);
@@ -63,7 +64,7 @@ public class MeniuController {
         model.addObject("listaProduse", listaProduse);
         model.addObject("meniu_id_param", id);
         return model;
-    }
+    }*/
     @RequestMapping(value = "/salvareMeniu", method = RequestMethod.POST)
     public String adaugareMeniu(@ModelAttribute("meniuForm") Meniu meniuForm, BindingResult bindingResult) throws UnsupportedEncodingException, SQLException {
 

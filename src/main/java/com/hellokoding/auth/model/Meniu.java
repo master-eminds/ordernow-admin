@@ -11,7 +11,7 @@ public class Meniu {
     private Long id;
     private String denumire;
     private String stare;
-    private Set<Produs> produse;
+    private Set<Categorie> categorii;
     @Lob @Basic(fetch = FetchType.LAZY)
     @Column(length=100000)
     private byte[] image;
@@ -26,13 +26,14 @@ public class Meniu {
     public void setId(Long id) {
         this.id = id;
     }
+
     @OneToMany(cascade=ALL, mappedBy="meniu")
-    public Set<Produs> getProduse() {
-        return produse;
+    public Set<Categorie> getCategorii() {
+        return categorii;
     }
 
-    public void setProduse(Set<Produs> produse) {
-        this.produse = produse;
+    public void setCategorii(Set<Categorie> categorii) {
+        this.categorii = categorii;
     }
 
     public String getDenumire() {
@@ -62,6 +63,6 @@ public class Meniu {
     @Override
     public String toString() {
         return "Meniu: " + denumire +
-                "Produse: " + produse ;
+                "Categorii: " + categorii ;
     }
 }

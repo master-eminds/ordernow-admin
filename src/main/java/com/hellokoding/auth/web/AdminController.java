@@ -106,7 +106,7 @@ public class AdminController {
 
 
 
-        Map<String,Integer> comenziPeLuna=dateNecesareList.getNrComenziOnMonth();
+   /*     Map<String,Integer> comenziPeLuna=dateNecesareList.getNrComenziOnMonth();
 
         StringBuilder stringLuni=new StringBuilder();
         StringBuilder stringNumarcomenzi=new StringBuilder();
@@ -119,8 +119,9 @@ public class AdminController {
             }
 
         String dateChart2= stringLuni.toString().substring(0,stringLuni.length()-1).concat(";").concat(stringNumarcomenzi.toString().substring(0,stringNumarcomenzi.length()-1));
+        model.addAttribute("dateChart2",dateChart2);*/
+        String dateChart2= "Jun,Apr;12,24";
         model.addAttribute("dateChart2",dateChart2);
-
         Map<String,Integer> comenziPeZile=dateNecesareList.getNrComenziThisWeek();
 
         StringBuilder stringZile=new StringBuilder();
