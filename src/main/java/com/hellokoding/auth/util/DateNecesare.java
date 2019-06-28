@@ -2,7 +2,6 @@ package com.hellokoding.auth.util;
 
 import com.hellokoding.auth.model.Comanda;
 import com.hellokoding.auth.model.ItemComanda;
-import com.hellokoding.auth.model.ListaMese;
 import com.hellokoding.auth.model.Ospatar;
 
 import java.text.ParseException;
@@ -23,7 +22,7 @@ public class DateNecesare {
     public DateNecesare() {
     }
 
-    public DateNecesare dateNecesare(List<Ospatar> listaOspatari, List<ListaMese> masa,List<Comanda> comandas) throws ParseException {
+    public DateNecesare dateNecesare(List<Ospatar> listaOspatari, List<Comanda> comandas) throws ParseException {
         DateNecesare dateNecesare = new DateNecesare();
         //variabile de care am nevoie
         int counterOspatariOnline = 0;
@@ -47,14 +46,11 @@ public class DateNecesare {
             saptamana.put(i,data);
             cal.add(Calendar.DAY_OF_YEAR, -1);
         }
-        cal.add(Calendar.DAY_OF_YEAR,+7);
 
         //nrComenziVandute
         counterComenziThisWeek = 0;
         totalIncasariSaptamana =0.0;
         totalIncasari=0.0;
-        cal.add(Calendar.DAY_OF_YEAR,-7);
-
         Date limita=cal.getTime();
         cal.add(Calendar.DAY_OF_YEAR,+7);
 
@@ -64,7 +60,7 @@ public class DateNecesare {
             for (int j=comandas.size()-1;j>=0;j--) {
                 Comanda c= comandas.get(j);
                 if(c.getData().compareTo(sdf.format(limita)) < 0){
-                    j=comandas.size();
+                    j=-1;
                 }
                 else {
                     if (zi.equals(c.getData().split(" ")[0])) {
@@ -90,12 +86,14 @@ public class DateNecesare {
         SimpleDateFormat dateFormat= new SimpleDateFormat("dd-MMM-yyyy");
 
         for(int i=1;i<=4;i++){
-            String data= sdf.format(cal.getTime());
-            String lunaNr= data.split(" ")[0].split("-")[1];
+            String dataLimita= sdf.format(cal.getTime());
+            int lunaLimita= Integer.parseInt(dataLimita.split(" ")[0].split("-")[1]);
+            String lunaNr= dataLimita.split(" ")[0].split("-")[1];
             for (int j=comandas.size()-1;j>=0;j--) {
                 Comanda c = comandas.get(j);
-                if (data.compareTo(sdf.format(c.getData())) > 0) {
-                    j = comandas.size();
+
+                if (lunaLimita>Integer.parseInt(c.getData().split(" ")[0].split("-")[1])) {
+                    j = -1;
                 } else {
                     if (lunaNr.equalsIgnoreCase(c.getData().split(" ")[0].split("-")[1])) {
                         String luna = dateFormat.format(cal.getTime()).split("-")[1];

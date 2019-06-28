@@ -18,10 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class AdminController {
@@ -87,11 +84,12 @@ public class AdminController {
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         String dateString = format.format( new Date()   );
         List<Masa> listaMese = masaService.findAll();
-        List<ListaMese> meseList = listaMeses(listaMese);
         List<Ospatar> ospatari = ospatarService.findAll();
         List<Comanda> comenzi = comandaService.findAll();
+        HashMap<Long,Integer> meseList = listaMeses(comenzi);
+
         //alte date necesare
-        DateNecesare dateNecesareList = dateNecesare(ospatari,meseList,comenzi);
+        DateNecesare dateNecesareList = dateNecesare(ospatari,comenzi);
         model.addAttribute("listaMese",meseList);
         model.addAttribute("listaOspatari",ospatari);
         model.addAttribute("user",admin);
@@ -106,7 +104,7 @@ public class AdminController {
 
 
 
-   /*     Map<String,Integer> comenziPeLuna=dateNecesareList.getNrComenziOnMonth();
+        Map<String,Integer> comenziPeLuna=dateNecesareList.getNrComenziOnMonth();
 
         StringBuilder stringLuni=new StringBuilder();
         StringBuilder stringNumarcomenzi=new StringBuilder();
@@ -119,18 +117,25 @@ public class AdminController {
             }
 
         String dateChart2= stringLuni.toString().substring(0,stringLuni.length()-1).concat(";").concat(stringNumarcomenzi.toString().substring(0,stringNumarcomenzi.length()-1));
-        model.addAttribute("dateChart2",dateChart2);*/
-        String dateChart2= "Jun,Apr;12,24";
+        model.addAttribute("dateChart2",dateChart2);
+      //  String dateChart2= "Jun,Apr;12,24";
         model.addAttribute("dateChart2",dateChart2);
         Map<String,Integer> comenziPeZile=dateNecesareList.getNrComenziThisWeek();
 
         StringBuilder stringZile=new StringBuilder();
         StringBuilder stringNumarcomenziZile=new StringBuilder();
-        for( String zi: comenziPeZile.keySet()){
-            stringZile.append(zi.substring(0,5)).append(",");
-            stringNumarcomenziZile.append(comenziPeZile.get(zi)).append(",");
-        }
+        Calendar cal= Calendar.getInstance();
+        SimpleDateFormat sdf= new SimpleDateFormat("dd-MM-yyyy");
+        cal.add(Calendar.DAY_OF_YEAR,-7);
 
+        for(int i=0;i<7;i++){
+            String zi= sdf.format(cal.getTime());
+                if(comenziPeZile.containsKey(zi)){
+                    stringZile.append(zi.substring(0,5)).append(",");
+                    stringNumarcomenziZile.append(comenziPeZile.get(zi)).append(",");
+                }
+                cal.add(Calendar.DAY_OF_YEAR,+1);
+            }
 
         String dateChart3= stringZile.toString().substring(0,stringZile.length()-1).concat(";").concat(stringNumarcomenziZile.toString().substring(0,stringNumarcomenziZile.length()-1));
         model.addAttribute("dateChart3",dateChart3);
@@ -138,19 +143,27 @@ public class AdminController {
     }
 
 
-    private DateNecesare dateNecesare(List<Ospatar> listaOspatari,List<ListaMese> mese,List<Comanda> comandas) throws ParseException {
-        DateNecesare date = dateNecesare.dateNecesare(listaOspatari,mese,comandas);
+    private DateNecesare dateNecesare(List<Ospatar> listaOspatari,List<Comanda> comandas) throws ParseException {
+        DateNecesare date = dateNecesare.dateNecesare(listaOspatari,comandas);
         return date;
     }
-    private List<ListaMese> listaMeses (List<Masa> list){
-        List<ListaMese> listaMeses = new ArrayList<>();
-        for(Masa m:list){
-            ListaMese l = new ListaMese();
-            l.setIdMasa(m.getId());
-            l.setNumarComenzi(m.getComenzi().size());
-            listaMeses.add(l);
+    private  HashMap<Long, Integer> listaMeses (List<Comanda> comenzi){
+       HashMap<Long, Integer> comenziMese= new HashMap<>();
+
+       List<Masa> mese= masaService.findAll();
+       for(Masa masa: mese){
+           if(!comenziMese.containsKey(masa.getId())){
+               comenziMese.put(masa.getId(),0);
+           }
+       }
+        for(Comanda comanda:comenzi){
+            Long idMasa=comanda.getMasa().getId();
+            if(comenziMese.containsKey(idMasa)){
+                comenziMese.replace(idMasa,comenziMese.get(idMasa)+1);
+            }
+
         }
-        return listaMeses;
+        return comenziMese;
     }
 
     @RequestMapping(value = "/vizualizareComenzi/{nrMasa}", method = RequestMethod.GET)

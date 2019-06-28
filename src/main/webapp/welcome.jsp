@@ -599,12 +599,12 @@
                                                 <th style="color:white;">Vizualizare comenzi</th>
                                             </tr>
                                             <tbody>
-                                            <c:forEach var="masa" items="${listaMese}">
+                                            <c:forEach var="idMasa" items="${listaMese.keySet()}">
                                                 <tr>
-                                                    <td>${masa.idMasa}</td>
-                                                    <td>${masa.numarComenzi}</td>
+                                                    <td>${idMasa}</td>
+                                                    <td>${listaMese.get(idMasa)}</td>
                                                     <td>
-                                                        <a href="/vizualizareComenzi/${masa.idMasa}"><i class="fas fa-eye" style="color: whitesmoke"></i></a>
+                                                        <a href="/vizualizareComenzi/${idMasa}"><i class="fas fa-eye" style="color: whitesmoke"></i></a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -692,12 +692,12 @@
 
                                         <div class="au-task-list js-scrollbar3">
                                             <div class="au-task__item au-task__item--danger">
-                                                <c:forEach var="masaIndividuala" items="${listaMese}">
+                                                <c:forEach var="masaIndividuala" items="${listaMese.keySet()}">
                                                     <div class="au-task__item-inner">
                                                         <h5 class="task">
-                                                            <a href="#">Masa numarul : ${masaIndividuala.idMasa}</a>
+                                                            <a href="#">Masa numarul : ${masaIndividuala}</a>
                                                         </h5>
-                                                        <span class="time">Numar comenzi : ${masaIndividuala.numarComenzi}</span>
+                                                        <span class="time">Numar comenzi : ${listaMese.get(masaIndividuala)}</span>
                                                     </div>
                                                 </c:forEach>
                                             </div>
