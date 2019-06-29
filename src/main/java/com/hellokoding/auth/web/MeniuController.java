@@ -7,6 +7,7 @@ import com.hellokoding.auth.service.SecurityService;
 import com.hellokoding.auth.validator.MeniuValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +39,20 @@ public class MeniuController {
         model.addObject("meniuForm", new Meniu());
         return model;
     }
+    @RequestMapping(value = "/vizualizareMeniuri", method = RequestMethod.GET)
+    public ModelAndView vizualizareMeniuri() {
+        ModelAndView model = new ModelAndView("vizualizareMeniuri");
+        List<Meniu> listaMeniuri=meniuService.findAll();
+        model.addObject("meniuri", listaMeniuri);
+        //model.addObject("meniuForm", new Meniu());
+        model.addObject("imageSrc0",new String(listaMeniuri.get(0).getImage()));
+        model.addObject("imageSrc1",new String(listaMeniuri.get(1).getImage()));
+        model.addObject("imageSrc2",new String(listaMeniuri.get(2).getImage()));
+
+
+        return model;
+    }
+
     @RequestMapping(value = "/administrareMeniu/{id}", method = RequestMethod.GET)
     public ModelAndView registration(@PathVariable("id") Long id) {
         ModelAndView model = new ModelAndView("administrareMeniu");
@@ -56,15 +71,7 @@ public class MeniuController {
         return model;
     }
 
-    /*@RequestMapping(value = "/editareMeniu/{id}", method = RequestMethod.GET)
-    public ModelAndView editareMeniu(@RequestParam("id") Long id) {
-        ModelAndView model = new ModelAndView("editareMeniu");
-        Meniu meniu=meniuService.findById(id);
-        Set<Produs> listaProduse=meniu.getProduse();
-        model.addObject("listaProduse", listaProduse);
-        model.addObject("meniu_id_param", id);
-        return model;
-    }*/
+
     @RequestMapping(value = "/salvareMeniu", method = RequestMethod.POST)
     public String adaugareMeniu(@ModelAttribute("meniuForm") Meniu meniuForm, BindingResult bindingResult) throws UnsupportedEncodingException, SQLException {
 
@@ -81,5 +88,15 @@ public class MeniuController {
 
         meniuService.save(meniuForm);
         return "redirect:/administrareMeniu/0";
+    }
+
+
+    @RequestMapping(value = "/stergeMeniu/{meniu_id}", method = RequestMethod.DELETE)
+    public String stergeMeniu(@PathVariable("meniu_id") Long meniu_id, Model model, BindingResult bindingResult) throws UnsupportedEncodingException, SQLException {
+        if(bindingResult.hasErrors()){
+            return "vizualizareMeniuri";
+        }
+        meniuService.delete(meniu_id);
+        return "redirect:/vizualizareMeniuri";
     }
 }

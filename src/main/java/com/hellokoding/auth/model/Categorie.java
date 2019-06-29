@@ -12,7 +12,6 @@ public class Categorie {
     private Long id;
     private String denumire;
     private String descriere;
-    private String urlImagine;
     @Lob @Basic(fetch = FetchType.LAZY)
     @Column(length=100000)
     private byte[] imagine;
@@ -22,10 +21,9 @@ public class Categorie {
 
     }
 
-    public Categorie(String denumire, String url) {
+    public Categorie(String denumire) {
 
         this.denumire = denumire;
-        this.urlImagine=url;
     }
 
     public Categorie(Meniu meniu) {
@@ -66,13 +64,6 @@ public class Categorie {
         this.descriere = descriere;
     }
 
-    public String getUrlImagine() {
-        return urlImagine;
-    }
-
-    public void setUrlImagine(String urlImagine) {
-        this.urlImagine = urlImagine;
-    }
 
     public byte[] getImagine() {
         return imagine;

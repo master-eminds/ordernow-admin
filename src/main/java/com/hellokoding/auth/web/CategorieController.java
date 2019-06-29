@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.Set;
 
 @Controller
 public class CategorieController {
@@ -54,7 +55,13 @@ public class CategorieController {
     }
 */
 
-
+    @RequestMapping(value = "/vizualizareCategorii/{meniu_id}", method = RequestMethod.GET)
+            public ModelAndView vizualizareCategorii(@PathVariable ("meniu_id") Long meniu_id) {
+            ModelAndView model = new ModelAndView("vizualizareCategorii");
+            Set<Categorie> listaCategorii=meniuService.findById(meniu_id).getCategorii();
+            model.addObject("categorii", listaCategorii);
+        return model;
+}
     @RequestMapping(value = "/administrareCategorie/{categorie_id}/{meniu_id}", method = RequestMethod.GET)
     public ModelAndView registration(@PathVariable("categorie_id") Long categorie_id,@PathVariable("meniu_id") Long meniu_id) {
         ModelAndView model = new ModelAndView("administrareCategorie");

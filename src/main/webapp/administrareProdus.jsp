@@ -46,7 +46,7 @@
             <div class="container-fluid">
                 <div class="header-mobile-inner">
                     <a class="logo" href="index.html">
-                        <img src="images/icon/logo.png" alt="CoolAdmin" />
+                        <img src="${contextPath}/resources/tema/images/icon/logo.png" alt="CoolAdmin" />
                     </a>
                     <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -161,7 +161,7 @@
     <aside class="menu-sidebar d-none d-lg-block">
         <div class="logo">
             <a href="#">
-                <img src="images/icon/logo.png" alt="Cool Admin" />
+                <img src="${contextPath}/resources/tema/images/icon/logo.png" alt="Cool Admin" />
             </a>
         </div>
         <div class="menu-sidebar__content js-scrollbar1">
@@ -289,7 +289,7 @@
                                         </div>
                                         <div class="mess__item">
                                             <div class="image img-cir img-40">
-                                                <img src="images/icon/avatar-06.jpg" alt="Michelle Moreno" />
+                                                <img src="${contextPath}/resources/tema/images/icon/avatar-06.jpg" alt="Michelle Moreno" />
                                             </div>
                                             <div class="content">
                                                 <h6>Michelle Moreno</h6>
@@ -299,7 +299,7 @@
                                         </div>
                                         <div class="mess__item">
                                             <div class="image img-cir img-40">
-                                                <img src="images/icon/avatar-04.jpg" alt="Diane Myers" />
+                                                <img src="${contextPath}/resources/tema/images/icon/avatar-04.jpg" alt="Diane Myers" />
                                             </div>
                                             <div class="content">
                                                 <h6>Diane Myers</h6>
@@ -321,7 +321,7 @@
                                         </div>
                                         <div class="email__item">
                                             <div class="image img-cir img-40">
-                                                <img src="images/icon/avatar-06.jpg" alt="Cynthia Harvey" />
+                                                <img src="${contextPath}/resources/tema/images/icon/avatar-06.jpg" alt="Cynthia Harvey" />
                                             </div>
                                             <div class="content">
                                                 <p>Meeting about new dashboard...</p>
@@ -330,7 +330,7 @@
                                         </div>
                                         <div class="email__item">
                                             <div class="image img-cir img-40">
-                                                <img src="images/icon/avatar-05.jpg" alt="Cynthia Harvey" />
+                                                <img src="${contextPath}/resources/tema/images/icon/avatar-05.jpg" alt="Cynthia Harvey" />
                                             </div>
                                             <div class="content">
                                                 <p>Meeting about new dashboard...</p>
@@ -339,7 +339,7 @@
                                         </div>
                                         <div class="email__item">
                                             <div class="image img-cir img-40">
-                                                <img src="images/icon/avatar-04.jpg" alt="Cynthia Harvey" />
+                                                <img src="${contextPath}/resources/tema/images/icon/avatar-04.jpg" alt="Cynthia Harvey" />
                                             </div>
                                             <div class="content">
                                                 <p>Meeting about new dashboard...</p>
@@ -394,7 +394,7 @@
                             <div class="account-wrap">
                                 <div class="account-item clearfix js-item-menu">
                                     <div class="image">
-                                        <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                        <img src="${contextPath}/resources/tema/images/icon/avatar-01.jpg" alt="John Doe" />
                                     </div>
                                     <div class="content">
                                         <a class="js-acc-btn" href="#">john doe</a>
@@ -403,7 +403,7 @@
                                         <div class="info clearfix">
                                             <div class="image">
                                                 <a href="#">
-                                                    <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                                    <img src="${contextPath}/resources/tema/images/icon/avatar-01.jpg" alt="John Doe" />
                                                 </a>
                                             </div>
                                             <div class="content">
@@ -449,7 +449,7 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong>Categorie </strong>
+                                    <strong>Produs </strong>
                                     <small>Administrare</small>
                                 </div>
                                 <div class="card-body card-block">
@@ -496,7 +496,13 @@
                                             <form:errors path="descriere"></form:errors>
                                         </div>
                                     </spring:bind>
-
+                                    <spring:bind path="ingrediente">
+                                        <div class="form-group ${status.error ? 'has-error' : ''}">
+                                            <form:input type="text" path="ingrediente" class="form-control"
+                                                        placeholder="Ingrediente"></form:input>
+                                            <form:errors path="ingrediente"></form:errors>
+                                        </div>
+                                    </spring:bind>
                                         <spring:bind path="imagine">
                                             <div class="form-group">
                                                 <div class="col col-md-3">

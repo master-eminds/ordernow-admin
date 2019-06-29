@@ -24,6 +24,11 @@ public class MeniuServiceImpl implements MeniuService {
     }
 
     @Override
+    public void delete(Long id) {
+        meniuRepository.delete(id);
+    }
+
+    @Override
     public List<Meniu> findAll() {
         return meniuRepository.findAll();
     }

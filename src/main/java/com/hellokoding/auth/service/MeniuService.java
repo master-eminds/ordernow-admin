@@ -9,6 +9,7 @@ public interface MeniuService {
     void save(Meniu meniu);
 
     Meniu findById(Long id);
+    void delete(Long id);
     List<Meniu> findAll();
 
 }

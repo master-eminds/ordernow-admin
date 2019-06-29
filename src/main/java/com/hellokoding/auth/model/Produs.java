@@ -13,29 +13,21 @@ public class Produs {
     private Float pret;
     private Integer gramaj;
     private String descriere;
-    //aici ar trebui un byte[] imagine
-    private String urlImagine;
+    private String ingrediente;
+
     @Lob @Basic(fetch = FetchType.LAZY)
     @Column(length=100000)
     private byte[] imagine;
     private Categorie categorie;
     private Set<ItemComanda> listaItemComanda;
     private Set<Review> reviews;
+    private Long meniu_id;
 
-    public Produs(Long id, String denumire, Float pret, Integer gramaj, String descriere, Categorie categorie, Set<ItemComanda> listaItemComanda, Set<Review> reviews, byte[] imagine) {
-        this.id = id;
-        this.denumire = denumire;
-        this.pret = pret;
-        this.gramaj = gramaj;
-        this.descriere = descriere;
-        this.categorie = categorie;
-        this.listaItemComanda = listaItemComanda;
-        this.reviews = reviews;
-        this.imagine=imagine;
-    }
 public Produs(){}
 
-
+    public Produs(String denumire) {
+        this.denumire = denumire;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -98,13 +90,7 @@ public Produs(){}
         this.listaItemComanda = listaItemComanda;
     }
 
-    public String getUrlImagine() {
-        return urlImagine;
-    }
 
-    public void setUrlImagine(String urlImagine) {
-        this.urlImagine = urlImagine;
-    }
 
     @OneToMany(cascade=ALL, mappedBy="produs")
     public Set<Review> getReviews() {
@@ -129,5 +115,21 @@ public Produs(){}
 
     public void setImagine(byte[] imagine) {
         this.imagine = imagine;
+    }
+
+    public String getIngrediente() {
+        return ingrediente;
+    }
+
+    public void setIngrediente(String ingrediente) {
+        this.ingrediente = ingrediente;
+    }
+
+    public Long getMeniu_id() {
+        return meniu_id;
+    }
+
+    public void setMeniu_id(Long meniu_id) {
+        this.meniu_id = meniu_id;
     }
 }

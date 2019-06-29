@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Set;
 
 @Controller
 public class ProdusController {
@@ -84,9 +85,11 @@ public class ProdusController {
             model.addObject("categoriiProduse",categorii );
         }else{
             Produs p = produsService.findById(produs_id);
-            model.addObject("produseForm",p);
+            model.addObject("produsForm",p);
             model.addObject("add","false");
             model.addObject("imageSrc",new String(p.getImagine()));
+            model.addObject("categoriiProduse",categorii );
+
 
         }
         return model;
@@ -97,7 +100,7 @@ public class ProdusController {
     public String adaugareMeniu(@ModelAttribute("produsForm") Produs produsForm, @PathVariable("meniu_id") Long meniu_id, BindingResult bindingResult) throws UnsupportedEncodingException, SQLException {
 
         byte[] file = produsForm.getImagine();
-        //produsForm.setMeniu(meniuService.findById(meniu_id));
+        produsForm.setMeniu_id(meniu_id);
         if(bindingResult.hasErrors()){
             return "administrareProdus";
         }
@@ -107,5 +110,13 @@ public class ProdusController {
 
         produsService.save(produsForm);
         return "redirect:/administrareMeniu/"+meniu_id;
+    }
+
+    @RequestMapping(value = "/detaliiCategorie/{categorie_id}", method = RequestMethod.GET)
+    public ModelAndView vizualizareCategorii(@PathVariable ("categorie_id") Long categorie_id) {
+        ModelAndView model = new ModelAndView("detaliiCategorie");
+        Set<Produs> listaProduse=categorieService.findById(categorie_id).getProduse();
+        model.addObject("produse", listaProduse);
+        return model;
     }
 }

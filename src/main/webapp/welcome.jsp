@@ -14,7 +14,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Dashboard</title>
+    <title>Pagina principala</title>
 
     <!-- Fontfaces CSS-->
     <link href="${contextPath}/resources/tema/css/font-face.css" rel="stylesheet" media="all">
@@ -62,20 +62,15 @@
                 <ul class="navbar-mobile__list list-unstyled">
                     <li class="has-sub">
                         <a class="js-arrow" href="#">
-                            <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                            <i class="fas fa-tachometer-alt"></i>Gestionare meniuri</a>
                         <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                             <li>
-                                <a href="index.html">Dashboard 1</a>
+                                <a href="${contextPath}/vizualizareMeniuri">Vizualizare meniuri</a>
                             </li>
                             <li>
-                                <a href="index2.html">Dashboard 2</a>
+                                <a href="${contextPath}/administrareMeniu/0">Adaugare meniu</a>
                             </li>
-                            <li>
-                                <a href="index3.html">Dashboard 3</a>
-                            </li>
-                            <li>
-                                <a href="index4.html">Dashboard 4</a>
-                            </li>
+
                         </ul>
                     </li>
                     <li>
@@ -171,10 +166,20 @@
         <div class="menu-sidebar__content js-scrollbar1">
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
-                    <li>
+                    <li class="has-sub">
                         <a class="js-arrow" href="#">
-                            <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                            <i class="fas fa-tachometer-alt"></i>Gestionare meniuri</a>
+                        <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                            <li>
+                                <a href="${contextPath}/vizualizareMeniuri">Vizualizare meniuri</a>
+                            </li>
+                            <li>
+                                <a href="${contextPath}/administrareMeniu/0">Adaugare meniu</a>
+                            </li>
+
+                        </ul>
                     </li>
+
                     <li>
                         <a href="chart.html">
                             <i class="fas fa-chart-bar"></i>Charts</a>
