@@ -89,8 +89,6 @@ public class ProdusController {
             model.addObject("add","false");
             model.addObject("imageSrc",new String(p.getImagine()));
             model.addObject("categoriiProduse",categorii );
-
-
         }
         return model;
     }
@@ -107,9 +105,8 @@ public class ProdusController {
         if(produsForm.getId()!=null){
             Produs old = produsService.findById(produsForm.getId());
         }
-
         produsService.save(produsForm);
-        return "redirect:/administrareMeniu/"+meniu_id;
+        return "redirect:/detaliiCategorie/"+produsForm.getCategorie().getId();
     }
 
     @RequestMapping(value = "/detaliiCategorie/{categorie_id}", method = RequestMethod.GET)
@@ -117,6 +114,8 @@ public class ProdusController {
         ModelAndView model = new ModelAndView("detaliiCategorie");
         Set<Produs> listaProduse=categorieService.findById(categorie_id).getProduse();
         model.addObject("produse", listaProduse);
+        model.addObject("meniu_id", categorieService.findById(categorie_id).getMeniu().getId());
+
         return model;
     }
 }

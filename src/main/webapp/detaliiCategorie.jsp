@@ -12,7 +12,7 @@
     <link href="${contextPath}/resources/tema/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="${contextPath}/resources/tema/libs/css/style.css">
     <link rel="stylesheet" href="${contextPath}/resources/tema/vendor/fonts/fontawesome/css/fontawesome-all.css">
-    <title>Vizualizare meniuri</title>
+    <title>Vizualizare produse</title>
 </head>
 
 <body>
@@ -32,7 +32,7 @@
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
                     <li class="nav-item">
-                        <a href="${contextPath}/administrareProdus/0/${meniu_id}">Adauga produs</a>
+                        <a class="btn btn-primary" href="${contextPath}/administrareProdus/0/${meniu_id}">Adauga produs</a>
 
                     </li>
                     <li class="nav-item dropdown notification">
@@ -440,14 +440,13 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title">Vizualizare categorii</h2>
+                            <h2 class="pageheader-title">Vizualizare produse</h2>
                             <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
                             <div class="page-breadcrumb">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">E-coommerce</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Concept - Bootstrap 4 Admin Dashboard Template</li>
-                                    </ol>
+                                        <li class="breadcrumb-item"><a href="${contextPath}/vizualizareCategorii/${meniu_id}" class="breadcrumb-link">Vizualizare categorii</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Vizualizare produse</li>  </ol>
                                 </nav>
                             </div>
                         </div>
@@ -469,7 +468,7 @@
                                                 <img src="${String(produs.imagine)}" style="max-height: 90%; max-width: 90%; object-fit: cover" alt="" class="img-fluid"></div>
 
                                         </div>
-                                        <div class="product-content">
+                                        <div class="product-content" style="width: 320px; height: 260px">
                                             <div class="product-content-head">
                                                 <h3 class="product-title">${produs.denumire}</h3>
                                                 <div class="product-price">${produs.pret} lei</div>

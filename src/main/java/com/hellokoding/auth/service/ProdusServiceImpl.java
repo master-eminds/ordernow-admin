@@ -5,8 +5,6 @@ import com.hellokoding.auth.repository.ProdusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
-
 @Service
 public class ProdusServiceImpl implements ProdusService {
 
@@ -16,6 +14,17 @@ public class ProdusServiceImpl implements ProdusService {
     @Override
     public void save(Produs produs) {
         produsRepository.save(produs);
+    }
+
+    @Override
+    public void saveOrUpdate(Produs produs) {
+        if(produs.getId()!=null){
+            produsRepository.delete(produs.getId());
+            produsRepository.save(produs);
+        }
+        else {
+            produsRepository.save(produs);
+        }
     }
 
     @Override

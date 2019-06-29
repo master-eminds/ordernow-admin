@@ -32,7 +32,7 @@
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
                     <li class="nav-item">
-                        <a href="${contextPath}/administrareCategorie/0/${meniu_id}">Adauga categorie</a>
+                        <a class="btn btn-primary" href="${contextPath}/administrareCategorie/0/${meniu_id}">Adauga categorie</a>
                     </li>
                     <li class="nav-item dropdown notification">
                         <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
@@ -444,8 +444,8 @@
                             <div class="page-breadcrumb">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">E-coommerce</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Concept - Bootstrap 4 Admin Dashboard Template</li>
+                                        <li class="breadcrumb-item"><a href="${contextPath}/vizualizareMeniuri" class="breadcrumb-link">Vizualizare meniuri</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Vizualizare categorii</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -468,14 +468,14 @@
 =                                                <img src="${String(categorie.imagine)}" style="max-height:90%; max-width: 90%; object-fit: cover" alt="" class="img-fluid"></div>
                                             <div class=""><a href="${contextPath}/detaliiCategorie/${categorie.id}" class="product-wishlist-btn"><i class="fas fa-eye"></i></a></div>
                                         </div>
-                                        <div class="product-content">
+                                        <div class="product-content" style="width: 320px; height: 260px">
                                             <div class="product-content-head">
                                                 <h3 class="product-title">${categorie.denumire}</h3>
 
                                             </div>
                                             <div class="product-btn">
                                                 <a href="${contextPath}/detaliiCategorie/${categorie.id}" class="btn btn-primary">Vezi detalii</a>
-                                                <a href="${contextPath}/administrareCategorie/${categorie_id}/${meniu_id}" class="btn btn-outline-light">Modifica</a>
+                                                <a href="${contextPath}/administrareCategorie/${categorie.id}/${meniu_id}" class="btn btn-outline-light">Modifica</a>
 
                                             </div>
                                         </div>

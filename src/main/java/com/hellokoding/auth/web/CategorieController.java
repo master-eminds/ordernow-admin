@@ -60,6 +60,7 @@ public class CategorieController {
             ModelAndView model = new ModelAndView("vizualizareCategorii");
             Set<Categorie> listaCategorii=meniuService.findById(meniu_id).getCategorii();
             model.addObject("categorii", listaCategorii);
+            model.addObject("meniu_id",meniu_id);
         return model;
 }
     @RequestMapping(value = "/administrareCategorie/{categorie_id}/{meniu_id}", method = RequestMethod.GET)
@@ -94,7 +95,7 @@ public class CategorieController {
         }
 
         categorieService.save(categorieForm);
-        return "redirect:/administrareMeniu/"+meniu_id;
+        return "redirect:/vizualizareCategorii/"+categorieForm.getId();
     }
 
 

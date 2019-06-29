@@ -33,7 +33,7 @@
                 <ul class="navbar-nav ml-auto navbar-right-top">
                     <li class="nav-item">
 
-                            <a href="${contextPath}/administrareMeniu/0">Adauga meniu</a>
+                            <a class="btn btn-primary" href="${contextPath}/administrareMeniu/0">Adauga meniu</a>
 
                     </li>
                     <li class="nav-item dropdown notification">
@@ -446,8 +446,8 @@
                             <div class="page-breadcrumb">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">E-coommerce</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Concept - Bootstrap 4 Admin Dashboard Template</li>
+                                        <li class="breadcrumb-item"><a href="${contextPath}/welcome" class="breadcrumb-link">Pagina Principala</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Vizualizare meniuri</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -470,8 +470,8 @@
                                                 <img src="${String(meniu.image)}" style="max-height: 90%; max-width: 90%; object-fit: cover" alt="" class="img-fluid"></div>
                                             <div class=""><a href="vizualizareCategorii/${meniu.id}" class="product-wishlist-btn"><i class="fas fa-eye"></i></a></div>
                                         </div>
-                                        <div class="product-content">
-                                            <div class="product-content-head">
+                                        <div class="product-content" style="width: 320px; height: 260px" >
+                                                <div class="product-content-head">
                                                 <h3 class="product-title">${meniu.denumire}</h3>
                                                 <div class="product-price">${meniu.stare.toUpperCase()}
                                                 </div>
@@ -479,11 +479,7 @@
                                             <div class="product-btn">
                                                 <a href="vizualizareCategorii/${meniu.id}" class="btn btn-primary">Vezi detalii</a>
                                                 <a href="administrareMeniu/${meniu.id}" class="btn btn-outline-light">Modifica</a>
-                                                    <a href="stergeMeniu/${meniu.id}" class="btn btn-primary">Sterge</a>
-
-
-
-
+                                                <a href="stergeMeniu/${meniu.id}" class="btn btn-danger btn-sm">Sterge</a>
                                             </div>
                                         </div>
                                     </div>
