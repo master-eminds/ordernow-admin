@@ -7,12 +7,8 @@ import com.hellokoding.auth.service.SecurityService;
 import com.hellokoding.auth.validator.MeniuValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.UnsupportedEncodingException;
@@ -85,11 +81,9 @@ public class MeniuController {
     }
 
 
-    @RequestMapping(value = "/stergeMeniu/{meniu_id}", method = RequestMethod.PUT)
-    public String stergeMeniu(@PathVariable("meniu_id") Long meniu_id, Model model, BindingResult bindingResult) throws UnsupportedEncodingException, SQLException {
-        if(bindingResult.hasErrors()){
-            return "vizualizareMeniuri";
-        }
+    @RequestMapping(value = "/stergeMeniu/{meniu_id}", method = RequestMethod.GET)
+    @ResponseBody
+    public String stergeMeniu(@PathVariable("meniu_id") Long meniu_id) {
         meniuService.delete(meniu_id);
         return "redirect:/vizualizareMeniuri";
     }

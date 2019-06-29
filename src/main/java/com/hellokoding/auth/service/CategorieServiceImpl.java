@@ -20,6 +20,11 @@ public class CategorieServiceImpl implements CategorieService {
     }
 
     @Override
+    public void delete(Long id) {
+        categorieRepository.delete(id);
+    }
+
+    @Override
     public Categorie findById(Long id) {
         return categorieRepository.findOne(id);
     }

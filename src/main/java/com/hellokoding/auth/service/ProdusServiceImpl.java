@@ -28,6 +28,11 @@ public class ProdusServiceImpl implements ProdusService {
     }
 
     @Override
+    public void delete(Long id) {
+        produsRepository.delete(id);
+    }
+
+    @Override
     public Produs findById(Long id) {
         return produsRepository.findOne(id);
     }

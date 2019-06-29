@@ -471,7 +471,7 @@
                                             <div class=""><a href="vizualizareCategorii/${meniu.id}" class="product-wishlist-btn"><i class="fas fa-eye"></i></a></div>
                                         </div>
                                         <div class="product-content" style="width: 320px; height: 260px" >
-                                                <div class="product-content-head">
+                                                <div class="product-content-head" style="width: 280px; height: 100px">
                                                 <h3 class="product-title">${meniu.denumire}</h3>
                                                 <div class="product-price">${meniu.stare.toUpperCase()}
                                                 </div>
@@ -502,7 +502,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12">
                         <div class="product-sidebar">
                             <div class="product-sidebar-widget">
-                                <h4 class="mb-0">E-Commerce Filter</h4>
+                                <h4 class="mb-0">Filtrare</h4>
                             </div>
                             <div class="product-sidebar-widget">
                                 <h4 class="product-sidebar-widget-title">Stare</h4>

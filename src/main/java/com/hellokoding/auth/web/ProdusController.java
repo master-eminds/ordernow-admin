@@ -10,10 +10,7 @@ import com.hellokoding.auth.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.UnsupportedEncodingException;
@@ -117,5 +114,13 @@ public class ProdusController {
         model.addObject("meniu_id", categorieService.findById(categorie_id).getMeniu().getId());
 
         return model;
+    }
+
+
+    @RequestMapping(value = "/stergeProdus/{produs_id}", method = RequestMethod.GET)
+    @ResponseBody
+    public String stergeProdus(@PathVariable("produs_id") Long produs_id) {
+        produsService.delete(produs_id);
+        return "redirect:/detaliiCategorie/"+produs_id;
     }
 }
