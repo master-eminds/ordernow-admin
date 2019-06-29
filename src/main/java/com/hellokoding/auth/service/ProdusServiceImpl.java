@@ -5,6 +5,8 @@ import com.hellokoding.auth.repository.ProdusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProdusServiceImpl implements ProdusService {
 
@@ -30,6 +32,11 @@ public class ProdusServiceImpl implements ProdusService {
     @Override
     public void delete(Long id) {
         produsRepository.delete(id);
+    }
+
+    @Override
+    public List<Produs> findAll() {
+        return produsRepository.findAll();
     }
 
     @Override

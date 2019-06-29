@@ -350,6 +350,11 @@
 
     // Percent Chart
     var ctx = document.getElementById("percent-chart");
+    //WidgetChart 3
+    var valori =  document.getElementById("dateChartReview").value;
+    var valoriLow= valori.split(";")[0];
+    var valoriHigh= valori.split(";")[1];
+
     if (ctx) {
       ctx.height = 280;
       var myChart = new Chart(ctx, {
@@ -358,7 +363,7 @@
           datasets: [
             {
               label: "My First dataset",
-              data: [60, 40],
+              data: [valoriLow, valoriHigh],
               backgroundColor: [
                 '#00b5e9',
                 '#fa4251'
@@ -377,8 +382,8 @@
             }
           ],
           labels: [
-            'Products',
-            'Services'
+            'Numar produse',
+            'Numar produse'
           ]
         },
         options: {

@@ -32,6 +32,10 @@ public class AdminController {
     private SecurityService securityService;
     @Autowired
     private ComandaService comandaService;
+    @Autowired
+    private ProdusService produsService;
+    @Autowired
+    private ReviewService reviewService;
 
     private DateNecesare dateNecesare = new DateNecesare();
 
@@ -81,12 +85,15 @@ public class AdminController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         Admin admin = adminService.findByUsername(currentPrincipalName);
+        String rezultatReview= dateChartProduse(produsService.findAll());
+        model.addAttribute("dateChartReview",rezultatReview);
+
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         String dateString = format.format( new Date()   );
-        List<Masa> listaMese = masaService.findAll();
         List<Ospatar> ospatari = ospatarService.findAll();
         List<Comanda> comenzi = comandaService.findAll();
         HashMap<Long,Integer> meseList = listaMeses(comenzi);
+
 
         //alte date necesare
         DateNecesare dateNecesareList = dateNecesare(ospatari,comenzi);
@@ -118,18 +125,15 @@ public class AdminController {
 
         String dateChart2= stringLuni.toString().substring(0,stringLuni.length()-1).concat(";").concat(stringNumarcomenzi.toString().substring(0,stringNumarcomenzi.length()-1));
         model.addAttribute("dateChart2",dateChart2);
-      //  String dateChart2= "Jun,Apr;12,24";
-        model.addAttribute("dateChart2",dateChart2);
         Map<String,Integer> comenziPeZile=dateNecesareList.getNrComenziThisWeek();
 
         StringBuilder stringZile=new StringBuilder();
         StringBuilder stringNumarcomenziZile=new StringBuilder();
         Calendar cal= Calendar.getInstance();
-        SimpleDateFormat sdf= new SimpleDateFormat("dd-MM-yyyy");
         cal.add(Calendar.DAY_OF_YEAR,-7);
 
         for(int i=0;i<7;i++){
-            String zi= sdf.format(cal.getTime());
+            String zi= format.format(cal.getTime());
                 if(comenziPeZile.containsKey(zi)){
                     stringZile.append(zi.substring(0,5)).append(",");
                     stringNumarcomenziZile.append(comenziPeZile.get(zi)).append(",");
@@ -143,6 +147,27 @@ public class AdminController {
     }
 
 
+
+    private String dateChartProduse (List<Produs> produses){
+        int counterLow = 0;
+        int counterHigh = 0;
+        List<Review> reviewsTotale = new ArrayList<>();
+
+        for(Produs p: produses) {
+            reviewsTotale = reviewService.findByIdProdus(p.getId());
+            float sum = 0;
+            if (reviewsTotale != null && reviewsTotale.size()!=0 && !reviewsTotale.isEmpty() ) {
+                for (Review review : reviewsTotale) {
+                    sum += review.getNota();
+                }
+                double medie = sum / reviewsTotale.size();
+                if (medie < 3) counterLow++;
+                else counterHigh++;
+            }
+        }
+
+        return counterLow+";"+counterHigh;
+    }
     private DateNecesare dateNecesare(List<Ospatar> listaOspatari,List<Comanda> comandas) throws ParseException {
         DateNecesare date = dateNecesare.dateNecesare(listaOspatari,comandas);
         return date;
