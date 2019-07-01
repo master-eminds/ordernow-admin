@@ -67,7 +67,7 @@ public class ComandaController {
     public ModelAndView getStatisticiUL() throws ParseException {
         ModelAndView model = new ModelAndView("statisticiComenziUltimeleLuni");
         comenzi=comandaService.findAll();
-        int numarLuni=3;
+        int numarLuni=4;
         List<Comanda> comenziUL= DateNecesare.listaComenziUltimeleLuni(comenzi,numarLuni);
         comenziUL.sort(Comanda::compareTo);
         String date= dateChartUL(comenziUL, numarLuni);

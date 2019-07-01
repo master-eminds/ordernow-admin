@@ -26,7 +26,7 @@ public class DateNecesare {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
         Calendar cal=Calendar.getInstance();
-        for(int i=1;i<=numarLuni;i++){
+        for(int i=0;i<numarLuni;i++){
             String dataLimita= sdf.format(cal.getTime());
             int lunaLimita= Integer.parseInt(dataLimita.split(" ")[0].split("-")[1]);
             String lunaNr= dataLimita.split(" ")[0].split("-")[1];
@@ -51,34 +51,12 @@ public class DateNecesare {
         SimpleDateFormat dateFormat= new SimpleDateFormat("dd-MMM-yyyy");
 
         Calendar cal=Calendar.getInstance();
-       /* for(int i=1;i<=numarLuni;i++){
 
-            for(Comanda comanda: comenzi){
-                String dataLimita= sdf.format(cal.getTime());
-                String lunaNr= dataLimita.split(" ")[0].split("-")[1];
-                if(comanda.getData().split("-")[1].equalsIgnoreCase(lunaNr)){
-                    String luna = dateFormat.format(cal.getTime()).split("-")[1];
-
-                    if (nrComenziOnMonth.containsKey(luna)) {
-                        nrComenziOnMonth.replace(luna, nrComenziOnMonth.get(luna) + 1);
-                    } else {
-                        nrComenziOnMonth.put(luna, 1);
-                    }
-                }
-
-            }
-               if (!nrComenziOnMonth.containsKey(dateFormat.format(cal.getTime()).split("-")[1])) {
-                nrComenziOnMonth.put(dateFormat.format(cal.getTime()).split("-")[1], 0);
-            }
-            cal.add(Calendar.MONTH, -1);
-
-        }*/
-
-
-       for(int i=0;i<=numarLuni;i++){
+       for(int i=0;i<numarLuni;i++){
+           boolean gasit=false;
             String dataLimita= sdf.format(cal.getTime());
-            int lunaLimita= Integer.parseInt(dataLimita.split(" ")[0].split("-")[1]);
-            String lunaNr= dataLimita.split(" ")[0].split("-")[1];
+           String lunaNr= dataLimita.split(" ")[0].split("-")[1];
+           int lunaLimita= Integer.parseInt(lunaNr);
             for (int j=comenzi.size()-1;j>=0;j--) {
                 Comanda c = comenzi.get(j);
 
@@ -86,6 +64,7 @@ public class DateNecesare {
                     j = -1;
                 } else {
                     if (lunaNr.equalsIgnoreCase(c.getData().split(" ")[0].split("-")[1])) {
+                        gasit=true;
                         String luna = dateFormat.format(cal.getTime()).split("-")[1];
                         if (nrComenziOnMonth.containsKey(luna)) {
                             nrComenziOnMonth.replace(luna, nrComenziOnMonth.get(luna) + 1);
@@ -93,11 +72,12 @@ public class DateNecesare {
                             nrComenziOnMonth.put(luna, 1);
                         }
                     }
-                    if (!nrComenziOnMonth.containsKey(dateFormat.format(cal.getTime()).split("-")[1])) {
-                        nrComenziOnMonth.put(dateFormat.format(cal.getTime()).split("-")[1], 0);
-                    }
+
                 }
             }
+           if (!gasit) {
+               nrComenziOnMonth.put(dateFormat.format(cal.getTime()).split("-")[1], 0);
+           }
             cal.add(Calendar.MONTH, -1);
 
         }
