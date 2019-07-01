@@ -1,7 +1,9 @@
 package com.hellokoding.auth.web;
 
 import com.hellokoding.auth.model.Comanda;
+import com.hellokoding.auth.model.Produs;
 import com.hellokoding.auth.service.ComandaService;
+import com.hellokoding.auth.service.ProdusService;
 import com.hellokoding.auth.service.SecurityService;
 import com.hellokoding.auth.util.DateNecesare;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ import java.util.Map;
 public class ComandaController {
     @Autowired
     private ComandaService comandaService;
+    @Autowired
+    private ProdusService produsService;
 
     @Autowired
     private SecurityService securityService;
@@ -85,7 +89,26 @@ public class ComandaController {
 
         model.addObject("totalIncasari", DateNecesare.calculeazaValoareTotalaIncasata(comenzi));
         model.addObject("dateChartIncasariTotale", date);
+
+        Map<Long, Integer> produseComandate= produsService.numarProduseComandate();
+        String dateProduse= dateChartCounterProduse(produseComandate);
+
+        model.addObject("dateChartProduse", dateProduse);
+
         return model;
+    }
+
+    private String dateChartCounterProduse(Map<Long, Integer> produseComandate) {
+        StringBuilder stringId=new StringBuilder();
+        StringBuilder stringNumar=new StringBuilder();
+        for(Long id: produseComandate.keySet()){
+            Produs produs= produsService.findById(id);
+                stringId.append(id+":"+produs.getDenumire()).append("-");
+                stringNumar.append(produseComandate.get(id)).append("-");
+            }
+
+        return stringId.toString().substring(0,stringId.length()-1).concat(";").concat(stringNumar.toString().substring(0,stringNumar.length()-1));
+
     }
 
     private String dateChartIncasari(Map<String, Double> incasariComenziTotal) {

@@ -1090,13 +1090,21 @@
 
     //doughut chart
     var ctx = document.getElementById("doughutChart");
+    var valori3= document.getElementById("dateChartProduse");
+
+
+    var v3= [];
+    var valoriString3 = valori3.split(";")[1].split("-");
+    for(var i3 =0;i3<valoriString3.length;i3++){
+      v3.push(parseInt(valoriString3[i3]))
+    }
     if (ctx) {
       ctx.height = 150;
       var myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
           datasets: [{
-            data: [45, 25, 20, 10],
+            data: v3,
             backgroundColor: [
               "rgba(0, 123, 255,0.9)",
               "rgba(0, 123, 255,0.7)",
@@ -1111,12 +1119,7 @@
             ]
 
           }],
-          labels: [
-            "Green",
-            "Green",
-            "Green",
-            "Green"
-          ]
+          labels: valori3.split(";")[0].split("-")
         },
         options: {
           legend: {
