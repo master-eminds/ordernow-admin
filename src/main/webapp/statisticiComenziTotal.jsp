@@ -1,5 +1,4 @@
-
-</html><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -39,7 +38,7 @@
     <!-- Main CSS-->
     <link href="${contextPath}/resources/tema/css/theme.css" rel="stylesheet" media="all">
 
-    <title>Produse comandate</title>
+    <title>Vizualizare comenzi ultimele luni</title>
 </head>
 
 <body>
@@ -141,13 +140,14 @@
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="page-header">
-                                <h2 class="pageheader-title">Produse comandate</h2>
+                                <h2 class="pageheader-title">Comenzi ultimele luni</h2>
                                 <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
                                 <div class="page-breadcrumb">
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="${contextPath}/statisticiComenziUltimaSaptamana" class="breadcrumb-link">Comenzi ultima saptamana</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Produse comandate</li>  </ol>
+                                            <li class="breadcrumb-item"><a href="${contextPath}/welcome" class="breadcrumb-link">Pagina principala</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Comenzi ultimele luni</li>
+                                        </ol>
                                     </nav>
                                 </div>
                             </div>
@@ -157,49 +157,33 @@
                     <!-- end pageheader  -->
                     <!-- ============================================================== -->
 
-
-
-                    <!-- striped table -->
-                    <!-- ============================================================== -->
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        <c:if test="${not empty listaProduse}">
-                            <div class="card">
-                                <h5 class="card-header">Vizualizare comanda</h5>
-                                <div class="card-body">
-                                    <table class="table table-striped">
-
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">Denumire</th>
-                                            <th scope="col">Cantitate</th>
-                                            <th scope="col">Pret</th>
-                                            <th scope="col" style="color: black">Valoare</th>
-
-
-                                        </tr>
-                                        <tbody>
-                                        <c:forEach var="item" items="${listaProduse}">
-                                            <tr>
-                                                <td>${item.produs.denumire}</td>
-                                                <td>${item.cantitate}</td>
-                                                <td>${item.valoare/item.cantitate}</td>
-                                                <td>${item.valoare}</td>
-                                            </tr>
-                                        </c:forEach>
-                                        <tr style="color:black;">
-                                            <td>Valoare totala: ${valoareTotala} lei</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                    <div class="row m-t-25" style="width: 100%; height: 100%" >
+                        <div class="col-sm-6 col-lg-3" >
+                            <div class="overview-item overview-item--c4" style="max-width: 100%; max-height: 100%">
+                                <div class="overview__inner">
+                                    <div class="overview-box clearfix">
+                                        <div class="icon">
+                                            <i class="zmdi zmdi-money"></i>
+                                        </div>
+                                        <div class="text">
+                                            <h2>${totalIncasari}</h2>
+                                            <span>Total incasari</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </c:if>
-
+                        </div>
                     </div>
-                    <!-- ============================================================== -->
-                    <!-- end striped table -->
-                    <!-- ============================================================== -->
+                    <div class="col-lg-6">
+                        <div class="au-card m-b-30">
+                            <div class="au-card-inner">
+                                <h3 class="title-2 m-b-40">Evolutie incasari</h3>
+                                <canvas id="team-chart"></canvas>
+                                <input type="hidden" value="${dateChartIncasariTotale}" id="dateChartIncasari"/>
 
+                            </div>
+                        </div>
+                    </div>
 
 
                 </div>
@@ -241,8 +225,8 @@
 <script src="${contextPath}/resources/tema/vendor/select2/select2.min.js">
 </script>
 
-<!-- main js -->
-<script src="${contextPath}/resources/tema/js/main2.js"></script>
+    <!-- main js -->
+<script src="${contextPath}/resources/tema/js/main.js"></script>
 
 </body>
 

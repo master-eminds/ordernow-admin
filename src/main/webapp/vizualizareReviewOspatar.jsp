@@ -39,7 +39,7 @@
     <!-- Main CSS-->
     <link href="${contextPath}/resources/tema/css/theme.css" rel="stylesheet" media="all">
 
-    <title>Produse comandate</title>
+    <title>Evaluari ospatar</title>
 </head>
 
 <body>
@@ -113,6 +113,7 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="${contextPath}/statisticiReviewOspatari">Evaluari ospatari</a>
                                         </li>
+
                                     </ul>
                                     </li>
                                 </ul>
@@ -141,13 +142,13 @@
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="page-header">
-                                <h2 class="pageheader-title">Produse comandate</h2>
+                                <h2 class="pageheader-title">Evaluari ale ospatarului</h2>
                                 <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
                                 <div class="page-breadcrumb">
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="${contextPath}/statisticiComenziUltimaSaptamana" class="breadcrumb-link">Comenzi ultima saptamana</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Produse comandate</li>  </ol>
+                                            <li class="breadcrumb-item"><a href="${contextPath}/statisticiReviewOspatari" class="breadcrumb-link">Statistici evaluari ospatari</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Evaluari ospatar</li>  </ol>
                                     </nav>
                                 </div>
                             </div>
@@ -158,44 +159,40 @@
                     <!-- ============================================================== -->
 
 
-
+                    <c:if test="${not empty listaReviewuri}">
                     <!-- striped table -->
                     <!-- ============================================================== -->
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        <c:if test="${not empty listaProduse}">
+
                             <div class="card">
-                                <h5 class="card-header">Vizualizare comanda</h5>
+                                <h5 class="card-header">Vizualizare review-uri</h5>
                                 <div class="card-body">
                                     <table class="table table-striped">
 
                                         <thead>
                                         <tr>
-                                            <th scope="col">Denumire</th>
-                                            <th scope="col">Cantitate</th>
-                                            <th scope="col">Pret</th>
-                                            <th scope="col" style="color: black">Valoare</th>
-
+                                            <th scope="col">Nota</th>
+                                            <th scope="col">Comentariu</th>
 
                                         </tr>
                                         <tbody>
-                                        <c:forEach var="item" items="${listaProduse}">
+                                        <c:forEach var="item" items="${listaReviewuri}">
                                             <tr>
-                                                <td>${item.produs.denumire}</td>
-                                                <td>${item.cantitate}</td>
-                                                <td>${item.valoare/item.cantitate}</td>
-                                                <td>${item.valoare}</td>
+                                                <td>${item.nota}</td>
+                                                <td>${item.comentariu}</td>
                                             </tr>
                                         </c:forEach>
-                                        <tr style="color:black;">
-                                            <td>Valoare totala: ${valoareTotala} lei</td>
+                                        <tr style="color: black">
+                                            <td>Medie note: ${medieNote}/5.0 </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                        </c:if>
 
                     </div>
+                    </c:if>
+
                     <!-- ============================================================== -->
                     <!-- end striped table -->
                     <!-- ============================================================== -->
@@ -242,7 +239,7 @@
 </script>
 
 <!-- main js -->
-<script src="${contextPath}/resources/tema/js/main2.js"></script>
+<script src="${contextPath}/resources/tema/js/main.js"></script>
 
 </body>
 

@@ -87,7 +87,10 @@
                                 <a href="${contextPath}/statisticiComenziTotal">Total comenzi</a>
                             </li>
                             <li>
-                                <a href="${contextPath}/statisticiReviewProduse">Raiting produse</a>
+                                <a href="${contextPath}/statisticiReviewProduse">Evaluari produse</a>
+                            </li>
+                            <li>
+                                <a href="${contextPath}/statisticiReviewOspatari">Evaluari ospatari</a>
                             </li>
                         </ul>
                     </li>
@@ -207,7 +210,10 @@
                                 <a href="${contextPath}/statisticiComenziTotal">Total comenzi</a>
                             </li>
                             <li>
-                                <a href="${contextPath}/statisticiReviewProduse">Raiting produse</a>
+                                <a href="${contextPath}/statisticiReviewProduse">Evaluari produse</a>
+                            </li>
+                            <li >
+                                <a  href="${contextPath}/statisticiReviewOspatari">Evaluari ospatari</a>
                             </li>
                         </ul>
                     </li>
@@ -547,9 +553,7 @@
                                                 <span>Valoare totala comenzi</span>
                                             </div>
                                         </div>
-                                       <%-- <div class="overview-chart">
-                                            <canvas id="widgetChart4"></canvas>
-                                        </div>--%>
+
                                 </div>
                             </div>
                         </div>

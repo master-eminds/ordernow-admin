@@ -76,6 +76,32 @@ public class ComandaController {
         model.addObject("numarComenzi", comenziUL.size());
         return model;
     }
+    @RequestMapping(value = "/statisticiComenziTotal", method = RequestMethod.GET)
+    public ModelAndView statisticiTotalComenzi() throws ParseException {
+        ModelAndView model = new ModelAndView("statisticiComenziTotal");
+        comenzi=comandaService.findAll();
+        Map<String, Double>incasariComenziTotal= DateNecesare.calculareIncasariComenziTotal(comenzi);
+        String date= dateChartIncasari(incasariComenziTotal);
+
+        model.addObject("totalIncasari", DateNecesare.calculeazaValoareTotalaIncasata(comenzi));
+        model.addObject("dateChartIncasariTotale", date);
+        return model;
+    }
+
+    private String dateChartIncasari(Map<String, Double> incasariComenziTotal) {
+        StringBuilder stringLuni=new StringBuilder();
+        StringBuilder stringIncasari=new StringBuilder();
+        String[] luni={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+        for(String luna:luni){
+            if(incasariComenziTotal.containsKey(luna)){
+                stringLuni.append(luna).append("-");
+                stringIncasari.append(incasariComenziTotal.get(luna)).append("-");
+            }
+        }
+
+        return stringLuni.toString().substring(0,stringLuni.length()-1).concat(";").concat(stringIncasari.toString().substring(0,stringIncasari.length()-1));
+
+    }
 
     private String dateChartUL(List<Comanda> comenziUL, int numarLuni) {
         Map<String, Integer> comenziPeLuna= DateNecesare.calculareNrComenziLunar(comenziUL,numarLuni);

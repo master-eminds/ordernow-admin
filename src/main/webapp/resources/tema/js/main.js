@@ -808,17 +808,26 @@
 
     //Team chart
     var ctx = document.getElementById("team-chart");
+    var valori =  document.getElementById("dateChartIncasari").value;
+    debugger;
+
+    var v= [];
+    var valoriString = valori.split(";")[1].split("-");
+    for(var i =0;i<valoriString.length;i++){
+      v.push(parseFloat(valoriString[i]))
+    }
+
     if (ctx) {
       ctx.height = 150;
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ["2010", "2011", "2012", "2013", "2014", "2015", "2016"],
+          labels: valori.split(";")[0].split("-"),
           type: 'line',
           defaultFontFamily: 'Poppins',
           datasets: [{
-            data: [0, 7, 3, 5, 2, 10, 7],
-            label: "Expense",
+            data: v,
+            label: "Incasari (lei)",
             backgroundColor: 'rgba(0,103,255,.15)',
             borderColor: 'rgba(0,103,255,0.5)',
             borderWidth: 3.5,
@@ -877,8 +886,10 @@
                 labelString: 'Value',
                 fontFamily: "Poppins"
               },
+
               ticks: {
-                fontFamily: "Poppins"
+                fontFamily: "Poppins",
+                min:0
               }
             }]
           },
@@ -1223,16 +1234,27 @@
 
     // single bar chart
     var ctx = document.getElementById("singelBarChart");
+    var valoriRO= document.getElementById("dateChartReviewOsp").value;
+    var vRO = [];
+    var valoriStringRO = valoriRO.split(";")[1].split("-");
+    for (var iRO = 0; iRO < valoriStringRO.length; iRO++) {
+      vRO.push(parseFloat(valoriStringRO[iRO]))
+    }
+    var lRo=[];
+    var valoriStringROL=valoriRO.split(";")[0].split("-")
+    for( var jRo=0; jRo<valoriStringROL.length;jRo++ ){
+      lRo.push("Id ospatar: "+ valoriStringROL[jRo])
+    }
     if (ctx) {
       ctx.height = 150;
       var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ["Sun", "Mon", "Tu", "Wed", "Th", "Fri", "Sat"],
+          labels: lRo,
           datasets: [
             {
-              label: "My First dataset",
-              data: [40, 55, 75, 81, 56, 55, 40],
+              label: "Raiting",
+              data: vRO,
               borderColor: "rgba(0, 123, 255, 0.9)",
               borderWidth: "0",
               backgroundColor: "rgba(0, 123, 255, 0.5)"
@@ -1257,6 +1279,7 @@
             yAxes: [{
               ticks: {
                 beginAtZero: true,
+                max:5,
                 fontFamily: "Poppins"
               }
             }]

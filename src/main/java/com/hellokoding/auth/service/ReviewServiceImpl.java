@@ -27,4 +27,12 @@ public class ReviewServiceImpl implements ReviewService {
         return reviews;
     }
 
+    @Override
+    public List<Review> findByIdOspatar(Long idOspatar) {
+        List reviews = em.createNativeQuery(
+                "select * from review where id_ospatar=:idOspatar", Review.class)
+                .setParameter("idOspatar", idOspatar)
+                .getResultList();
+        return reviews;    }
+
 }

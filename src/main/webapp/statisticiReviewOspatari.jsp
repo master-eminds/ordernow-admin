@@ -1,5 +1,4 @@
-
-</html><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -39,7 +38,7 @@
     <!-- Main CSS-->
     <link href="${contextPath}/resources/tema/css/theme.css" rel="stylesheet" media="all">
 
-    <title>Produse comandate</title>
+    <title>Statistici ospatari</title>
 </head>
 
 <body>
@@ -108,7 +107,7 @@
                                             <a class="nav-link" href="${contextPath}/statisticiComenziTotal">Total comenzi</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="${contextPath}/statisticiReviewProduse">Evaluari produse</a>
+                                            <a class="nav-link" href="${contextPath}/statisticiReviewProduse">Raiting produse</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="${contextPath}/statisticiReviewOspatari">Evaluari ospatari</a>
@@ -141,13 +140,14 @@
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="page-header">
-                                <h2 class="pageheader-title">Produse comandate</h2>
+                                <h2 class="pageheader-title">Statistici ospatari</h2>
                                 <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
                                 <div class="page-breadcrumb">
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="${contextPath}/statisticiComenziUltimaSaptamana" class="breadcrumb-link">Comenzi ultima saptamana</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Produse comandate</li>  </ol>
+                                            <li class="breadcrumb-item"><a href="${contextPath}/welcome" class="breadcrumb-link">Pagina principala</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Evaluari ospatari</li>
+                                        </ol>
                                     </nav>
                                 </div>
                             </div>
@@ -157,48 +157,68 @@
                     <!-- end pageheader  -->
                     <!-- ============================================================== -->
 
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                       <div class="au-card chart-percent-card">
+                            <div class="au-card-inner">
+                                <h3 class="title-2 tm-b-5">Raiting ospatari</h3>
+                                <div class="row no-gutters">
+                                    <div class="col-xl-6">
+                                        <div class="au-card-inner">
+                                            <h3 class="title-2 m-b-40">Raiting ospatari</h3>
+                                            <canvas id="singelBarChart"></canvas>
+                                            <input type="hidden" value="${dateChartReview}" id="dateChartReviewOsp"/>
 
-
-                    <!-- striped table -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <!-- hoverable table -->
                     <!-- ============================================================== -->
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        <c:if test="${not empty listaProduse}">
+                    <div style="max-width: 85%; max-height: 85%"
+                         class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+
+                        <c:if test="${not empty listaOspatari}">
                             <div class="card">
-                                <h5 class="card-header">Vizualizare comanda</h5>
+                                <h5 class="card-header">Vizualizare ospatari</h5>
                                 <div class="card-body">
-                                    <table class="table table-striped">
+                                    <table class="table table-hover">
 
                                         <thead>
                                         <tr>
-                                            <th scope="col">Denumire</th>
-                                            <th scope="col">Cantitate</th>
-                                            <th scope="col">Pret</th>
-                                            <th scope="col" style="color: black">Valoare</th>
-
-
+                                            <th scope="col">Id ospatar</th>
+                                            <th scope="col">Nume</th>
+                                            <th scope="col">Vizualizare review-uri</th>
                                         </tr>
                                         <tbody>
-                                        <c:forEach var="item" items="${listaProduse}">
-                                            <tr>
-                                                <td>${item.produs.denumire}</td>
-                                                <td>${item.cantitate}</td>
-                                                <td>${item.valoare/item.cantitate}</td>
-                                                <td>${item.valoare}</td>
+
+                                        <c:forEach var="ospatar" items="${listaOspatari}">
+                                            <c:if test="${noteOspatar.get(ospatar.id)!=null}">
+
+                                                <td>${ospatar.id}</td>
+                                                <td>${ospatar.nume}</td>
+                                                <td>
+                                                    <a href="/vizualizareReviewOspatar/${ospatar.id}"><i class="fas fa-eye"></i></a>
+                                                </td>
+                                        </c:if>
                                             </tr>
+
                                         </c:forEach>
-                                        <tr style="color:black;">
-                                            <td>Valoare totala: ${valoareTotala} lei</td>
-                                        </tr>
                                         </tbody>
+
                                     </table>
                                 </div>
                             </div>
                         </c:if>
-
                     </div>
                     <!-- ============================================================== -->
-                    <!-- end striped table -->
+                    <!-- end hoverable table -->
                     <!-- ============================================================== -->
+
 
 
 
@@ -241,8 +261,8 @@
 <script src="${contextPath}/resources/tema/vendor/select2/select2.min.js">
 </script>
 
-<!-- main js -->
-<script src="${contextPath}/resources/tema/js/main2.js"></script>
+<!-- Main JS-->
+<script src="${contextPath}/resources/tema/js/main.js"></script>
 
 </body>
 

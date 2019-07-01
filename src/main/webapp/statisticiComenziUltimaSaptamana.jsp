@@ -107,9 +107,11 @@
                                             <a class="nav-link" href="${contextPath}/statisticiComenziTotal">Total comenzi</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="${contextPath}/statisticiReviewProduse">Raiting produse</a>
+                                            <a class="nav-link" href="${contextPath}/statisticiReviewProduse">Evaluari produse</a>
                                         </li>
-
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${contextPath}/statisticiReviewOspatari">Evaluari ospatari</a>
+                                        </li>
                                     </ul>
                                     </li>
                                 </ul>

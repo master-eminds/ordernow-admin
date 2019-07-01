@@ -107,10 +107,6 @@ public class AdminController {
         model.addAttribute("comenziUltimeleLuni",DateNecesare.listaComenziUltimeleLuni(comenzi,4).size());
         model.addAttribute("incasari",DateNecesare.calculeazaValoareTotalaIncasata(comenzi));
 
-
-
-
-
         return "welcome";
     }
 

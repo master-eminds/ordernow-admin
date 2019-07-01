@@ -45,6 +45,7 @@ public class DateNecesare {
         }
         return listaComenzi;
     }
+
     public static Map<String ,Integer> calculareNrComenziLunar(List<Comanda> comenzi, int numarLuni){
         nrComenziOnMonth=new HashMap<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
@@ -82,6 +83,29 @@ public class DateNecesare {
 
         }
         return nrComenziOnMonth;
+    }
+    public static Map<String ,Double> calculareIncasariComenziTotal(List<Comanda> comenzi){
+        Map<String ,Double> incasariTotale=new HashMap<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+
+        for(Comanda comanda: comenzi) {
+            try {
+                Date dataVechi= sdf.parse(comanda.getData());
+                String dataNou=  dateFormat.format(dataVechi).split("-")[1];
+                if (incasariTotale.containsKey(dataNou)) {
+                    incasariTotale.replace(dataNou, incasariTotale.get(dataNou) + comanda.getValoare());
+                } else {
+                    incasariTotale.put(dataNou, comanda.getValoare());
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+        return incasariTotale;
     }
     public static int calculareNrOspatariOnline(List<Ospatar> listaOspatari){
         int counterOspatariOnline = 0;
@@ -235,5 +259,6 @@ public class DateNecesare {
     public Integer getCounterComenziThisWeek() {
         return counterComenziThisWeek;
     }
+
 
 }

@@ -8,7 +8,7 @@ import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Table(name = "ospatari")
-public class Ospatar {
+public class Ospatar implements Comparable{
 
     private Long id;
     private String nume;
@@ -83,5 +83,11 @@ public class Ospatar {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Ospatar ospatar=(Ospatar) o;
+        return this.getNume().compareTo(ospatar.getNume());
     }
 }
