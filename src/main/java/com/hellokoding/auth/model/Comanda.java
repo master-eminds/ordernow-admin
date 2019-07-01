@@ -1,19 +1,22 @@
 package com.hellokoding.auth.model;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Set;
 
 import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Table(name="comenzi")
-public class Comanda {
+public class Comanda  implements  Comparable{
 
     private Long id;
     private Set<ItemComanda> listaItemComanda;
     private Ospatar ospatar;
     private Masa masa;
     private String data;
+    private Double valoare;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -56,5 +59,25 @@ public class Comanda {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public Double getValoare() {
+        return valoare;
+    }
+
+    public void setValoare(Double valoare) {
+        this.valoare = valoare;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd-MM-yyyy hh:mm");
+        Comanda comanda=(Comanda) o;
+        try {
+            return simpleDateFormat.parse(this.data).compareTo(simpleDateFormat.parse(comanda.getData()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

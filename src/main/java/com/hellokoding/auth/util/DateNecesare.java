@@ -1,7 +1,6 @@
 package com.hellokoding.auth.util;
 
 import com.hellokoding.auth.model.Comanda;
-import com.hellokoding.auth.model.ItemComanda;
 import com.hellokoding.auth.model.Ospatar;
 
 import java.text.ParseException;
@@ -12,85 +11,76 @@ public class DateNecesare {
 
     private Integer nrOspatariOnline;
     private Integer nrComenziVandute;
-    private Integer counterComenziThisWeek;
-    private Double totalIncasariSaptamana;
-    private Double totalIncasari;
-    private Map<String,Integer> nrComenziThisWeek = new HashMap<>();
-    private Map<String,Integer> nrComenziOnMonth;
+    private static Integer counterComenziThisWeek;
+    private static Double totalIncasariSaptamana;
+    private static Double totalIncasari;
+    private static Map<String,Integer> nrComenziThisWeek = new HashMap<>();
+    private static Map<String,Integer> nrComenziOnMonth;
 
 
     public DateNecesare() {
     }
-
-    public DateNecesare dateNecesare(List<Ospatar> listaOspatari, List<Comanda> comandas) throws ParseException {
-        DateNecesare dateNecesare = new DateNecesare();
-        //variabile de care am nevoie
-        int counterOspatariOnline = 0;
-        int nrComenzi = 0;
-        nrComenziOnMonth=new HashMap<>();
-
-        //ospatariOnline
-        for(Ospatar ospatar : listaOspatari){
-            if(ospatar.getStatus().toLowerCase().equals("online"))
-                counterOspatariOnline++;
-        }
-        dateNecesare.setNrOspatariOnline(counterOspatariOnline);
-
-        //last 7 days
+    public static  List<Comanda> listaComenziUltimeleLuni(List<Comanda> comenzi, int numarLuni){
+        //nrComenziOnMonth=new HashMap<>();
+        List<Comanda> listaComenzi=new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        Calendar cal = Calendar.getInstance();
-        // get starting date
-        HashMap<Integer,String> saptamana = new HashMap<>();
-        for(int i=0;i<7;i++){
-            String data= sdf.format(cal.getTime());
-            saptamana.put(i,data);
-            cal.add(Calendar.DAY_OF_YEAR, -1);
-        }
 
-        //nrComenziVandute
-        counterComenziThisWeek = 0;
-        totalIncasariSaptamana =0.0;
-        totalIncasari=0.0;
-        Date limita=cal.getTime();
-        cal.add(Calendar.DAY_OF_YEAR,+7);
-
-        for (int i=0;i<7;i++){
-            int couterDay = 0;
-            String zi= saptamana.get(i).split(" ")[0];
-            for (int j=comandas.size()-1;j>=0;j--) {
-                Comanda c= comandas.get(j);
-                if(c.getData().compareTo(sdf.format(limita)) < 0){
-                    j=-1;
-                }
-                else {
-                    if (zi.equals(c.getData().split(" ")[0])) {
-                        counterComenziThisWeek++;
-                        if (nrComenziThisWeek.containsKey(zi)) {
-                            nrComenziThisWeek.put(zi, nrComenziThisWeek.get(zi) + 1);
-                        } else {
-                            nrComenziThisWeek.put(zi, 1);
-                        }
-
-                    }
-                }
-            }
-            if(!nrComenziThisWeek.containsKey(zi)){
-                nrComenziThisWeek.put(zi,0);
-            }
-        }
-       nrComenzi=comandas.size();
-        calculeazaValoareTotalaIncasata(comandas);
-
-        //  comandas.sort(Comanda::compareTo);
-        // get starting date
-        SimpleDateFormat dateFormat= new SimpleDateFormat("dd-MMM-yyyy");
-
-        for(int i=1;i<=4;i++){
+        Calendar cal=Calendar.getInstance();
+        for(int i=1;i<=numarLuni;i++){
             String dataLimita= sdf.format(cal.getTime());
             int lunaLimita= Integer.parseInt(dataLimita.split(" ")[0].split("-")[1]);
             String lunaNr= dataLimita.split(" ")[0].split("-")[1];
-            for (int j=comandas.size()-1;j>=0;j--) {
-                Comanda c = comandas.get(j);
+            for (int j=comenzi.size()-1;j>=0;j--) {
+                Comanda c = comenzi.get(j);
+                if (lunaLimita>Integer.parseInt(c.getData().split(" ")[0].split("-")[1])) {
+                    j = -1;
+                } else {
+                    if (lunaNr.equalsIgnoreCase(c.getData().split(" ")[0].split("-")[1])) {
+                       listaComenzi.add(c);
+                    }
+                }
+            }
+            cal.add(Calendar.MONTH, -1);
+
+        }
+        return listaComenzi;
+    }
+    public static Map<String ,Integer> calculareNrComenziLunar(List<Comanda> comenzi, int numarLuni){
+        nrComenziOnMonth=new HashMap<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        SimpleDateFormat dateFormat= new SimpleDateFormat("dd-MMM-yyyy");
+
+        Calendar cal=Calendar.getInstance();
+       /* for(int i=1;i<=numarLuni;i++){
+
+            for(Comanda comanda: comenzi){
+                String dataLimita= sdf.format(cal.getTime());
+                String lunaNr= dataLimita.split(" ")[0].split("-")[1];
+                if(comanda.getData().split("-")[1].equalsIgnoreCase(lunaNr)){
+                    String luna = dateFormat.format(cal.getTime()).split("-")[1];
+
+                    if (nrComenziOnMonth.containsKey(luna)) {
+                        nrComenziOnMonth.replace(luna, nrComenziOnMonth.get(luna) + 1);
+                    } else {
+                        nrComenziOnMonth.put(luna, 1);
+                    }
+                }
+
+            }
+               if (!nrComenziOnMonth.containsKey(dateFormat.format(cal.getTime()).split("-")[1])) {
+                nrComenziOnMonth.put(dateFormat.format(cal.getTime()).split("-")[1], 0);
+            }
+            cal.add(Calendar.MONTH, -1);
+
+        }*/
+
+
+       for(int i=0;i<=numarLuni;i++){
+            String dataLimita= sdf.format(cal.getTime());
+            int lunaLimita= Integer.parseInt(dataLimita.split(" ")[0].split("-")[1]);
+            String lunaNr= dataLimita.split(" ")[0].split("-")[1];
+            for (int j=comenzi.size()-1;j>=0;j--) {
+                Comanda c = comenzi.get(j);
 
                 if (lunaLimita>Integer.parseInt(c.getData().split(" ")[0].split("-")[1])) {
                     j = -1;
@@ -111,84 +101,159 @@ public class DateNecesare {
             cal.add(Calendar.MONTH, -1);
 
         }
+        return nrComenziOnMonth;
+    }
+    public static int calculareNrOspatariOnline(List<Ospatar> listaOspatari){
+        int counterOspatariOnline = 0;
 
+        //ospatariOnline
+        for(Ospatar ospatar : listaOspatari){
+            if(ospatar.getStatus().toLowerCase().equals("online"))
+                counterOspatariOnline++;
+        }
+        return counterOspatariOnline;
+    }
+    public static  int numarComenziUltimaSaptamana(List<Comanda> comenzi){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR,-7);
+        Date limita=cal.getTime();
+        cal.add(Calendar.DAY_OF_YEAR,+7);
+       counterComenziThisWeek=0;
+        // get starting date
+        for(int i=0;i<7;i++) {
+            String data = sdf.format(cal.getTime());
+            String zi = data.split(" ")[0];
+            for (int j = comenzi.size() - 1; j >= 0; j--) {
+                Comanda c = comenzi.get(j);
+                if (c.getData().compareTo(sdf.format(limita)) < 0) {
+                    j = -1;
+                } else {
+                    if (zi.equals(c.getData().split(" ")[0])) {
+                        counterComenziThisWeek++;
+                    }
+                }
+            }
+            cal.add(Calendar.DAY_OF_YEAR, -1);
+        }
+        return counterComenziThisWeek;
+    }
+    public static  List<Comanda> listaComenziUltimaSaptamana(List<Comanda> comenzi){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR,-7);
+        Date limita=cal.getTime();
+        cal.add(Calendar.DAY_OF_YEAR,+7);
+        List<Comanda > rezultat= new ArrayList<>();
+        // get starting date
+        for(int i=0;i<7;i++) {
+            String data = sdf.format(cal.getTime());
+            String zi = data.split(" ")[0];
+            for (int j = comenzi.size() - 1; j >= 0; j--) {
+                Comanda c = comenzi.get(j);
+                if (c.getData().compareTo(sdf.format(limita)) < 0) {
+                    j = -1;
+                } else {
+                    if (zi.equals(c.getData().split(" ")[0])) {
+                        rezultat.add(c);
+                    }
+                }
+            }
+            cal.add(Calendar.DAY_OF_YEAR, -1);
+        }
+        return rezultat;
+    }
+    public static Map<String ,Integer> calculareNrComenziSaptamana(List<Comanda> comenzi){
+        /*//last 7 days
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        Calendar cal = Calendar.getInstance();
+        // get starting date
+        HashMap<Integer,String> saptamana = new HashMap<>();
+        for(int i=0;i<7;i++){
+            String data= sdf.format(cal.getTime());
+            saptamana.put(i,data);
+            cal.add(Calendar.DAY_OF_YEAR, -1);
+        }
+        //nrComenziVandute
+        counterComenziThisWeek = 0;
 
-        dateNecesare.setNrComenziOnMonth(nrComenziOnMonth);
-        dateNecesare.setCounterComenziThisWeek(counterComenziThisWeek);
-        dateNecesare.setNrComenziThisWeek(nrComenziThisWeek);
-        dateNecesare.setNrComenziVandute(nrComenzi);
-        return dateNecesare;
+        Date limita=cal.getTime();
+        cal.add(Calendar.DAY_OF_YEAR,+7);
+
+        for (int i=0;i<7;i++){
+            String zi= saptamana.get(i).split(" ")[0];
+            for (int j=comenzi.size()-1;j>=0;j--) {
+                Comanda c= comenzi.get(j);
+                if(c.getData().compareTo(sdf.format(limita)) < 0){
+                    j=-1;
+                }
+                else {
+                    if (zi.equals(c.getData().split(" ")[0])) {
+                        counterComenziThisWeek++;
+                        if (nrComenziThisWeek.containsKey(zi)) {
+                            nrComenziThisWeek.put(zi, nrComenziThisWeek.get(zi) + 1);
+                        } else {
+                            nrComenziThisWeek.put(zi, 1);
+                        }
+
+                    }
+                }
+            }
+            if(!nrComenziThisWeek.containsKey(zi)){
+                nrComenziThisWeek.put(zi,0);
+            }
+        }
+
+        return nrComenziThisWeek;
+
+*/
+        nrComenziThisWeek=new HashMap<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        SimpleDateFormat dateFormat= new SimpleDateFormat("dd-MMM-yyyy");
+
+        Calendar cal=Calendar.getInstance();
+        for(int i=0;i<7;i++){
+            if (!nrComenziThisWeek.containsKey(dateFormat.format(cal.getTime()))) {
+                nrComenziThisWeek.put(dateFormat.format(cal.getTime()).substring(0,6), 0);
+            }
+            cal.add(Calendar.DAY_OF_YEAR, -1);
+        }
+        for(Comanda comanda: comenzi){
+            try {
+                Date data= dateFormat.parse(comanda.getData());
+                String zi= data.toString().substring(0,6);
+                if (nrComenziThisWeek.containsKey(zi)) {
+                    nrComenziThisWeek.replace(zi, nrComenziThisWeek.get(zi) + 1);
+                } else {
+                    nrComenziThisWeek.put(zi, 1);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return nrComenziThisWeek;
     }
 
-    public void calculeazaValoareIncasata(Comanda comanda){
+
+    /*public static void calculeazaValoareIncasata(Comanda comanda){
+        totalIncasariSaptamana=0.0;
         for(ItemComanda itemComanda :  comanda.getListaItemComanda() ){
             String pretProdus = itemComanda.getProdus().getPret().toString();
             Double pretComanda = itemComanda.getCantitate() * Double.valueOf(pretProdus);
             totalIncasariSaptamana +=pretComanda;
         }
-    }
-    public void calculeazaValoareTotalaIncasata(List<Comanda> comenzi){
+    }*/
+    public static double calculeazaValoareTotalaIncasata(List<Comanda> comenzi){
+       totalIncasari=0.0;
         for(Comanda comanda: comenzi) {
-            for (ItemComanda itemComanda : comanda.getListaItemComanda()) {
-                String pretProdus = itemComanda.getProdus().getPret().toString();
-                Double pretComanda = itemComanda.getCantitate() * Double.valueOf(pretProdus);
-                totalIncasari += pretComanda;
-            }
+            totalIncasari+=comanda.getValoare();
         }
-    }
-    public Integer getNrOspatariOnline() {
-        return nrOspatariOnline;
-    }
-
-    public void setNrOspatariOnline(Integer nrOspatariOnline) {
-        this.nrOspatariOnline = nrOspatariOnline;
-    }
-
-    public Integer getNrComenziVandute() {
-        return nrComenziVandute;
-    }
-
-    public void setNrComenziVandute(Integer nrComenziVandute) {
-        this.nrComenziVandute = nrComenziVandute;
+        return totalIncasari;
     }
 
     public Integer getCounterComenziThisWeek() {
         return counterComenziThisWeek;
     }
 
-    public void setCounterComenziThisWeek(Integer counterComenziThisWeek) {
-        this.counterComenziThisWeek = counterComenziThisWeek;
-    }
-
-    public Map<String, Integer> getNrComenziThisWeek() {
-        return nrComenziThisWeek;
-    }
-
-    public void setNrComenziThisWeek(Map<String, Integer> nrComenziThisWeek) {
-        this.nrComenziThisWeek = nrComenziThisWeek;
-    }
-
-    public Double getTotalIncasariSaptamana() {
-        return totalIncasariSaptamana;
-    }
-
-    public void setTotalIncasariSaptamana(Double totalIncasariSaptamana) {
-        this.totalIncasariSaptamana = totalIncasariSaptamana;
-    }
-
-    public Map< String,Integer> getNrComenziOnMonth() {
-        return nrComenziOnMonth;
-    }
-
-    public void setNrComenziOnMonth(Map<String,Integer> nrComenziOnMonth) {
-        this.nrComenziOnMonth = nrComenziOnMonth;
-    }
-
-    public Double getTotalIncasari() {
-        return totalIncasari;
-    }
-
-    public void setTotalIncasari(Double totalIncasari) {
-        this.totalIncasari = totalIncasari;
-    }
 }

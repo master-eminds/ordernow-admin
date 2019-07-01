@@ -73,9 +73,23 @@
 
                         </ul>
                     </li>
-                    <li>
-                        <a href="chart.html">
-                            <i class="fas fa-chart-bar"></i>Charts</a>
+                    <li class="has-sub">
+                        <a class="js-arrow" href="#">
+                            <i class="fas fa-chart-bar"></i>Statistici</a>
+                        <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                            <li>
+                                <a href="${contextPath}/statisticiComenziUltimaSaptamana">Comenzi ultima saptamana</a>
+                            </li>
+                            <li>
+                                <a href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi ultimele 4 luni</a>
+                            </li>
+                            <li>
+                                <a href="${contextPath}/statisticiComenziTotal">Total comenzi</a>
+                            </li>
+                            <li>
+                                <a href="${contextPath}/statisticiReviewProduse">Raiting produse</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="table.html">
@@ -179,8 +193,25 @@
 
                         </ul>
                     </li>
-
-                    <li>
+                    <li class="has-sub">
+                        <a class="js-arrow" href="#">
+                            <i class="fas fa-chart-bar"></i>Statistici</a>
+                        <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                            <li>
+                                <a href="${contextPath}/statisticiComenziUltimaSaptamana">Comenzi ultima saptamana</a>
+                            </li>
+                            <li>
+                                <a href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi ultimele 4 luni</a>
+                            </li>
+                            <li>
+                                <a href="${contextPath}/statisticiComenziTotal">Total comenzi</a>
+                            </li>
+                            <li>
+                                <a href="${contextPath}/statisticiReviewProduse">Raiting produse</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <%--<li>
                         <a href="chart.html">
                             <i class="fas fa-chart-bar"></i>Charts</a>
                     </li>
@@ -253,7 +284,7 @@
                                 <a href="typo.html">Typography</a>
                             </li>
                         </ul>
-                    </li>
+                    </li>--%>
                 </ul>
             </nav>
         </div>
@@ -463,9 +494,7 @@
                                             <span>Ospatari online</span>
                                         </div>
                                     </div>
-                                    <div class="overview-chart">
-                                        <canvas id="widgetChart1"></canvas>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -477,59 +506,57 @@
                                             <i class="zmdi zmdi-shopping-cart"></i>
                                         </div>
                                         <div class="text">
-                                            <h2>${comenziVandute}</h2>
-                                            <span>Total comenzi</span>
-                                            <input type="hidden" value="${dateChart2}" id="valoriChar2"/>
+                                            <h2>${comenziUltimeleLuni}</h2>
                                         </div>
-                                    </div>
-                                    <div class="overview-chart">
-                                        <canvas id="widgetChart2"></canvas>
+                                        <div class="text">
+                                            <span>Numar comenzi ultimele 4 luni</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="overview-item overview-item--c3">
-                                <div class="overview__inner">
-                                    <div class="overview-box clearfix">
-                                        <div class="icon">
-                                            <i class="zmdi zmdi-calendar-note"></i>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="overview-item overview-item--c3">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-calendar-note"></i>
+                                            </div>
+                                            <div class="text">
+                                                <h2>${counterThisWeek}</h2>
+                                            </div>
+                                            <div class="text">
+                                                <span>Numar comenzi din ultima saptamana</span>
+                                            </div>
                                         </div>
-                                        <div class="text">
-                                            <h2>${counterThisWeek}</h2>
-                                            <input id="listaThisWeek" type="hidden" value=${listaThisWeek}/>
-                                            <input type="hidden" value="${dateChart3}" id="valoriChar3"/>
-                                            <span>Numar comenzi din ultima saptamana</span>
-                                        </div>
-                                    </div>
-                                    <div class="overview-chart">
-                                        <canvas id="widgetChart3"></canvas>
+
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="overview-item overview-item--c4">
-                                <div class="overview__inner">
-                                    <div class="overview-box clearfix">
-                                        <div class="icon">
-                                            <i class="zmdi zmdi-money"></i>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="overview-item overview-item--c4">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-money"></i>
+                                            </div>
+                                            <div class="text">
+                                                <h2>${incasari}</h2>
+                                            </div>
+                                            <div class="text">
+                                                <span>Valoare totala comenzi</span>
+                                            </div>
                                         </div>
-                                        <div class="text">
-                                            <h2>${incasari}</h2>
-                                            <span>Valoare totala comenzi</span>
-                                        </div>
-                                    </div>
-                                    <div class="overview-chart">
-                                        <canvas id="widgetChart4"></canvas>
-                                    </div>
+                                       <%-- <div class="overview-chart">
+                                            <canvas id="widgetChart4"></canvas>
+                                        </div>--%>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <%--<div class="row">
                         <div class="col-lg-12">
-                            <div class="au-card chart-percent-card">
+                            &lt;%&ndash;<div class="au-card chart-percent-card">
                                 <div class="au-card-inner">
                                     <h3 class="title-2 tm-b-5">Numar de produse in functie de raiting</h3>
                                     <div class="row no-gutters">
@@ -553,9 +580,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>&ndash;%&gt;
                         </div>
-                    </div>
+                    </div>--%>
                     <div class="row">
                          <c:if test="${not empty listaMese}">
                             <div class="col-lg-12">
@@ -571,14 +598,16 @@
                                                 <th style="color:white;">Vizualizare comenzi</th>
                                             </tr>
                                             <tbody>
-                                            <c:forEach var="idMasa" items="${listaMese.keySet()}">
+                                            <c:forEach var="masa" items="${listaMese}">
+                                                <c:if test="${not empty masa.comenzi}">
                                                 <tr>
-                                                    <td>${idMasa}</td>
-                                                    <td>${listaMese.get(idMasa)}</td>
+                                                    <td>${masa.id}</td>
+                                                    <td>${masa.comenzi.size()}</td>
                                                     <td>
-                                                        <a href="/vizualizareComenzi/${idMasa}"><i class="fas fa-eye" style="color: whitesmoke"></i></a>
+                                                        <a href="/vizualizareComenzi/${masa.id}"><i class="fas fa-eye" style="color: whitesmoke"></i></a>
                                                     </td>
                                                 </tr>
+                                                </c:if>
                                             </c:forEach>
                                             </tbody>
                                         </table>
@@ -656,7 +685,7 @@
                                     </button>
                                 </div>
 
-                                <c:if test="${not empty listaOspatari}">
+                                <c:if test="${not empty listaMese}">
                                     <div class="au-task js-list-load">
                                         <div class="au-task__title">
                                             <p>Lista Mese</p>
@@ -664,12 +693,12 @@
 
                                         <div class="au-task-list js-scrollbar3">
                                             <div class="au-task__item au-task__item--danger">
-                                                <c:forEach var="masaIndividuala" items="${listaMese.keySet()}">
+                                                <c:forEach var="masa" items="${listaMese}">
                                                     <div class="au-task__item-inner">
                                                         <h5 class="task">
-                                                            <a href="#">Masa numarul : ${masaIndividuala}</a>
+                                                            <a href="#">Masa numarul : ${masa.id}</a>
                                                         </h5>
-                                                        <span class="time">Numar comenzi : ${listaMese.get(masaIndividuala)}</span>
+                                                        <span class="time">Numar comenzi : ${masa.comenzi.size()}</span>
                                                     </div>
                                                 </c:forEach>
                                             </div>

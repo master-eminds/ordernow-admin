@@ -144,9 +144,8 @@
                                 <div class="page-breadcrumb">
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="${contextPath}/vizualizareComenzi/${masa}" class="breadcrumb-link">Vizualizare comenzi</a></li>
+                                            <li class="breadcrumb-item"><a href="${contextPath}/statisticiComenziUltimeleLuni" class="breadcrumb-link">Comenzi ultimele luni</a></li>
                                             <li class="breadcrumb-item active" aria-current="page">Produse comandate</li>  </ol>
-
                                     </nav>
                                 </div>
                             </div>

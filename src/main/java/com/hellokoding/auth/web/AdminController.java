@@ -85,93 +85,35 @@ public class AdminController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         Admin admin = adminService.findByUsername(currentPrincipalName);
-        String rezultatReview= dateChartProduse(produsService.findAll());
-        model.addAttribute("dateChartReview",rezultatReview);
+        //String rezultatReview= dateChartProduse(produsService.findAll());
+       // model.addAttribute("dateChartReview",rezultatReview);
 
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         String dateString = format.format( new Date()   );
         List<Ospatar> ospatari = ospatarService.findAll();
         List<Comanda> comenzi = comandaService.findAll();
-        HashMap<Long,Integer> meseList = listaMeses(comenzi);
+
+        //HashMap<Long,Integer> meseList = listaMeses(comenzi);
 
 
         //alte date necesare
-        DateNecesare dateNecesareList = dateNecesare(ospatari,comenzi);
-        model.addAttribute("listaMese",meseList);
+        model.addAttribute("listaMese",masaService.findAll());
         model.addAttribute("listaOspatari",ospatari);
         model.addAttribute("user",admin);
         model.addAttribute("data",dateString);
-        model.addAttribute("counterThisWeek",dateNecesareList.getCounterComenziThisWeek());
-        model.addAttribute("listaThisWeek",dateNecesareList.getNrComenziThisWeek());
 
-        //grafice
-        model.addAttribute("membriOnline",dateNecesareList.getNrOspatariOnline());
-        model.addAttribute("comenziVandute",dateNecesareList.getNrComenziVandute());
-        model.addAttribute("incasari",dateNecesare.getTotalIncasari().toString());
+        model.addAttribute("counterThisWeek", DateNecesare.numarComenziUltimaSaptamana(comenzi));
+       model.addAttribute("membriOnline",DateNecesare.calculareNrOspatariOnline(ospatari));
+        model.addAttribute("comenziUltimeleLuni",DateNecesare.listaComenziUltimeleLuni(comenzi,3).size());
+        model.addAttribute("incasari",DateNecesare.calculeazaValoareTotalaIncasata(comenzi));
 
 
 
-        Map<String,Integer> comenziPeLuna=dateNecesareList.getNrComenziOnMonth();
 
-        StringBuilder stringLuni=new StringBuilder();
-        StringBuilder stringNumarcomenzi=new StringBuilder();
-        String[] luni={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
-            for(String luna:luni){
-                if(comenziPeLuna.containsKey(luna)){
-                    stringLuni.append(luna).append(",");
-                    stringNumarcomenzi.append(comenziPeLuna.get(luna)).append(",");
-                }
-            }
 
-        String dateChart2= stringLuni.toString().substring(0,stringLuni.length()-1).concat(";").concat(stringNumarcomenzi.toString().substring(0,stringNumarcomenzi.length()-1));
-        model.addAttribute("dateChart2",dateChart2);
-        Map<String,Integer> comenziPeZile=dateNecesareList.getNrComenziThisWeek();
-
-        StringBuilder stringZile=new StringBuilder();
-        StringBuilder stringNumarcomenziZile=new StringBuilder();
-        Calendar cal= Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_YEAR,-7);
-
-        for(int i=0;i<7;i++){
-            String zi= format.format(cal.getTime());
-                if(comenziPeZile.containsKey(zi)){
-                    stringZile.append(zi.substring(0,5)).append(",");
-                    stringNumarcomenziZile.append(comenziPeZile.get(zi)).append(",");
-                }
-                cal.add(Calendar.DAY_OF_YEAR,+1);
-            }
-
-        String dateChart3= stringZile.toString().substring(0,stringZile.length()-1).concat(";").concat(stringNumarcomenziZile.toString().substring(0,stringNumarcomenziZile.length()-1));
-        model.addAttribute("dateChart3",dateChart3);
         return "welcome";
     }
 
-
-
-    private String dateChartProduse (List<Produs> produses){
-        int counterLow = 0;
-        int counterHigh = 0;
-        List<Review> reviewsTotale = new ArrayList<>();
-
-        for(Produs p: produses) {
-            reviewsTotale = reviewService.findByIdProdus(p.getId());
-            float sum = 0;
-            if (reviewsTotale != null && reviewsTotale.size()!=0 && !reviewsTotale.isEmpty() ) {
-                for (Review review : reviewsTotale) {
-                    sum += review.getNota();
-                }
-                double medie = sum / reviewsTotale.size();
-                if (medie < 3) counterLow++;
-                else counterHigh++;
-            }
-        }
-
-        return counterLow+";"+counterHigh;
-    }
-    private DateNecesare dateNecesare(List<Ospatar> listaOspatari,List<Comanda> comandas) throws ParseException {
-        DateNecesare date = dateNecesare.dateNecesare(listaOspatari,comandas);
-        return date;
-    }
     private  HashMap<Long, Integer> listaMeses (List<Comanda> comenzi){
        HashMap<Long, Integer> comenziMese= new HashMap<>();
 
@@ -183,7 +125,7 @@ public class AdminController {
        }
         for(Comanda comanda:comenzi){
             Long idMasa=comanda.getMasa().getId();
-            if(comenziMese.containsKey(idMasa)){
+            if (comenziMese.containsKey(idMasa)){
                 comenziMese.replace(idMasa,comenziMese.get(idMasa)+1);
             }
 
@@ -195,14 +137,13 @@ public class AdminController {
     public ModelAndView getComenzi(@PathVariable Long nrMasa) throws ParseException {
         ModelAndView model = new ModelAndView("vizualizareComenzi");
         Masa masa= masaService.findById(nrMasa);
-        for(Comanda comanda: masa.getComenzi()){
-            float valoareTotala=0;
-            for(ItemComanda item: comanda.getListaItemComanda()){
-                valoareTotala+=item.getCantitate()*item.getProdus().getPret();
-            }
-            model.addObject("valoareTotalaComanda",valoareTotala);
+        Set<Comanda> comenzi= masa.getComenzi();
+        List<Comanda> listaComenzi = new ArrayList<>(comenzi);
+        listaComenzi.sort(Comanda::compareTo);
+        for(Comanda comanda:comenzi ){
+            model.addObject("valoareTotalaComanda",comanda.getValoare());
         }
-        model.addObject("listaComenzi",masa.getComenzi());
+        model.addObject("listaComenzi",listaComenzi);
         return model;
     }
 

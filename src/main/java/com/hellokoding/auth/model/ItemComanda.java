@@ -10,6 +10,7 @@ public class ItemComanda {
     private Integer cantitate;
     private Produs produs;
     private Comanda comanda;
+    private Double valoare;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -48,4 +49,11 @@ public class ItemComanda {
         this.comanda = comanda;
     }
 
+    public Double getValoare() {
+        return valoare;
+    }
+
+    public void setValoare(Double valoare) {
+        this.valoare = valoare;
+    }
 }

@@ -483,7 +483,7 @@
 
                                             </tr>
                                         </c:forEach>
-                                        <tr>
+                                        <tr style="color:black;">
                                             <td>Valoare totala: ${valoareTotala} lei</td>
                                         </tr>
                                         </tbody>

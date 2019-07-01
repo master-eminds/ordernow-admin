@@ -1,5 +1,4 @@
-
-</html><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -39,7 +38,7 @@
     <!-- Main CSS-->
     <link href="${contextPath}/resources/tema/css/theme.css" rel="stylesheet" media="all">
 
-    <title>Produse comandate</title>
+    <title>Statistici produs</title>
 </head>
 
 <body>
@@ -139,14 +138,14 @@
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="page-header">
-                                <h2 class="pageheader-title">Produse comandate</h2>
+                                <h2 class="pageheader-title">Statistici produse</h2>
                                 <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
                                 <div class="page-breadcrumb">
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="${contextPath}/vizualizareComenzi/${masa}" class="breadcrumb-link">Vizualizare comenzi</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Produse comandate</li>  </ol>
-
+                                            <li class="breadcrumb-item"><a href="${contextPath}/welcome" class="breadcrumb-link">Pagina principala</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Evaluari produse</li>
+                                        </ol>
                                     </nav>
                                 </div>
                             </div>
@@ -156,48 +155,78 @@
                     <!-- end pageheader  -->
                     <!-- ============================================================== -->
 
-
-
-                    <!-- striped table -->
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                       <div class="au-card chart-percent-card">
+                            <div class="au-card-inner">
+                                <h3 class="title-2 tm-b-5">Numar de produse in functie de raiting</h3>
+                                <div class="row no-gutters">
+                                    <div class="col-xl-6">
+                                        <div class="chart-note-wrap">
+                                            <div class="chart-note mr-0 d-block">
+                                                <span class="dot dot--blue"></span>
+                                                <span>Raiting mic(sub 3)</span>
+                                            </div>
+                                            <div class="chart-note mr-0 d-block">
+                                                <span class="dot dot--red"></span>
+                                                <span>Raiting mare(peste 3)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="percent-chart">
+                                            <canvas id="percent-chart"></canvas>
+                                            <input type="hidden" value="${dateChartReview}" id="dateChartReview"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <!-- hoverable table -->
                     <!-- ============================================================== -->
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                    <div style="max-width: 85%; max-height: 85%"
+                         class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+
                         <c:if test="${not empty listaProduse}">
                             <div class="card">
-                                <h5 class="card-header">Vizualizare comanda</h5>
+                                <h5 class="card-header">Vizualizare produse</h5>
                                 <div class="card-body">
-                                    <table class="table table-striped">
+                                    <table class="table table-hover">
 
                                         <thead>
                                         <tr>
+                                            <th scope="col">Id produs</th>
                                             <th scope="col">Denumire</th>
-                                            <th scope="col">Cantitate</th>
-                                            <th scope="col">Pret</th>
-                                            <th scope="col" style="color: black">Valoare</th>
-
-
+                                            <th scope="col">Vizualizare review-uri</th>
                                         </tr>
                                         <tbody>
-                                        <c:forEach var="item" items="${listaProduse}">
-                                            <tr>
-                                                <td>${item.produs.denumire}</td>
-                                                <td>${item.cantitate}</td>
-                                                <td>${item.valoare/item.cantitate}</td>
-                                                <td>${item.valoare}</td>
+
+                                        <c:forEach var="produs" items="${listaProduse}">
+                                            <c:if test="${noteProdus.get(produs.id)!=null}">
+
+                                                <td>${produs.id}</td>
+                                                <td>${produs.denumire}</td>
+                                                <td>
+                                                    <a href="/vizualizareReviewProdus/${produs.id}"><i class="fas fa-eye"></i></a>
+                                                </td>
+                                        </c:if>
                                             </tr>
+
                                         </c:forEach>
-                                        <tr style="color:black;">
-                                            <td>Valoare totala: ${valoareTotala} lei</td>
-                                        </tr>
                                         </tbody>
+
                                     </table>
                                 </div>
                             </div>
                         </c:if>
-
                     </div>
                     <!-- ============================================================== -->
-                    <!-- end striped table -->
+                    <!-- end hoverable table -->
                     <!-- ============================================================== -->
+
 
 
 
@@ -240,8 +269,8 @@
 <script src="${contextPath}/resources/tema/vendor/select2/select2.min.js">
 </script>
 
-<!-- main js -->
-<script src="${contextPath}/resources/tema/js/main2.js"></script>
+<!-- Main JS-->
+<script src="${contextPath}/resources/tema/js/mainReview.js"></script>
 
 </body>
 
