@@ -17,6 +17,8 @@ public class Categorie {
     private byte[] imagine;
     private Set<Produs> produse;
     private Meniu meniu;
+    private String vizibilitate;
+
     public Categorie() {
 
     }
@@ -81,5 +83,13 @@ public class Categorie {
 
     public void setMeniu(Meniu meniu) {
         this.meniu = meniu;
+    }
+
+    public String getVizibilitate() {
+        return vizibilitate;
+    }
+
+    public void setVizibilitate(String vizibilitate) {
+        this.vizibilitate = vizibilitate;
     }
 }

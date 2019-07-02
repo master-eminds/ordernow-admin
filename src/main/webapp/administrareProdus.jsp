@@ -91,9 +91,9 @@
     <!-- MENU SIDEBAR-->
     <aside class="menu-sidebar d-none d-lg-block">
         <div class="logo">
-            <a href="#">
-                <img src="images/icon/logo.png" alt="Cool Admin" />
-            </a>
+                <a href="/welcome">
+                    <img src="${contextPath}/resources/tema/images/icon/logo_administrare1Cc.png" alt="Logo" />
+                </a>
         </div>
         <div class="menu-sidebar__content js-scrollbar1">
             <nav class="navbar-sidebar">
@@ -165,7 +165,9 @@
                                      </spring:bind>
                                     <spring:bind path="denumire">
                                         <div class="form-group ${status.error ? 'has-error' : ''}">
-                                            <form:input type="text" path="denumire" class="form-control" placeholder="Denumire"
+                                            <label for="denumire" class=" form-control-label">Denumire</label>
+
+                                            <form:input type="text" path="denumire" id="denumire" class="form-control" placeholder="Denumire"
                                                         autofocus="true"></form:input>
                                             <form:errors path="denumire"></form:errors>
                                         </div>
@@ -173,48 +175,77 @@
 
                                     <spring:bind path="pret">
                                         <div class="form-group ${status.error ? 'has-error' : ''}">
-                                            <form:input type="text" path="pret" class="form-control" placeholder="Pret"></form:input>
+                                            <label for="pret" class=" form-control-label">Pret</label>
+
+                                            <form:input type="text" id="pret" path="pret" class="form-control" placeholder="Pret"></form:input>
                                             <form:errors path="pret"></form:errors>
                                         </div>
                                     </spring:bind>
 
                                     <spring:bind path="gramaj">
                                         <div class="form-group ${status.error ? 'has-error' : ''}">
-                                            <form:input type="text" path="gramaj" class="form-control"
+                                            <label for="gramaj" class=" form-control-label">Gramaj</label>
+
+                                            <form:input type="text" id="gramaj"  path="gramaj" class="form-control"
                                                         placeholder="Gramaj"></form:input>
                                             <form:errors path="gramaj"></form:errors>
                                         </div>
                                     </spring:bind>
 
                                     <spring:bind path="categorie">
-
-                                        <form:select path="categorie">
+                                        <div class="col col-md-3">
+                                            <label for="categorie" class=" form-control-label">Selectati categoria</label>
+                                        </div>
+                                        <form:select path="categorie" id="categorie">
                                             <form:options items="${categoriiProduse}" />
                                         </form:select>
                                     </spring:bind>
                                     <spring:bind path="descriere">
                                         <div class="form-group ${status.error ? 'has-error' : ''}">
-                                            <form:input type="text" path="descriere" class="form-control"
+                                            <label for="descriere" class=" form-control-label">Descriere</label>
+
+                                            <form:input type="text" id="descriere" path="descriere" class="form-control"
                                                         placeholder="Descriere"></form:input>
                                             <form:errors path="descriere"></form:errors>
                                         </div>
                                     </spring:bind>
                                     <spring:bind path="ingrediente">
                                         <div class="form-group ${status.error ? 'has-error' : ''}">
-                                            <form:input type="text" path="ingrediente" class="form-control"
+                                            <label for="ingrediente" class=" form-control-label">Ingrediente</label>
+
+                                            <form:input type="text" id="ingrediente" path="ingrediente" class="form-control"
                                                         placeholder="Ingrediente"></form:input>
                                             <form:errors path="ingrediente"></form:errors>
                                         </div>
                                     </spring:bind>
+                                            <spring:bind path="vizibilitate">
+                                            <div class="form-group ${status.error ? 'has-error' : ''}">
+                                                <label for="vizibilitate" class=" form-control-label">Vizibilitate</label>
+                                                    <form:select id="vizibilitate" path="vizibilitate" name="vizibilitate" class="form-control">
+                                                        <option value="0" >Alegeti vizibilitatea</option>
+                                                        <c:if test="${produsForm.vizibilitate==null}">
+                                                            <option value="vizibil" >Vizibil</option>
+                                                            <option value="invizibil">Invizibil</option>
+                                                        </c:if>
+                                                        <c:if test="${produsForm.vizibilitate=='vizibil'}">
+                                                            <option value="vizibil" selected >Vizibil</option>
+                                                            <option value="invizibil">Invizibil</option>
+                                                        </c:if>
+                                                        <c:if test="${produsForm.vizibilitate=='invizibil'}">
+                                                            <option value="vizibil" >Vizibil</option>
+                                                            <option value="invizibil" selected>Invizibil</option>
+                                                        </c:if>
+                                                    </form:select>
+                                                <form:errors path="vizibilitate"></form:errors>
+                                            </div>
+                                                </spring:bind>
                                         <spring:bind path="imagine">
                                             <div class="form-group">
-                                                <div class="col col-md-3">
-                                                    <label for="imagine" class=" form-control-label">File input</label>
+                                                    <label for="imagine" class=" form-control-label">Incarca o imagine</label>
                                                     <input type="file" id="imagine" class="form-control-file"/>
                                                     <form:input type="hidden" name="imagine" path="imagine" id="idS" />
                                                     <img src="" id="preview">
                                                     <img src="${imageSrc}" id="imagePreview">
-                                                </div>
                                             </div>
                                         </spring:bind>
                                                <div class="card-footer">

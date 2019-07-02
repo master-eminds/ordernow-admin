@@ -14,6 +14,7 @@ public class Produs {
     private Integer gramaj;
     private String descriere;
     private String ingrediente;
+    private String vizibilitate;
 
     @Lob @Basic(fetch = FetchType.LAZY)
     @Column(length=100000)
@@ -131,5 +132,13 @@ public Produs(){}
 
     public void setMeniu_id(Long meniu_id) {
         this.meniu_id = meniu_id;
+    }
+
+    public String getVizibilitate() {
+        return vizibilitate;
+    }
+
+    public void setVizibilitate(String vizibilitate) {
+        this.vizibilitate = vizibilitate;
     }
 }

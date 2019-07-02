@@ -91,8 +91,8 @@
     <!-- MENU SIDEBAR-->
     <aside class="menu-sidebar d-none d-lg-block">
         <div class="logo">
-            <a href="#">
-                <img src="images/icon/logo.png" alt="Cool Admin" />
+            <a href="/welcome">
+                <img src="${contextPath}/resources/tema/images/icon/logo_administrare1Cc.png" alt="Logo" />
             </a>
         </div>
         <div class="menu-sidebar__content js-scrollbar1">
@@ -196,7 +196,7 @@
                                         <spring:bind path="image">
                                             <div class="form-group">
                                                 <div class="col col-md-3">
-                                                    <label for="image" class=" form-control-label">File input</label>
+                                                    <label for="image" class=" form-control-label">Incarca o imagine</label>
                                                     <input type="file" id="image" class="form-control-file"/>
                                                     <form:input type="hidden" name="image" path="image" id="idS" />
                                                     <img src="" id="preview">
@@ -212,18 +212,13 @@
                                             <i class="fa fa-ban"></i> Reset
                                         </button>
 
-                                                   <a  href="${contextPath}/administrareCategorie/0/${meniuForm.id}">Adauga o categorie</a>
-                                                   <c:if test="${meniuForm.categorii.size()!=0}">
-                                                       <a  href="${contextPath}/administrareProdus/0/${meniuForm.id}">Adauga un produs</a>
-                                                   </c:if>
-
                                                </div>
                                 </div>
                                 </form:form>
                             </div>
                         </div>
                     </div>
-                  
+
                 </div>
             </div>
         </div>
