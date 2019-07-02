@@ -56,7 +56,7 @@
             <spring:bind path="prenume">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
 
-                    <form:input type="text" path="prenume" class="form-control form-control-lg" placeholder="Preume"
+                    <form:input type="text" path="prenume" class="form-control form-control-lg" placeholder="Prenume"
                                 autofocus="true"></form:input>
                     <form:errors path="prenume"></form:errors>
                 </div>

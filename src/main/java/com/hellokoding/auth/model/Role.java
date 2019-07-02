@@ -3,6 +3,8 @@ package com.hellokoding.auth.model;
 import javax.persistence.*;
 import java.util.Set;
 
+import static javax.persistence.CascadeType.ALL;
+
 @Entity
 @Table(name = "role")
 public class Role {
@@ -28,7 +30,7 @@ public class Role {
         this.name = name;
     }
 
-    @ManyToMany(mappedBy = "roles")
+    @OneToMany(cascade=ALL, mappedBy="meniu")
     public Set<Admin> getAdmins() {
         return admins;
     }

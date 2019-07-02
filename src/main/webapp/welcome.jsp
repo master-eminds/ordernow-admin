@@ -478,14 +478,18 @@
         <div class="main-content">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="overview-wrap">
-                                <button class="au-btn au-btn-icon au-btn--blue">
-                                    <i class="zmdi zmdi-plus"></i>add item</button>
+                    <c:if test="${master eq true}">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="overview-wrap">
+                                    <a class="btn-primary" href="${contextPath}/registration">Adauga admin</a>
+                                    <%--<button class="au-btn au-btn-icon au-btn--blue">
+                                        <i class="zmdi zmdi-plus"></i>Adauga admin</button>--%>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </c:if>
+
                     <div class="row m-t-25">
                         <div class="col-sm-6 col-lg-3">
                             <div class="overview-item overview-item--c1">

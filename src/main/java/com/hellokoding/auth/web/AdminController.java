@@ -25,6 +25,8 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
     @Autowired
+    private RoleService roleService;
+    @Autowired
     private MasaService masaService;
     @Autowired
     private OspatarService ospatarService;
@@ -44,7 +46,11 @@ public class AdminController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
-        model.addAttribute("adminForm", new Admin());
+        Admin admin= new Admin();
+       /* Role rol= roleService.findRoleById(1L);
+        admin.setRoles(new HashSet<Role>(Collections.singletonList(rol)));
+*/
+        model.addAttribute("adminForm", admin);
 
         return "registration";
     }
@@ -56,7 +62,6 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-
         try {
             adminService.save(adminForm);
         } catch (Exception e) {
@@ -70,6 +75,7 @@ public class AdminController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
+
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
 
@@ -85,16 +91,19 @@ public class AdminController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         Admin admin = adminService.findByUsername(currentPrincipalName);
-        //String rezultatReview= dateChartProduse(produsService.findAll());
-       // model.addAttribute("dateChartReview",rezultatReview);
+        Set<Role> rol= admin.getRoles();
+        boolean master=false;
+        for(Role r: rol){
+        if(r.getId()==2){
+        master=true;
+            }
+        }
+        model.addAttribute("master", master);
 
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         String dateString = format.format( new Date()   );
         List<Ospatar> ospatari = ospatarService.findAll();
         List<Comanda> comenzi = comandaService.findAll();
-
-        //HashMap<Long,Integer> meseList = listaMeses(comenzi);
-
 
         //alte date necesare
         model.addAttribute("listaMese",masaService.findAll());
@@ -106,7 +115,6 @@ public class AdminController {
        model.addAttribute("membriOnline",DateNecesare.calculareNrOspatariOnline(ospatari));
         model.addAttribute("comenziUltimeleLuni",DateNecesare.listaComenziUltimeleLuni(comenzi,4).size());
         model.addAttribute("incasari",DateNecesare.calculeazaValoareTotalaIncasata(comenzi));
-
         return "welcome";
     }
 
