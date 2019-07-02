@@ -82,7 +82,6 @@ public class MeniuController {
 
 
     @RequestMapping(value = "/stergeMeniu/{meniu_id}", method = RequestMethod.GET)
-    @ResponseBody
     public String stergeMeniu(@PathVariable("meniu_id") Long meniu_id) {
         meniuService.delete(meniu_id);
         return "redirect:/vizualizareMeniuri";

@@ -1,10 +1,10 @@
 package com.hellokoding.auth.web;
 
 import com.hellokoding.auth.model.Comanda;
-import com.hellokoding.auth.model.Produs;
 import com.hellokoding.auth.service.ComandaService;
 import com.hellokoding.auth.service.ProdusService;
 import com.hellokoding.auth.service.SecurityService;
+import com.hellokoding.auth.util.CountProdus;
 import com.hellokoding.auth.util.DateNecesare;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,7 +46,7 @@ public class ComandaController {
             String zi= format.format(cal.getTime());
             if(comenziPeZile.containsKey(zi.substring(0,6))){
                 stringZile.append(zi.substring(0,6)).append(",");
-                stringNumarcomenziZile.append(comenziPeZile.get(zi)).append(",");
+                stringNumarcomenziZile.append(comenziPeZile.get(zi.substring(0,6))).append(",");
             }
             cal.add(Calendar.DAY_OF_YEAR,+1);
         }
@@ -90,7 +90,7 @@ public class ComandaController {
         model.addObject("totalIncasari", DateNecesare.calculeazaValoareTotalaIncasata(comenzi));
         model.addObject("dateChartIncasariTotale", date);
 
-        Map<Long, Integer> produseComandate= produsService.numarProduseComandate();
+        List<CountProdus> produseComandate= produsService.numarProduseComandate();
         String dateProduse= dateChartCounterProduse(produseComandate);
 
         model.addObject("dateChartProduse", dateProduse);
@@ -98,13 +98,12 @@ public class ComandaController {
         return model;
     }
 
-    private String dateChartCounterProduse(Map<Long, Integer> produseComandate) {
+    private String dateChartCounterProduse(List<CountProdus> produseComandate) {
         StringBuilder stringId=new StringBuilder();
         StringBuilder stringNumar=new StringBuilder();
-        for(Long id: produseComandate.keySet()){
-            Produs produs= produsService.findById(id);
-                stringId.append(id+":"+produs.getDenumire()).append("-");
-                stringNumar.append(produseComandate.get(id)).append("-");
+        for(CountProdus produs: produseComandate){
+                stringId.append(produs.getDenumire()).append("-");
+                stringNumar.append(produs.getNumarAparitii()).append("-");
             }
 
         return stringId.toString().substring(0,stringId.length()-1).concat(";").concat(stringNumar.toString().substring(0,stringNumar.length()-1));
@@ -120,6 +119,7 @@ public class ComandaController {
                 stringLuni.append(luna).append("-");
                 stringIncasari.append(incasariComenziTotal.get(luna)).append("-");
             }
+
         }
 
         return stringLuni.toString().substring(0,stringLuni.length()-1).concat(";").concat(stringIncasari.toString().substring(0,stringIncasari.length()-1));

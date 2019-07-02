@@ -89,13 +89,6 @@ public class ProdusController {
     }
 
 
-    @RequestMapping(value = "/stergeProdus/{produs_id}", method = RequestMethod.GET)
-    @ResponseBody
-    public String stergeProdus(@PathVariable("produs_id") Long produs_id) {
-        produsService.delete(produs_id);
-        return "redirect:/detaliiCategorie/"+produs_id;
-    }
-
 
 
     @RequestMapping(value = "/statisticiReviewProduse", method = RequestMethod.GET)
@@ -139,5 +132,13 @@ public class ProdusController {
             model.addObject("medieNote", noteProdus.get(idProdus));
             return model;
         }
+
+    @RequestMapping(value = "/stergeProdus/{id}", method = RequestMethod.GET)
+    public String stergeProdus(@PathVariable("id") Long id) {
+        Produs produs=produsService.findById(id);
+        produsService.delete(id);
+
+        return "redirect:/detaliiCategorie/"+produs.getCategorie().getId();
+    }
 
 }

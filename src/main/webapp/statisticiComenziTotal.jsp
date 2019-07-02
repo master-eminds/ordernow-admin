@@ -157,16 +157,16 @@
                     <!-- end pageheader  -->
                     <!-- ============================================================== -->
 
-                    <div class="row m-t-25" style="width: 100%; height: 100%" >
-                        <div class="col-sm-6 col-lg-3" >
-                            <div class="overview-item overview-item--c4" style="max-width: 100%; max-height: 100%">
+                    <div class="row m-t-25"   style="margin: 0 auto;" >
+                        <div class="col-sm-6 col-lg-3" style="margin: 0 auto;">
+                            <div class="overview-item overview-item--c1" >
                                 <div class="overview__inner">
                                     <div class="overview-box clearfix">
                                         <div class="icon">
                                             <i class="zmdi zmdi-money"></i>
                                         </div>
                                         <div class="text">
-                                            <h2>${totalIncasari}</h2>
+                                            <h2>${totalIncasari} lei</h2>
                                             <span>Total incasari</span>
                                         </div>
                                     </div>
@@ -174,8 +174,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="au-card m-b-30">
+                    <div class="col-lg-6"  style="margin: 0 auto;">
+                        <div class="au-card m-b-30" style="margin: 0 auto;">
                             <div class="au-card-inner">
                                 <h3 class="title-2 m-b-40">Evolutie incasari</h3>
                                 <canvas id="team-chart"></canvas>
@@ -184,9 +184,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="au-card m-b-30">
-                            <div class="au-card-inner">
+                    <div class="col-lg-6"  style="margin: 0 auto;">
+                        <div class="au-card m-b-30" style="align-content: center">
+                            <div class="au-card-inner" style="align-content: center">
                                 <h3 class="title-2 m-b-40">Cele mai comandate produse</h3>
                                 <canvas id="doughutChart"></canvas>
                                 <input type="hidden" value="${dateChartProduse}" id="dateChartProduse"/>

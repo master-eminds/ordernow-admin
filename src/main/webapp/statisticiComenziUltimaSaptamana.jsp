@@ -157,8 +157,8 @@
                     <!-- end pageheader  -->
                     <!-- ============================================================== -->
 
-                    <div class="row m-t-25" style="width: 100%; height: 100%" >
-                        <div class="col-sm-6 col-lg-3" >
+                    <div class="row m-t-25" style="width: 100%; height: 100%;margin: 0 auto;" >
+                        <div class="col-sm-6 col-lg-3" style="margin: 0 auto;">
                             <div class="overview-item overview-item--c3" style="max-width: 100%; max-height: 100%">
                                 <div class="overview__inner">
                                     <div class="overview-box clearfix">
@@ -180,11 +180,11 @@
                     </div>
                     <!-- hoverable table -->
                     <!-- ============================================================== -->
-                    <div style="max-width: 85%; max-height: 85%"
+                    <div style="max-width: 85%; max-height: 85%; margin: 0 auto"
                          class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
 
                         <c:if test="${not empty listaComenzi}">
-                            <div class="card">
+                            <div class="card" style="margin: 0 auto">
                                 <h5 class="card-header">Vizualizare comenzi</h5>
                                 <div class="card-body">
                                     <table class="table table-hover">

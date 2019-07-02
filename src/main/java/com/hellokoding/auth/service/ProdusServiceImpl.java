@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ProdusServiceImpl implements ProdusService {
@@ -46,22 +45,13 @@ public class ProdusServiceImpl implements ProdusService {
     }
 
     @Override
-    public Map<Long, Integer> numarProduseComandate() {
+    public List<CountProdus> numarProduseComandate() {
 
         HashMap<Long, Integer> map=new HashMap<Long, Integer>();
 
-
-
-        List produse = em.createNativeQuery(
-                "select produs_id as id, count(produs_id) as numar_aparitii from itemi_comanda group by produs_id order by numar_aparitii desc limit 10", CountProdus.class)
+        return em.createNativeQuery(
+                "select p.id, denumire, count(i.produs_id) as numar_aparitii from itemi_comanda i, produse p where p.id=i.produs_id group by p.id order by numar_aparitii desc limit 6", CountProdus.class)
                 .getResultList();
-
-        for (Object result : produse) {
-            CountProdus produs= (CountProdus)result;
-            map.put(produs.getId(), produs.getNumarAparitii());
-        }
-
-        return map;
 
 
 }

@@ -159,8 +159,8 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-lg-12">
-                       <div class="au-card chart-percent-card">
+                    <div class="col-lg-12" style="margin: 0 auto">
+                       <div class="au-card chart-percent-card" style="margin: 0 auto">
                             <div class="au-card-inner">
                                 <h3 class="title-2 tm-b-5">Numar de produse in functie de raiting</h3>
                                 <div class="row no-gutters">
@@ -176,7 +176,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xl-6">
+                                    <div class="col-xl-6" >
                                         <div class="percent-chart">
                                             <canvas id="percent-chart"></canvas>
                                             <input type="hidden" value="${dateChartReview}" id="dateChartReview"/>
@@ -189,7 +189,7 @@
                 </div>
                     <!-- hoverable table -->
                     <!-- ============================================================== -->
-                    <div style="max-width: 85%; max-height: 85%"
+                    <div style="max-width: 85%; max-height: 85%; margin: 0 auto"
                          class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
 
                         <c:if test="${not empty listaProduse}">

@@ -828,13 +828,13 @@
           datasets: [{
             data: v,
             label: "Incasari (lei)",
-            backgroundColor: 'rgba(0,103,255,.15)',
-            borderColor: 'rgba(0,103,255,0.5)',
+            backgroundColor: 'rgba(0, 233, 255, 0.19)',
+            borderColor: 'rgba(6, 223, 243, 0.94)',
             borderWidth: 3.5,
             pointStyle: 'circle',
             pointRadius: 5,
             pointBorderColor: 'transparent',
-            pointBackgroundColor: 'rgba(0,103,255,0.5)',
+            pointBackgroundColor: 'rgba(248, 198, 16, 0.62)',
           },]
         },
         options: {
@@ -869,7 +869,7 @@
               },
               scaleLabel: {
                 display: false,
-                labelString: 'Month'
+                labelString: 'Luna'
               },
               ticks: {
                 fontFamily: "Poppins"
@@ -883,7 +883,7 @@
               },
               scaleLabel: {
                 display: true,
-                labelString: 'Value',
+                labelString: 'Valoare',
                 fontFamily: "Poppins"
               },
 
@@ -1090,7 +1090,7 @@
 
     //doughut chart
     var ctx = document.getElementById("doughutChart");
-    var valori3= document.getElementById("dateChartProduse");
+    var valori3= document.getElementById("dateChartProduse").value;
 
 
     var v3= [];
@@ -1106,16 +1106,32 @@
           datasets: [{
             data: v3,
             backgroundColor: [
-              "rgba(0, 123, 255,0.9)",
-              "rgba(0, 123, 255,0.7)",
-              "rgba(0, 123, 255,0.5)",
-              "rgba(0,0,0,0.07)"
+              "rgba(32, 238, 238,0.8)",
+              "rgba(248, 155, 63,0.8)",
+              "rgba(12, 170, 170,0.8)",
+              "rgba(247, 59, 12,0.8)",
+                "rgba(225, 225, 49,0.8)",
+
+                "rgba(88, 232, 88,0.8)",
+                "rgba(5, 5, 233,0.8)",
+                "rgba(140, 63, 217,0.8)",
+                "rgba(32, 238, 238,0.8)",
+                "rgba(244, 10, 244,0.8)"
+
             ],
             hoverBackgroundColor: [
-              "rgba(0, 123, 255,0.9)",
-              "rgba(0, 123, 255,0.7)",
-              "rgba(0, 123, 255,0.5)",
-              "rgba(0,0,0,0.07)"
+              "rgb(32, 238, 238)",
+              "rgb(248, 155, 63)",
+              "rgb(12, 170, 170)",
+              "rgb(247, 59, 12)",
+              "rgb(225, 225, 49)",
+
+              "rgb(88, 232, 88)",
+              "rgb(5, 5, 233)",
+              "rgb(140, 63, 217)",
+              "rgb(32, 238, 238)",
+              "rgb(244, 10, 244)"
+
             ]
 
           }],
@@ -1258,9 +1274,9 @@
             {
               label: "Raiting",
               data: vRO,
-              borderColor: "rgba(0, 123, 255, 0.9)",
+              borderColor: "rgb(244, 146, 61)",
               borderWidth: "0",
-              backgroundColor: "rgba(0, 123, 255, 0.5)"
+              backgroundColor: "rgba(244, 238, 61, 0.57)"
             }
           ]
         },
@@ -1268,7 +1284,8 @@
           legend: {
             position: 'top',
             labels: {
-              fontFamily: 'Poppins'
+              fontFamily: 'Poppins',
+                color:'black'
             }
 
           },

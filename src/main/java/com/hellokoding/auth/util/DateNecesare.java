@@ -102,7 +102,6 @@ public class DateNecesare {
                 e.printStackTrace();
             }
 
-
         }
 
         return incasariTotale;
@@ -168,49 +167,7 @@ public class DateNecesare {
         return rezultat;
     }
     public static Map<String ,Integer> calculareNrComenziSaptamana(List<Comanda> comenzi){
-        /*//last 7 days
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        Calendar cal = Calendar.getInstance();
-        // get starting date
-        HashMap<Integer,String> saptamana = new HashMap<>();
-        for(int i=0;i<7;i++){
-            String data= sdf.format(cal.getTime());
-            saptamana.put(i,data);
-            cal.add(Calendar.DAY_OF_YEAR, -1);
-        }
-        //nrComenziVandute
-        counterComenziThisWeek = 0;
 
-        Date limita=cal.getTime();
-        cal.add(Calendar.DAY_OF_YEAR,+7);
-
-        for (int i=0;i<7;i++){
-            String zi= saptamana.get(i).split(" ")[0];
-            for (int j=comenzi.size()-1;j>=0;j--) {
-                Comanda c= comenzi.get(j);
-                if(c.getData().compareTo(sdf.format(limita)) < 0){
-                    j=-1;
-                }
-                else {
-                    if (zi.equals(c.getData().split(" ")[0])) {
-                        counterComenziThisWeek++;
-                        if (nrComenziThisWeek.containsKey(zi)) {
-                            nrComenziThisWeek.put(zi, nrComenziThisWeek.get(zi) + 1);
-                        } else {
-                            nrComenziThisWeek.put(zi, 1);
-                        }
-
-                    }
-                }
-            }
-            if(!nrComenziThisWeek.containsKey(zi)){
-                nrComenziThisWeek.put(zi,0);
-            }
-        }
-
-        return nrComenziThisWeek;
-
-*/
         nrComenziThisWeek=new HashMap<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         SimpleDateFormat dateFormat= new SimpleDateFormat("dd-MMM-yyyy");
@@ -224,8 +181,9 @@ public class DateNecesare {
         }
         for(Comanda comanda: comenzi){
             try {
-                Date data= dateFormat.parse(comanda.getData());
-                String zi= data.toString().substring(0,6);
+                Date dataFV= sdf.parse(comanda.getData());
+                String data= dateFormat.format(dataFV);
+                String zi= data.substring(0,6);
                 if (nrComenziThisWeek.containsKey(zi)) {
                     nrComenziThisWeek.replace(zi, nrComenziThisWeek.get(zi) + 1);
                 } else {
@@ -240,14 +198,6 @@ public class DateNecesare {
     }
 
 
-    /*public static void calculeazaValoareIncasata(Comanda comanda){
-        totalIncasariSaptamana=0.0;
-        for(ItemComanda itemComanda :  comanda.getListaItemComanda() ){
-            String pretProdus = itemComanda.getProdus().getPret().toString();
-            Double pretComanda = itemComanda.getCantitate() * Double.valueOf(pretProdus);
-            totalIncasariSaptamana +=pretComanda;
-        }
-    }*/
     public static double calculeazaValoareTotalaIncasata(List<Comanda> comenzi){
        totalIncasari=0.0;
         for(Comanda comanda: comenzi) {
@@ -256,9 +206,6 @@ public class DateNecesare {
         return totalIncasari;
     }
 
-    public Integer getCounterComenziThisWeek() {
-        return counterComenziThisWeek;
-    }
 
 
 }

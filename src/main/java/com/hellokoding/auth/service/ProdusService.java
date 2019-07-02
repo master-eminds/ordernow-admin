@@ -1,9 +1,9 @@
 package com.hellokoding.auth.service;
 
 import com.hellokoding.auth.model.Produs;
+import com.hellokoding.auth.util.CountProdus;
 
 import java.util.List;
-import java.util.Map;
 
 public interface ProdusService {
 
@@ -11,7 +11,7 @@ public interface ProdusService {
     void saveOrUpdate(Produs produs);
     void delete(Long id);
     List<Produs> findAll();
-    Map<Long,Integer> numarProduseComandate();
+    List<CountProdus> numarProduseComandate();
 
 
     Produs findById(Long id);

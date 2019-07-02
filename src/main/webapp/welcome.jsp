@@ -547,7 +547,7 @@
                                                 <i class="zmdi zmdi-money"></i>
                                             </div>
                                             <div class="text">
-                                                <h2>${incasari}</h2>
+                                                <h2>${incasari} lei</h2>
                                             </div>
                                             <div class="text">
                                                 <span>Valoare totala comenzi</span>

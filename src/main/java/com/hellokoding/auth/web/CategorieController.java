@@ -92,14 +92,16 @@ public class CategorieController {
         }
 
         categorieService.save(categorieForm);
-        return "redirect:/vizualizareCategorii/"+categorieForm.getId();
+        return "redirect:/vizualizareCategorii/"+meniu_id;
     }
 
 
+
     @RequestMapping(value = "/stergeCategorie/{categorie_id}", method = RequestMethod.GET)
-    @ResponseBody
-    public String stergeCategorie(@PathVariable("categorie_id") Long categorie_id) {
+
+    public String stergeMeniu(@PathVariable("categorie_id") Long categorie_id) {
+        Categorie categorie=categorieService.findById(categorie_id);
         categorieService.delete(categorie_id);
-        return "redirect:/vizualizareCategorii/"+categorie_id;
+        return "redirect:/vizualizareCategorii/"+categorie.getMeniu().getId();
     }
 }
