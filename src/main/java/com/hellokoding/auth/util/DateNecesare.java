@@ -119,13 +119,13 @@ public class DateNecesare {
     public static  int numarComenziUltimaSaptamana(List<Comanda> comenzi){
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_YEAR,-7);
+        cal.add(Calendar.DAY_OF_YEAR,-8);
         Date limita=cal.getTime();
         String dataLimita= sdf.format(limita);
-        cal.add(Calendar.DAY_OF_YEAR,+7);
+        cal.add(Calendar.DAY_OF_YEAR,+8);
        counterComenziThisWeek=0;
         // get starting date
-        for(int i=0;i<7;i++) {
+        for(int i=0;i<8;i++) {
             String data = sdf.format(cal.getTime());
             String zi = data.split(" ")[0];
             for (int j = comenzi.size() - 1; j >= 0; j--) {
@@ -149,14 +149,14 @@ public class DateNecesare {
     public static  List<Comanda> listaComenziUltimaSaptamana(List<Comanda> comenzi){
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_YEAR,-7);
+        cal.add(Calendar.DAY_OF_YEAR,-8);
         Date limita=cal.getTime();
         String dataLimita= sdf.format(limita);
 
-        cal.add(Calendar.DAY_OF_YEAR,+7);
+        cal.add(Calendar.DAY_OF_YEAR,+8);
         List<Comanda > rezultat= new ArrayList<>();
         // get starting date
-        for(int i=0;i<7;i++) {
+        for(int i=0;i<8;i++) {
             String data = sdf.format(cal.getTime());
             String zi = data.split(" ")[0];
             for (int j = comenzi.size() - 1; j >= 0; j--) {
@@ -184,7 +184,7 @@ public class DateNecesare {
         SimpleDateFormat dateFormat= new SimpleDateFormat("dd-MMM-yyyy");
 
         Calendar cal=Calendar.getInstance();
-        for(int i=0;i<7;i++){
+        for(int i=0;i<8;i++){
             if (!nrComenziThisWeek.containsKey(dateFormat.format(cal.getTime()))) {
                 nrComenziThisWeek.put(dateFormat.format(cal.getTime()).substring(0,6), 0);
             }

@@ -40,9 +40,9 @@ public class ComandaController {
         StringBuilder stringZile=new StringBuilder();
         StringBuilder stringNumarcomenziZile=new StringBuilder();
         Calendar cal= Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_YEAR,-7);
+        cal.add(Calendar.DAY_OF_YEAR,-8);
 
-        for(int i=0;i<7;i++){
+        for(int i=0;i<8;i++){
             String zi= format.format(cal.getTime());
             if(comenziPeZile.containsKey(zi.substring(0,6))){
                 stringZile.append(zi.substring(0,6)).append(",");
