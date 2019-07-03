@@ -1,6 +1,5 @@
 package com.hellokoding.auth.web;
 
-import com.hellokoding.auth.model.Categorie;
 import com.hellokoding.auth.model.Meniu;
 import com.hellokoding.auth.model.Produs;
 import com.hellokoding.auth.model.Review;
@@ -8,7 +7,10 @@ import com.hellokoding.auth.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.UnsupportedEncodingException;
@@ -44,20 +46,17 @@ public class ProdusController {
     public ModelAndView registration(@PathVariable("produs_id") Long produs_id, @PathVariable("meniu_id") Long meniu_id) {
         ModelAndView model = new ModelAndView("administrareProdus");
         Meniu meniu= meniuService.findById(meniu_id);
-        HashMap<Long,String> categorii= new HashMap<>();
-        for(Categorie categorie: meniu.getCategorii()){
-            categorii.put(categorie.getId(),categorie.getDenumire());
-        }
+
         if(produs_id == 0 ){
+            model.addObject("meniu",meniu);
             model.addObject("produsForm", new Produs());
             model.addObject("add","true");
-            model.addObject("categoriiProduse",categorii );
         }else{
             Produs p = produsService.findById(produs_id);
+            model.addObject("meniu",meniu);
             model.addObject("produsForm",p);
             model.addObject("add","false");
             model.addObject("imageSrc",new String(p.getImagine()));
-            model.addObject("categoriiProduse",categorii );
         }
         return model;
     }

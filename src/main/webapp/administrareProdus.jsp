@@ -193,10 +193,15 @@
                                     </spring:bind>
 
                                     <spring:bind path="categorie">
+                                            <div class="form-group ${status.error ? 'has-error' : ''}">
+
                                             <label for="categorie" class=" form-control-label">Selectati categoria</label>
                                         <form:select path="categorie" id="categorie">
-                                            <form:options items="${categoriiProduse}" />
+                                            <form:options items="${meniu.categorii}"  itemLabel="denumire" itemValue="id"/>
                                         </form:select>
+                                                <form:errors path="categorie"></form:errors>
+
+                                            </div>
                                     </spring:bind>
                                     <spring:bind path="descriere">
                                         <div class="form-group ${status.error ? 'has-error' : ''}">
@@ -303,7 +308,7 @@
     function getBase64(file) {
         var preview = document.getElementById("preview");
         var label= document.getElementById("label-preview");
-
+        var optiuniCategorie=document.getElementById('listaOptiuni');
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function (e) {
