@@ -171,10 +171,7 @@
                                       </spring:bind>
                                        <spring:bind path="stare">
                                            <div class="form-group ${status.error ? 'has-error' : ''}">
-                                                    <div class="col col-md-3">
                                                         <label for="stare" class=" form-control-label">Stare</label>
-                                            </div>
-                                            <div class="col-12 col-md-9">
                                                 <form:select id="stare" path="stare" name="stare" class="form-control">
                                                     <option value="0" >Alegeti starea</option>
                                                     <c:if test="${meniuForm.stare==null}">
@@ -190,12 +187,10 @@
                                                         <option value="inactiv" selected>Inactiv</option>
                                                     </c:if>
                                                 </form:select>
-                                            </div>
                                           <form:errors path="stare"></form:errors>
                                         </spring:bind>
                                         <spring:bind path="image">
                                             <div class="form-group">
-                                                <div class="col col-md-3">
                                                     <label for="image" class=" form-control-label">Incarca o imagine</label>
                                                     <input type="file" id="image" class="form-control-file"/>
                                                     <form:input type="hidden" name="image" path="image" id="idS" />
@@ -205,11 +200,10 @@
                                                     <img style="max-width: 150px; max-height: 150px; margin: 0 auto;object-fit: cover" src="${imageSrc}" id="imagePreview">
 
                                                     <c:if test="${add==false}">
-                                                        <label for="preview" class=" form-control-label">Imaginea noua</label>
+                                                        <label id="label-preview"  for="preview" class=" form-control-label"></label>
                                                     </c:if>
                                                     <img style="max-width: 150px; max-height: 150px; margin: 0 auto; object-fit: cover" src="" id="preview">
 
-                                                </div>
                                             </div>
                                         </spring:bind>
                                                <div class="card-footer">
@@ -261,6 +255,7 @@
 <script>
     function getBase64(file) {
         var preview = document.getElementById("preview");
+        var label= document.getElementById("label-preview");
 
         var reader = new FileReader();
         reader.readAsDataURL(file);
@@ -269,6 +264,8 @@
             document.getElementById("idS").value = reader.result;
             console.log('a ajuns aici');
             preview.setAttribute('src', e.target.result);
+            label.innerHTML='Imaginea noua' ;
+
         };
         reader.onerror = function (error) {
             console.log('Error: ', error);

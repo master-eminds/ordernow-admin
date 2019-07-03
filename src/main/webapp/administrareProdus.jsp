@@ -248,7 +248,7 @@
                                                 <img style="max-width: 150px; max-height: 150px; margin: 0 auto;object-fit: cover" src="${imageSrc}" id="imagePreview">
 
                                                 <c:if test="${add==false}">
-                                                <label for="preview" class=" form-control-label">Imaginea noua</label>
+                                                    <label id="label-preview"  for="preview" class=" form-control-label"></label>
                                                 </c:if>
                                                 <img style="max-width: 150px; max-height: 150px; margin: 0 auto; object-fit: cover" src="" id="preview">
 
@@ -302,6 +302,7 @@
 <script>
     function getBase64(file) {
         var preview = document.getElementById("preview");
+        var label= document.getElementById("label-preview");
 
         var reader = new FileReader();
         reader.readAsDataURL(file);
@@ -310,6 +311,8 @@
             document.getElementById("idS").value = reader.result;
             console.log('a ajuns aici');
             preview.setAttribute('src', e.target.result);
+            label.innerHTML='Imaginea noua' ;
+
         };
         reader.onerror = function (error) {
             console.log('Error: ', error);
