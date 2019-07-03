@@ -107,7 +107,7 @@ public class AdminController {
         model.addAttribute("data",dateString);
 
         model.addAttribute("counterThisWeek", DateNecesare.numarComenziUltimaSaptamana(comenzi));
-       model.addAttribute("membriOnline",DateNecesare.calculareNrOspatariOnline(ospatari));
+        model.addAttribute("membriOnline",DateNecesare.calculareNrOspatariOnline(ospatari));
         model.addAttribute("comenziUltimeleLuni",DateNecesare.listaComenziUltimeleLuni(comenzi,4).size());
         model.addAttribute("incasari",DateNecesare.calculeazaValoareTotalaIncasata(comenzi));
         return "welcome";

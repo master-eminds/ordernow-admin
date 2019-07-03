@@ -121,6 +121,7 @@ public class DateNecesare {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_YEAR,-7);
         Date limita=cal.getTime();
+        String dataLimita= sdf.format(limita);
         cal.add(Calendar.DAY_OF_YEAR,+7);
        counterComenziThisWeek=0;
         // get starting date
@@ -129,12 +130,16 @@ public class DateNecesare {
             String zi = data.split(" ")[0];
             for (int j = comenzi.size() - 1; j >= 0; j--) {
                 Comanda c = comenzi.get(j);
-                if (c.getData().compareTo(sdf.format(limita)) < 0) {
-                    j = -1;
-                } else {
-                    if (zi.equals(c.getData().split(" ")[0])) {
-                        counterComenziThisWeek++;
+                try {
+                    if (sdf.parse(c.getData()).compareTo(sdf.parse(dataLimita)) < 0) {
+                        j = -1;
+                    } else {
+                        if (zi.equals(c.getData().split(" ")[0])) {
+                            counterComenziThisWeek++;
+                        }
                     }
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
             }
             cal.add(Calendar.DAY_OF_YEAR, -1);
@@ -146,6 +151,8 @@ public class DateNecesare {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_YEAR,-7);
         Date limita=cal.getTime();
+        String dataLimita= sdf.format(limita);
+
         cal.add(Calendar.DAY_OF_YEAR,+7);
         List<Comanda > rezultat= new ArrayList<>();
         // get starting date
@@ -154,12 +161,16 @@ public class DateNecesare {
             String zi = data.split(" ")[0];
             for (int j = comenzi.size() - 1; j >= 0; j--) {
                 Comanda c = comenzi.get(j);
-                if (c.getData().compareTo(sdf.format(limita)) < 0) {
-                    j = -1;
-                } else {
-                    if (zi.equals(c.getData().split(" ")[0])) {
-                        rezultat.add(c);
+                try {
+                    if (sdf.parse(c.getData()).compareTo(sdf.parse(dataLimita)) < 0) {
+                        j = -1;
+                    } else {
+                        if (zi.equals(c.getData().split(" ")[0])) {
+                            rezultat.add(c);
+                        }
                     }
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
             }
             cal.add(Calendar.DAY_OF_YEAR, -1);
