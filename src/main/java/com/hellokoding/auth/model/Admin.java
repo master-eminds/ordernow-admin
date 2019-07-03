@@ -14,6 +14,7 @@ public class Admin {
     private String passwordConfirm;
     private String parolaAndroid;
     private Set<Role> roles;
+    private Rol rol;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -82,5 +83,14 @@ public class Admin {
 
     public void setParolaAndroid(String parolaAndroid) {
         this.parolaAndroid = parolaAndroid;
+    }
+    @ManyToOne
+    @JoinColumn(name="rol_id", nullable=false)
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 }

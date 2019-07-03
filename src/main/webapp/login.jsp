@@ -54,11 +54,10 @@
                 <button class="btn btn-primary btn-lg btn-block" type="submit">Autentificare</button>
             </form>
         </div>
-        <div class="card-footer bg-white p-0  ">
+       <%-- <div class="card-footer bg-white p-0  ">
             <div class="card-footer-item card-footer-item-bordered">
                 <a href="${contextPath}/registration" class="footer-link">Creeaza un cont</a></div>
-
-        </div>
+        </div>--%>
     </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

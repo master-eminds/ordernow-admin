@@ -193,9 +193,7 @@
                                     </spring:bind>
 
                                     <spring:bind path="categorie">
-                                        <div class="col col-md-3">
                                             <label for="categorie" class=" form-control-label">Selectati categoria</label>
-                                        </div>
                                         <form:select path="categorie" id="categorie">
                                             <form:options items="${categoriiProduse}" />
                                         </form:select>

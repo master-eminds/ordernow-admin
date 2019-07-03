@@ -3,11 +3,13 @@ package com.hellokoding.auth.model;
 import javax.persistence.*;
 import java.util.Set;
 
+import static javax.persistence.CascadeType.ALL;
+
 @Entity
-@Table(name = "role")
-public class Role {
+@Table(name = "roluri")
+public class Rol {
     private Long id;
-    private String name;
+    private String nume;
     private Set<Admin> admins;
 
     @Id
@@ -20,19 +22,18 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNume() {
+        return nume;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNume(String name) {
+        this.nume = name;
     }
 
-    @ManyToMany(mappedBy = "roles")
+    @OneToMany(cascade=ALL, mappedBy="rol")
     public Set<Admin> getAdmins() {
         return admins;
     }
-
     public void setAdmins(Set<Admin> admins) {
         this.admins = admins;
     }

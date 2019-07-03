@@ -162,4 +162,13 @@ public class ComandaController {
         model.addObject("listaProduse",comanda.getListaItemComanda());
         return model;
     }
+    @RequestMapping(value = "/vizualizareProduseUltimeleLuni/{idComanda}", method = RequestMethod.GET)
+    public ModelAndView getProduseUL(@PathVariable Long idComanda) throws ParseException {
+        ModelAndView model = new ModelAndView("vizualizareProduseUltimeleLuni");
+
+        Comanda comanda= comandaService.findById(idComanda);
+        model.addObject("valoareTotala",comanda.getValoare());
+        model.addObject("listaProduse",comanda.getListaItemComanda());
+        return model;
+    }
 }

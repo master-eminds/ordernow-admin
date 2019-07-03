@@ -25,7 +25,7 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
     @Autowired
-    private RoleService roleService;
+    private RolService rolService;
     @Autowired
     private MasaService masaService;
     @Autowired
@@ -46,11 +46,7 @@ public class AdminController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
-        Admin admin= new Admin();
-       /* Role rol= roleService.findRoleById(1L);
-        admin.setRoles(new HashSet<Role>(Collections.singletonList(rol)));
-*/
-        model.addAttribute("adminForm", admin);
+        model.addAttribute("adminForm", new Admin());
 
         return "registration";
     }
@@ -58,7 +54,7 @@ public class AdminController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("adminForm") Admin adminForm, BindingResult bindingResult, Model model) {
         adminValidator.validate(adminForm, bindingResult);
-
+        adminForm.setRol(rolService.findRolById(2L));
         if (bindingResult.hasErrors()) {
             return "registration";
         }
@@ -68,7 +64,7 @@ public class AdminController {
             e.printStackTrace();
         }
 
-        securityService.autologin(adminForm.getUsername(), adminForm.getPasswordConfirm());
+        //securityService.autologin(adminForm.getUsername(), adminForm.getPasswordConfirm());
 
         return "redirect:/welcome";
     }
@@ -91,13 +87,12 @@ public class AdminController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         Admin admin = adminService.findByUsername(currentPrincipalName);
-        Set<Role> rol= admin.getRoles();
+        Rol rol= admin.getRol();
         boolean master=false;
-        for(Role r: rol){
-        if(r.getId()==2){
+        if(rol.getId()==1){
         master=true;
             }
-        }
+
         model.addAttribute("master", master);
 
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");

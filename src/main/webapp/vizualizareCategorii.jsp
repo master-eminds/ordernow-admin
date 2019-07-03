@@ -139,13 +139,13 @@
                                 <c:forEach var="categorie" items="${categorii}">
                                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
                                     <div class="product-thumbnail">
-                                        <div class="product-img-head" >
-                                            <div class="product-img" style="width: 320px; height: 220px">
-=                                                <img src="${String(categorie.imagine)}" style="max-height:90%; max-width: 90%; object-fit: cover" alt="" class="img-fluid"></div>
+                                        <div class="product-img-head" style="margin: 0 auto;" >
+                                            <div class="product-img" style="margin: 0 auto; height: 220px">
+                                               <img src="${String(categorie.imagine)}" style="margin: 0 auto; max-height:80%; max-width: 80%; object-fit: cover" alt="" class="img-fluid"></div>
                                             <div class=""><a href="${contextPath}/detaliiCategorie/${categorie.id}" class="product-wishlist-btn"><i class="fas fa-eye"></i></a></div>
                                         </div>
-                                        <div class="product-content" style="width: 320px; height: 260px">
-                                            <div class="product-content-head" style="width: 280px; height: 100px">
+                                        <div class="product-content" style="margin: 0 auto;height: 260px">
+                                            <div class="product-content-head" style="margin: 0 auto; height: 100px">
                                                 <h3 class="product-title">${categorie.denumire}</h3>
 
                                             </div>
@@ -180,7 +180,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12">
                         <div class="product-sidebar">
                             <div class="product-sidebar-widget">
-                                <a href="${contextPath}/administrareCategorie/0/"class="btn btn-danger btn-sm">Adauga o categorie</a>
+                                <a href="${contextPath}/administrareCategorie/0/${meniu_id}"class="btn btn-danger btn-sm">Adauga o categorie</a>
                             </div>
                         </div>
                     </div>
@@ -189,26 +189,7 @@
                 </div>
             </div>
             <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <div class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                            Copyright © 2018 Concept. All rights reserved. Dashboard by <a href="https://colorlib.com/wp/">Colorlib</a>.
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <div class="text-md-right footer-links d-none d-sm-block">
-                                <a href="javascript: void(0);">About</a>
-                                <a href="javascript: void(0);">Support</a>
-                                <a href="javascript: void(0);">Contact Us</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- end footer -->
+
             <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->
