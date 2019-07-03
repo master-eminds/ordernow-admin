@@ -68,12 +68,13 @@ public class ProdusController {
 
         byte[] file = produsForm.getImagine();
         produsForm.setMeniu_id(meniu_id);
+
         if(bindingResult.hasErrors()){
             return "administrareProdus";
         }
-        if(produsForm.getId()!=null){
+       /* if(produsForm.getId()!=null){
             Produs old = produsService.findById(produsForm.getId());
-        }
+        }*/
         produsService.save(produsForm);
         return "redirect:/detaliiCategorie/"+produsForm.getCategorie().getId();
     }

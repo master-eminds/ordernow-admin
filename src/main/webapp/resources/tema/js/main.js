@@ -394,7 +394,7 @@
             animateRotate: true
           },
           legend: {
-            display: false
+            display: true
           },
           tooltips: {
             titleFontFamily: "Poppins",

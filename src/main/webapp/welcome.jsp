@@ -289,9 +289,7 @@
                          <c:if test="${not empty user}">
                             <div class="account-wrap">
                                 <div class="account-item clearfix js-item-menu">
-                                    <div class="image">
-                                        <img src="${contextPath}/resources/tema/images/icon/avatar-01.jpg" alt="${user.nume} ${user.prenume}" />
-                                    </div>
+
                                     <div class="content">
                                         <a class="js-acc-btn" href="#">${user.nume} ${user.prenume}</a>
                                     </div>

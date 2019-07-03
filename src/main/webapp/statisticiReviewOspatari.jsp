@@ -190,7 +190,6 @@
 
                                         <thead>
                                         <tr>
-                                            <th scope="col">Id ospatar</th>
                                             <th scope="col">Nume</th>
                                             <th scope="col">Vizualizare review-uri</th>
                                         </tr>
@@ -199,7 +198,6 @@
                                         <c:forEach var="ospatar" items="${listaOspatari}">
                                             <c:if test="${noteOspatar.get(ospatar.id)!=null}">
 
-                                                <td>${ospatar.id}</td>
                                                 <td>${ospatar.nume}</td>
                                                 <td>
                                                     <a href="/vizualizareReviewOspatar/${ospatar.id}"><i class="fas fa-eye"></i></a>

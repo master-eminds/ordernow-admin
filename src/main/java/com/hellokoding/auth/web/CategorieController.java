@@ -82,7 +82,7 @@ public class CategorieController {
     public String adaugareMeniu(@ModelAttribute("categorieForm") Categorie categorieForm, @PathVariable("meniu_id") Long meniu_id, BindingResult bindingResult) throws UnsupportedEncodingException, SQLException {
 
         byte[] file = categorieForm.getImagine();
-        System.out.println(new String(file));
+        //System.out.println(new String(file));
         categorieForm.setMeniu(meniuService.findById(meniu_id));
         if(bindingResult.hasErrors()){
             return "administrareCategorie";

@@ -242,8 +242,16 @@
                                                     <label for="imagine" class=" form-control-label">Incarca o imagine</label>
                                                     <input type="file" id="imagine" class="form-control-file"/>
                                                     <form:input type="hidden" name="imagine" path="imagine" id="idS" />
-                                                    <img src="" id="preview">
-                                                    <img src="${imageSrc}" id="imagePreview">
+                                                <c:if test="${add==false}">
+                                                <label for="imagePreview" class=" form-control-label">Imagine veche</label>
+                                                </c:if>
+                                                <img style="max-width: 150px; max-height: 150px; margin: 0 auto;object-fit: cover" src="${imageSrc}" id="imagePreview">
+
+                                                <c:if test="${add==false}">
+                                                <label for="preview" class=" form-control-label">Imaginea noua</label>
+                                                </c:if>
+                                                <img style="max-width: 150px; max-height: 150px; margin: 0 auto; object-fit: cover" src="" id="preview">
+
                                             </div>
                                         </spring:bind>
                                                <div class="card-footer">

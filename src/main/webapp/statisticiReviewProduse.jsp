@@ -200,7 +200,6 @@
 
                                         <thead>
                                         <tr>
-                                            <th scope="col">Id produs</th>
                                             <th scope="col">Denumire</th>
                                             <th scope="col">Vizualizare review-uri</th>
                                         </tr>
@@ -209,7 +208,6 @@
                                         <c:forEach var="produs" items="${listaProduse}">
                                             <c:if test="${noteProdus.get(produs.id)!=null}">
 
-                                                <td>${produs.id}</td>
                                                 <td>${produs.denumire}</td>
                                                 <td>
                                                     <a href="/vizualizareReviewProdus/${produs.id}"><i class="fas fa-eye"></i></a>
