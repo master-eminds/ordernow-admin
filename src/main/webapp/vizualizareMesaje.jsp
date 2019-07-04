@@ -178,8 +178,8 @@
                                                 <div class="au-message__item-inner">
                                                     <div class="au-message__item-text">
                                                         <div class="text">
-                                                            <h5 class="name">${mesajNecitit.expeditor}</h5>
-                                                            <p style="font-weight: bold" >Subiect: ${mesajNecitit.subiect}</p>
+                                                            <h5 style="font-weight: bold" class="name">${mesajNecitit.expeditor}</h5>
+                                                            <p style="color: #0a3c93">Subiect: ${mesajNecitit.subiect}</p>
 
                                                             <p>${mesajNecitit.continut.substring(0,20)}...</p>
                                                         </div>
@@ -195,8 +195,8 @@
                                                 <div class="au-message__item-inner">
                                                     <div class="au-message__item-text">
                                                         <div class="text">
-                                                            <h5 class="name">${mesajCitit.expeditor}</h5>
-                                                            <p style="font-weight: bold" >Subiect: ${mesajCitit.subiect}</p>
+                                                            <h5 style="font-weight: bold" class="name">${mesajCitit.expeditor}</h5>
+                                                            <p style="color: #0a3c93">Subiect: ${mesajCitit.subiect}</p>
 
                                                             <p>${mesajCitit.continut.substring(0,20)}...</p>
                                                         </div>

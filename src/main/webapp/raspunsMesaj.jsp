@@ -152,9 +152,8 @@
                         <div class="au-chat">
                             <div class="au-chat__title">
                                 <div class="au-chat-info">
-                                        <span class="nick">
-                                                        <a href="#">${mesaj.expeditor}</a>
-                                                    </span>
+                                    <p style="font-size:20pt;font-weight: bold" >${mesaj.expeditor}</p>
+
                                 </div>
                                 <div class="au-chat-info">
                                     <p style="font-weight: bold" >Subiect: ${mesaj.subiect}</p>

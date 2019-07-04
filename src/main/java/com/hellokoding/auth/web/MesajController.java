@@ -44,7 +44,7 @@ public class MesajController {
         Mesaj mesaj= mesajService.findById(idMesaj);
         mesajRepository.updateStareMesaj("citit",idMesaj);
         boolean dejaRaspuns= false;
-        if(mesaj!=null && !mesaj.getContinutRaspuns().isEmpty()){
+        if(mesaj!=null && mesaj.getContinutRaspuns()!=null&&!mesaj.getContinutRaspuns().isEmpty()){
             dejaRaspuns=true;
         }
         model.addObject("dejaRaspuns",dejaRaspuns);
