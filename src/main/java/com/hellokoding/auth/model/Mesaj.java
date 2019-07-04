@@ -12,6 +12,7 @@ public class Mesaj {
     private String continut;
     private String subiect;
     private Long idRaspuns;
+    private String continutRaspuns;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -53,5 +54,13 @@ public class Mesaj {
 
     public void setIdRaspuns(Long idRaspuns) {
         this.idRaspuns = idRaspuns;
+    }
+
+    public String getContinutRaspuns() {
+        return continutRaspuns;
+    }
+
+    public void setContinutRaspuns(String continutRaspuns) {
+        this.continutRaspuns = continutRaspuns;
     }
 }
