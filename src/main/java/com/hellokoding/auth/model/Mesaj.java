@@ -9,10 +9,14 @@ public class Mesaj {
 
     private Long id;
     private String expeditor;
+    private Long idExpeditor;
+
     private String continut;
     private String subiect;
     private Long idRaspuns;
     private String continutRaspuns;
+    private String stare;
+    private String data;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -62,5 +66,28 @@ public class Mesaj {
 
     public void setContinutRaspuns(String continutRaspuns) {
         this.continutRaspuns = continutRaspuns;
+    }
+    public String getStare() {
+        return stare;
+    }
+
+    public void setStare(String stare) {
+        this.stare = stare;
+    }
+
+    public Long getIdExpeditor() {
+        return idExpeditor;
+    }
+
+    public void setIdExpeditor(Long idExpeditor) {
+        this.idExpeditor = idExpeditor;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 }

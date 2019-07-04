@@ -175,35 +175,38 @@
                          </c:if>
                         <div class="header-button">
                             <div class="noti-wrap">
+
                                 <div class="noti__item js-item-menu">
                                     <i class="zmdi zmdi-comment-more"></i>
-                                    <span class="quantity">1</span>
+                                    <span class="quantity">${listaMesajeNecitite.size()} </span>
                                     <div class="mess-dropdown js-dropdown">
                                         <div class="mess__title">
-                                            <p>You have 2 news message</p>
+                                            <c:if test="${listaMesajeNecitite.size() eq 1}">
+                                                <p>Ai un mesaj nou</p>
+                                            </c:if>
+                                            <c:if test="${listaMesajeNecitite.size() gt 1}">
+                                                <p>Ai ${listaMesajeNecitite.size()} mesaje noi</p>
+                                            </c:if>
                                         </div>
-                                        <div class="mess__item">
-                                            <div class="image img-cir img-40">
-                                                <img src="images/icon/avatar-06.jpg" alt="Michelle Moreno" />
+                                        <a id="aTrimiteRaspuns" type="hidden" href="#"></a>
+
+                                        <c:forEach var="mesaj" items="${listaMesajeNecitite}">
+                                            <div class="mess__item" onclick="goToTrimiteRaspuns(${mesaj.id})">
+
+                                                <div class="content">
+                                                    <h5>${mesaj.expeditor}</h5>
+                                                    <h6>Subiect: ${mesaj.subiect}</h6>
+
+                                                    <p>${mesaj.continut.substring(0,20)}...</p>
+                                                    <span class="time">${mesaj.data}</span>
+                                                </div>
                                             </div>
-                                            <div class="content">
-                                                <h6>Michelle Moreno</h6>
-                                                <p>Have sent a photo</p>
-                                                <span class="time">3 min ago</span>
-                                            </div>
-                                        </div>
-                                        <div class="mess__item">
-                                            <div class="image img-cir img-40">
-                                                <img src="images/icon/avatar-04.jpg" alt="Diane Myers" />
-                                            </div>
-                                            <div class="content">
-                                                <h6>Diane Myers</h6>
-                                                <p>You are now connected on message</p>
-                                                <span class="time">Yesterday</span>
-                                            </div>
-                                        </div>
+
+                                        </c:forEach>
+
+
                                         <div class="mess__footer">
-                                            <a href="#">View all messages</a>
+                                            <a href="/vizualizareMesaje">Vezi toate mesajele</a>
                                         </div>
                                     </div>
                                 </div>
@@ -573,7 +576,14 @@
 
 <!-- Main JS-->
 <script src="${contextPath}/resources/tema/js/main.js"></script>
+<script>
+    function goToTrimiteRaspuns(id) {
+        var link = document.getElementById("aTrimiteRaspuns");
+        link.setAttribute('href','${contextPath}/raspunsMesaj/'+id)
+        link.click();
+    }
 
+</script>
 </body>
 
 </html>

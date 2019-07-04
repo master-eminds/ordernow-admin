@@ -52,9 +52,7 @@ public class ProdusServiceImpl implements ProdusService {
         return em.createNativeQuery(
                 "select p.id, denumire, count(i.produs_id) as numar_aparitii from itemi_comanda i, produse p where p.id=i.produs_id group by p.id order by numar_aparitii desc limit 6", CountProdus.class)
                 .getResultList();
-
-
-}
+    }
 
     @Override
     public Produs findById(Long id) {

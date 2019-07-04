@@ -25,6 +25,9 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
     @Autowired
+    private MesajService mesajService;
+
+    @Autowired
     private RolService rolService;
     @Autowired
     private MasaService masaService;
@@ -99,7 +102,8 @@ public class AdminController {
         String dateString = format.format( new Date()   );
         List<Ospatar> ospatari = ospatarService.findAll();
         List<Comanda> comenzi = comandaService.findAll();
-
+        List<Mesaj> listaMesajeNecitite= mesajService.findAllByStare("necitit");
+        model.addAttribute("listaMesajeNecitite",listaMesajeNecitite);
         //alte date necesare
         model.addAttribute("listaMese",masaService.findAll());
         model.addAttribute("listaOspatari",ospatari);
