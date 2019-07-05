@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CategorieService {
 
-    void save(Categorie categorie);
+    Categorie save(Categorie categorie);
     void delete(Long id);
 
     Categorie findById(Long id);

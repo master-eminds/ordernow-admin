@@ -6,6 +6,7 @@ import com.hellokoding.auth.service.CategorieService;
 import com.hellokoding.auth.service.MeniuService;
 import com.hellokoding.auth.service.ProdusService;
 import com.hellokoding.auth.service.SecurityService;
+import com.hellokoding.auth.util.Global;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Controller
@@ -30,32 +32,20 @@ public class CategorieController {
     private SecurityService securityService;
 
 
-/*
-
-    @RequestMapping(value = "/gestionareCategorie", method = RequestMethod.GET)
-    public String gestionareProdus(Model model) {
-        List<Categorie> categorii= categorieService.findAll();
-
-        model.addAttribute("categorieForm", new Categorie());
-        model.addAttribute("listaCategorii", categorii);
-        return "gestionareCategorie";
-    }
-
-    @RequestMapping(value = "/gestionareCategorie", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("categorieForm") Categorie categorieForm,  BindingResult bindingResult, Model model) {
-
-        if (bindingResult.hasErrors()) {
-            return "gestionareCategorie";
-        }
-        categorieService.save(categorieForm);
-        return "redirect:/meniuriRestaurant";
-    }
-*/
-
     @RequestMapping(value = "/vizualizareCategorii/{meniu_id}", method = RequestMethod.GET)
             public ModelAndView vizualizareCategorii(@PathVariable ("meniu_id") Long meniu_id) {
             ModelAndView model = new ModelAndView("vizualizareCategorii");
-            Set<Categorie> listaCategorii=meniuService.findById(meniu_id).getCategorii();
+            int i=0;
+            while(i<Global.listaMeniuri.size() && !Global.listaMeniuri.get(i).getId().equals(meniu_id)){
+                i++;
+            }
+        Set<Categorie> listaCategorii=new LinkedHashSet<>();
+            if(i<Global.listaMeniuri.size()){
+                if(Global.listaMeniuri.get(i).getId().equals(meniu_id)){
+                    listaCategorii=Global.listaMeniuri.get(i).getCategorii();
+                }
+            }
+
             model.addObject("categorii", listaCategorii);
             model.addObject("meniu_id",meniu_id);
         return model;
@@ -89,9 +79,11 @@ public class CategorieController {
         }
         if(categorieForm.getId()!=null){
             Categorie old = categorieService.findById(categorieForm.getId());
+            Global.listaCategorii.remove(old);
         }
 
-        categorieService.save(categorieForm);
+        Categorie categorie=categorieService.save(categorieForm);
+        Global.listaCategorii.add(categorie);
         return "redirect:/vizualizareCategorii/"+meniu_id;
     }
 
@@ -102,6 +94,7 @@ public class CategorieController {
     public String stergeMeniu(@PathVariable("categorie_id") Long categorie_id) {
         Categorie categorie=categorieService.findById(categorie_id);
         categorieService.delete(categorie_id);
+        Global.listaCategorii.remove(categorie);
         return "redirect:/vizualizareCategorii/"+categorie.getMeniu().getId();
     }
 }

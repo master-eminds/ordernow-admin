@@ -14,8 +14,8 @@ public class MeniuServiceImpl implements MeniuService {
     MeniuRepository meniuRepository;
 
     @Override
-    public void save(Meniu meniu) {
-        meniuRepository.save(meniu);
+    public Meniu save(Meniu meniu) {
+        return meniuRepository.saveAndFlush(meniu);
     }
 
     @Override

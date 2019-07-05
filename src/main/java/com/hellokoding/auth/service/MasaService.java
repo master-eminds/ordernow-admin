@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface MasaService {
 
-    void save(Masa masa);
+    Masa save(Masa masa);
 
     Masa findById(Long id);
     List<Masa> findAll();

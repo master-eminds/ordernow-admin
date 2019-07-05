@@ -1,12 +1,11 @@
 package com.hellokoding.auth.util;
 
-import com.hellokoding.auth.model.Comanda;
+import com.hellokoding.auth.model.*;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.Base64;
+import java.util.*;
 
 public class Global {
     public static String AES="AES";
@@ -39,8 +38,32 @@ public class Global {
         return secretKeySpec;
     }
 
-    public static ArrayList<Comanda> listaComenziUltimaSaptamana=new ArrayList<>();
-    public static ArrayList<Comanda> listaComenziUltimeleLuni=new ArrayList<>();
+    public static List<Comanda> listaComenziUltimaSaptamana=new ArrayList<>();
+    public static List<Comanda> listaComenziUltimeleLuni=new ArrayList<>();
 //    public static Map<String, Integer> mapUltimaSaptamanAsync;
+public static List<Ospatar> listaOspatari=new ArrayList<>();
+    public static List<Masa> listaMese=new ArrayList<>();
+    public static Double valoareTotala=0.0;
+    public static Map<String,Integer> comenziPeZile= new HashMap<>();
+    public static Map<String,Integer> comenziPeLuna= new HashMap<>();
+    public static Map<String,Double> valoriPeLuna= new HashMap<>();
+    public static List<CountProdus> produseComandate;
+    public static String dateChartComenziTotal ="";
+    public static String dateChartComenziUS="";
+    public static String dateChartComenziUL="";
+    public static List<Comanda> toateComenzile=new ArrayList<>();
+
+    public static String dateChartCeleMaiComandateProd="";
+
+
+    //Meniuri
+    public static List<Meniu> listaMeniuri=new ArrayList<>();
+    public static List<Produs> listaProduse=new ArrayList<>();
+    public static List<Categorie> listaCategorii=new ArrayList<>();
+
+
+
+
+
 
 }

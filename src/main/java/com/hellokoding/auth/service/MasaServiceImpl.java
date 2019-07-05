@@ -14,8 +14,8 @@ public class MasaServiceImpl implements MasaService {
     MasaRepository masaRepository;
 
     @Override
-    public void save(Masa masa) {
-        masaRepository.save(masa);
+    public Masa save(Masa masa) {
+        return masaRepository.saveAndFlush(masa);
     }
 
     @Override

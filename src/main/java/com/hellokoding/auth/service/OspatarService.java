@@ -5,7 +5,7 @@ import com.hellokoding.auth.model.Ospatar;
 import java.util.List;
 
 public interface OspatarService {
-    void save(Ospatar ospatar);
+    Ospatar save(Ospatar ospatar);
 
     Ospatar findById(Long id);
 

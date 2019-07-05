@@ -5,6 +5,7 @@ import com.hellokoding.auth.model.Review;
 import com.hellokoding.auth.service.OspatarService;
 import com.hellokoding.auth.service.ReviewService;
 import com.hellokoding.auth.service.SecurityService;
+import com.hellokoding.auth.util.Global;
 import com.hellokoding.auth.validator.OspatarValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,9 +61,11 @@ public class OspatarController {
         if(ospatarForm.getId()!=null&& ospatarForm.getId()!=null){
             Ospatar old = ospatarService.findById(ospatarForm.getId());
             ospatarForm.setParola(old.getParola());
+            Global.listaOspatari.remove(old);
         }
-        ospatarService.save(ospatarForm);
-        return "redirect:/administrareOspatari/0";
+        Ospatar ospatar=ospatarService.save(ospatarForm);
+        Global.listaOspatari.add(ospatar);
+        return "redirect:/welcome";
     }
 
 
@@ -105,7 +108,7 @@ public class OspatarController {
         StringBuilder stringNote=new StringBuilder();
         for(Ospatar o: ospatari){
             if(noteOspatar.containsKey(o.getId())){
-                stringId.append(o.getId()).append("-");
+                stringId.append(o.getNume()).append("-");
                 stringNote.append(noteOspatar.get(o.getId())).append("-");
             }
 

@@ -15,7 +15,7 @@ public class OspatarServiceImpl implements OspatarService {
     OspatarRepository ospatarRepository;
 
     @Override
-    public void save(Ospatar ospatar) {
+    public Ospatar save(Ospatar ospatar) {
 
         try {
             ospatar.setParola(Global.criptare(ospatar.getParola(),Global.cheieCriptare));
@@ -23,7 +23,7 @@ public class OspatarServiceImpl implements OspatarService {
             e.printStackTrace();
         }
         ospatar.setStatus("offline");
-        ospatarRepository.save(ospatar);
+        return ospatarRepository.saveAndFlush(ospatar);
     }
 
 

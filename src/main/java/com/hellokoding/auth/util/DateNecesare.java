@@ -213,6 +213,7 @@ public class DateNecesare {
 
     public static double calculeazaValoareTotalaIncasata(List<Comanda> comenzi){
        totalIncasari=0.0;
+
         for(Comanda comanda: comenzi) {
             totalIncasari+=comanda.getValoare();
         }

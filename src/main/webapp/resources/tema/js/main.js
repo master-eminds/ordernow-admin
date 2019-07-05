@@ -1274,7 +1274,7 @@
     var lRo=[];
     var valoriStringROL=valoriRO.split(";")[0].split("-")
     for( var jRo=0; jRo<valoriStringROL.length;jRo++ ){
-      lRo.push("Id ospatar: "+ valoriStringROL[jRo])
+      lRo.push( valoriStringROL[jRo])
     }
     if (ctx) {
       ctx.height = 150;
@@ -1302,12 +1302,9 @@
           ]
         },
         options: {
+
           legend: {
-            position: 'top',
-            labels: {
-              fontFamily: 'Poppins',
-                color:'black'
-            }
+            display:false
 
           },
           scales: {
@@ -1326,7 +1323,8 @@
               scaleLabel: {
                 display: true,
                 labelString: 'Raiting',
-                fontFamily: "Poppins"
+                fontFamily: "Poppins",
+                fontSize:16
               }
             }]
           }

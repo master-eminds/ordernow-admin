@@ -3,6 +3,7 @@ package com.hellokoding.auth.web;
 import com.hellokoding.auth.model.*;
 import com.hellokoding.auth.service.*;
 import com.hellokoding.auth.util.DateNecesare;
+import com.hellokoding.auth.util.Global;
 import com.hellokoding.auth.validator.AdminValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -100,8 +101,20 @@ public class AdminController {
 
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         String dateString = format.format( new Date()   );
-        List<Ospatar> ospatari = ospatarService.findAll();
-        List<Comanda> comenzi = comandaService.findAll();
+        if(Global.listaOspatari==null|| Global.listaOspatari.size()==0){
+            Global.listaOspatari=ospatarService.findAll();
+        }
+        if(Global.listaMese==null|| Global.listaMese.size()==0){
+            Global.listaMese=masaService.findAll();
+        }
+       // List<Ospatar> ospatari = ospatarService.findAll();
+        List<Comanda> comenzi=new ArrayList<>();
+        if(Global.listaComenziUltimeleLuni!=null&&Global.listaComenziUltimeleLuni.size()!=0){
+            comenzi=Global.listaComenziUltimeleLuni;
+        }
+        else{
+            comenzi=comandaService.findAll();
+        }
         List<Mesaj> listaMesajeNecitite= mesajService.findAllByStare("necitit");
         List<Mesaj> listaPrimeleMesajeNecitite= new ArrayList<>();
         if(listaMesajeNecitite.size()>3){
@@ -117,15 +130,24 @@ public class AdminController {
         model.addAttribute("counterMesajeNecitite",listaMesajeNecitite.size());
 
         //alte date necesare
-        model.addAttribute("listaMese",masaService.findAll());
-        model.addAttribute("listaOspatari",ospatari);
+        model.addAttribute("listaMese", Global.listaMese);
+        model.addAttribute("listaOspatari",Global.listaOspatari);
         model.addAttribute("user",admin);
         model.addAttribute("data",dateString);
 
-        model.addAttribute("counterThisWeek", DateNecesare.numarComenziUltimaSaptamana(comenzi));
-        model.addAttribute("membriOnline",DateNecesare.calculareNrOspatariOnline(ospatari));
-        model.addAttribute("comenziUltimeleLuni",DateNecesare.listaComenziUltimeleLuni(comenzi,4).size());
-        model.addAttribute("incasari",DateNecesare.calculeazaValoareTotalaIncasata(comenzi));
+        if(Global.listaComenziUltimeleLuni==null|| Global.listaComenziUltimeleLuni.size()==0){
+            Global.listaComenziUltimeleLuni=DateNecesare.listaComenziUltimeleLuni(comenzi,4);
+        }
+        if(Global.listaComenziUltimaSaptamana==null|| Global.listaComenziUltimaSaptamana.size()==0){
+            Global.listaComenziUltimaSaptamana=DateNecesare.listaComenziUltimaSaptamana(comenzi);
+        }
+        if(Global.valoareTotala==null|| Global.valoareTotala==0){
+            Global.valoareTotala=DateNecesare.calculeazaValoareTotalaIncasata(comenzi);
+        }
+        model.addAttribute("counterThisWeek", Global.listaComenziUltimaSaptamana.size());
+        model.addAttribute("membriOnline",DateNecesare.calculareNrOspatariOnline(Global.listaOspatari));
+        model.addAttribute("comenziUltimeleLuni",Global.listaComenziUltimeleLuni.size());
+        model.addAttribute("incasari",Global.valoareTotala);
 
         return "welcome";
     }
@@ -133,8 +155,8 @@ public class AdminController {
     private  HashMap<Long, Integer> listaMeses (List<Comanda> comenzi){
        HashMap<Long, Integer> comenziMese= new HashMap<>();
 
-       List<Masa> mese= masaService.findAll();
-       for(Masa masa: mese){
+       //List<Masa> mese= masaService.findAll();
+       for(Masa masa: Global.listaMese){
            if(!comenziMese.containsKey(masa.getId())){
                comenziMese.put(masa.getId(),0);
            }

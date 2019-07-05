@@ -15,8 +15,9 @@ public class CategorieServiceImpl implements CategorieService {
     CategorieRepository categorieRepository;
 
     @Override
-    public void save(Categorie categorie) {
-        categorieRepository.save(categorie);
+    public Categorie save(Categorie categorie) {
+        return categorieRepository.saveAndFlush(categorie);
+
     }
 
     @Override
