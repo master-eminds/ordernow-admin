@@ -363,6 +363,8 @@
             {
               label: "My First dataset",
               data: [valoriLow, valoriHigh],
+
+              showLabel:true,
               backgroundColor: [
                 '#00b5e9',
                 '#fa4251'
@@ -389,6 +391,8 @@
           maintainAspectRatio: false,
           responsive: true,
           cutoutPercentage: 55,
+
+          showLabel:true,
           animation: {
             animateScale: true,
             animateRotate: true
@@ -1132,10 +1136,12 @@
               "rgb(32, 238, 238)",
               "rgb(244, 10, 244)"
 
-            ]
+            ],
+
 
           }],
           labels: valori3.split(";")[0].split("-")
+
         },
         options: {
           legend: {
@@ -1145,6 +1151,12 @@
             }
 
           },
+          pieceLabel: {
+            mode: 'value' //show values
+            ,fontColor: '#000'
+          }
+
+          ,
           responsive: true
         }
       });
@@ -1272,11 +1284,20 @@
           labels: lRo,
           datasets: [
             {
-              label: "Raiting",
               data: vRO,
               borderColor: "rgb(244, 146, 61)",
               borderWidth: "0",
-              backgroundColor: "rgba(244, 238, 61, 0.57)"
+              backgroundColor: [ "rgba(32, 238, 238,0.8)",
+                "rgba(248, 155, 63,0.8)",
+                "rgba(12, 170, 170,0.8)",
+                "rgba(247, 59, 12,0.8)",
+                "rgba(225, 225, 49,0.8)",
+
+                "rgba(88, 232, 88,0.8)",
+                "rgba(5, 5, 233,0.8)",
+                "rgba(140, 63, 217,0.8)",
+                "rgba(32, 238, 238,0.8)",
+                "rgba(244, 10, 244,0.8)", "rgba(244, 238, 61, 0.57)" ]
             }
           ]
         },
@@ -1300,6 +1321,11 @@
               ticks: {
                 beginAtZero: true,
                 max:5,
+                fontFamily: "Poppins"
+              },
+              scaleLabel: {
+                display: true,
+                labelString: 'Raiting',
                 fontFamily: "Poppins"
               }
             }]

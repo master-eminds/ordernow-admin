@@ -153,11 +153,7 @@
                             <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                                 <div class="au-card-title" style="background-image:url('${contextPath}/resources/tema/images/bg-title-02.jpg');">
                                     <div class="bg-overlay bg-overlay--blue"></div>
-                                    <h3>
-                                        <i class="zmdi zmdi-comment-text"></i>Mesaje</h3>
-                                    <button class="au-btn-plus">
-                                        <i class="zmdi zmdi-plus"></i>
-                                    </button>
+                                    <h3><i class="zmdi zmdi-comment-text"></i>Mesaje</h3>
                                 </div>
                                 <div class="au-inbox-wrap js-inbox-wrap">
                                     <div class="au-message js-list-load">
@@ -181,7 +177,12 @@
                                                             <h5 style="font-weight: bold" class="name">${mesajNecitit.expeditor}</h5>
                                                             <p style="color: #0a3c93">Subiect: ${mesajNecitit.subiect}</p>
 
-                                                            <p>${mesajNecitit.continut.substring(0,20)}...</p>
+                                                            <c:if test="${mesajNecitit.continut.length() gt 21}">
+                                                                <p>${mesajNecitit.continut.substring(0,20)}...</p>
+                                                            </c:if>
+                                                            <c:if test="${mesajNecitit.continut.length() le 21}">
+                                                                <p>${mesajNecitit.continut}</p>
+                                                            </c:if>
                                                         </div>
                                                     </div>
                                                     <div class="au-message__item-time">
@@ -197,8 +198,12 @@
                                                         <div class="text">
                                                             <h5 style="font-weight: bold" class="name">${mesajCitit.expeditor}</h5>
                                                             <p style="color: #0a3c93">Subiect: ${mesajCitit.subiect}</p>
-
-                                                            <p>${mesajCitit.continut.substring(0,20)}...</p>
+                                                            <c:if test="${mesajCitit.continut.length() gt 21}">
+                                                                <p>${mesajCitit.continut.substring(0,20)}...</p>
+                                                            </c:if>
+                                                            <c:if test="${mesajCitit.continut.length() le 21}">
+                                                                <p>${mesajCitit.continut}</p>
+                                                            </c:if>
                                                         </div>
                                                     </div>
                                                     <div class="au-message__item-time">

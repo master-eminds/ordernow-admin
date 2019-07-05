@@ -32,12 +32,30 @@ public class MesajServiceImpl implements MesajService {
 
 
         return em.createNativeQuery(
-                "select * from mesaje where stare=:stare", Mesaj.class)
+                "select * from mesaje where stare=:stare order by data desc", Mesaj.class)
                 .setParameter("stare", stare)
                 .getResultList();
 
     }
+    @Override
+    public int findCounterByStare(String stare) {
 
+        return em.createNativeQuery(
+                "select count(id) from mesaje where stare=:stare")
+                .setParameter("stare", stare)
+                .getFirstResult();
+
+    }
+    @Override
+    public List<Mesaj> findFirstByStare(String stare, int limit) {
+
+
+        return em.createNativeQuery(
+                "select * from mesaje where stare=:stare limit "+limit, Mesaj.class)
+                .setParameter("stare", stare)
+                .getResultList();
+
+    }
     @Override
     public void save(Mesaj mesaj) {
         mesajRepository.save(mesaj);

@@ -34,7 +34,7 @@ public class ComandaController {
 
     private String dateChartUS(List<Comanda> comenzi1){
 
-        Map<String,Integer> comenziPeZile= DateNecesare.calculareNrComenziSaptamana(comenzi1);
+        Map<String,Integer> comenziPeZile=DateNecesare.calculareNrComenziSaptamana(comenzi1);
 
         SimpleDateFormat format= new SimpleDateFormat("dd-MMM-yyyy");
         StringBuilder stringZile=new StringBuilder();
@@ -46,7 +46,8 @@ public class ComandaController {
             String zi= format.format(cal.getTime());
             if(comenziPeZile.containsKey(zi.substring(0,6))){
                 stringZile.append(zi.substring(0,6)).append(",");
-                stringNumarcomenziZile.append(comenziPeZile.get(zi.substring(0,6))).append(",");
+                stringNumarcomenziZile.append(comenziPeZile
+                        .get(zi.substring(0,6))).append(",");
             }
             cal.add(Calendar.DAY_OF_YEAR,+1);
         }

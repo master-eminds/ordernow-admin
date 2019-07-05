@@ -26,6 +26,7 @@ public class DateNecesare {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
         Calendar cal=Calendar.getInstance();
+        cal.add(Calendar.MONTH,-1);
         for(int i=0;i<numarLuni;i++){
             String dataLimita= sdf.format(cal.getTime());
             int lunaLimita= Integer.parseInt(dataLimita.split(" ")[0].split("-")[1]);
@@ -52,10 +53,11 @@ public class DateNecesare {
         SimpleDateFormat dateFormat= new SimpleDateFormat("dd-MMM-yyyy");
 
         Calendar cal=Calendar.getInstance();
+        cal.add(Calendar.MONTH,-1);
 
-       for(int i=0;i<numarLuni;i++){
+        for(int i=0;i<numarLuni;i++){
            boolean gasit=false;
-            String dataLimita= sdf.format(cal.getTime());
+           String dataLimita= sdf.format(cal.getTime());
            String lunaNr= dataLimita.split(" ")[0].split("-")[1];
            int lunaLimita= Integer.parseInt(lunaNr);
             for (int j=comenzi.size()-1;j>=0;j--) {
@@ -216,6 +218,7 @@ public class DateNecesare {
         }
         return totalIncasari;
     }
+
 
 
 

@@ -178,16 +178,16 @@
 
                                 <div class="noti__item js-item-menu">
                                     <i class="zmdi zmdi-comment-more"></i>
-                                   <c:if test="${listaMesajeNecitite.size() ne 0}">
-                                       <span class="quantity">${listaMesajeNecitite.size()} </span>
+                                   <c:if test="${counterMesajeNecitite ne 0}">
+                                       <span class="quantity">${counterMesajeNecitite} </span>
                                    </c:if>
                                     <div class="mess-dropdown js-dropdown">
                                         <div class="mess__title">
-                                            <c:if test="${listaMesajeNecitite.size() eq 1}">
+                                            <c:if test="${counterMesajeNecitite eq 1}">
                                                 <p>Ai un mesaj nou</p>
                                             </c:if>
-                                            <c:if test="${listaMesajeNecitite.size() gt 1}">
-                                                <p>Ai ${listaMesajeNecitite.size()} mesaje noi</p>
+                                            <c:if test="${counterMesajeNecitite gt 1}">
+                                                <p>Ai ${counterMesajeNecitite} mesaje noi</p>
                                             </c:if>
                                         </div>
                                         <a id="aTrimiteRaspuns" type="hidden" href="#"></a>
@@ -198,8 +198,12 @@
                                                 <div class="content">
                                                     <h5>${mesaj.expeditor}</h5>
                                                     <h6>Subiect: ${mesaj.subiect}</h6>
-
-                                                    <p>${mesaj.continut.substring(0,20)}...</p>
+                                                    <c:if test="${mesaj.continut.length() gt 21}">
+                                                        <p>${mesaj.continut.substring(0,20)}...</p>
+                                                    </c:if>
+                                                    <c:if test="${mesaj.continut.length() le 21}">
+                                                        <p>${mesaj.continut}</p>
+                                                    </c:if>
                                                     <span class="time">${mesaj.data}</span>
                                                 </div>
                                             </div>

@@ -235,9 +235,11 @@
 <script src="${contextPath}/resources/tema/vendor/select2/select2.min.js">
 </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
+<script src="https://cdn.rawgit.com/emn178/Chart.PieceLabel.js/master/build/Chart.PieceLabel.min.js"></script>
+
     <!-- main js -->
 <script src="${contextPath}/resources/tema/js/main.js"></script>
-
 </body>
 
 </html>

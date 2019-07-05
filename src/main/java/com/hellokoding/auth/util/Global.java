@@ -1,8 +1,11 @@
 package com.hellokoding.auth.util;
 
+import com.hellokoding.auth.model.Comanda;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.Base64;
 
 public class Global {
@@ -35,4 +38,9 @@ public class Global {
         SecretKeySpec secretKeySpec= new SecretKeySpec(key,"AES");
         return secretKeySpec;
     }
+
+    public static ArrayList<Comanda> listaComenziUltimaSaptamana=new ArrayList<>();
+    public static ArrayList<Comanda> listaComenziUltimeleLuni=new ArrayList<>();
+//    public static Map<String, Integer> mapUltimaSaptamanAsync;
+
 }

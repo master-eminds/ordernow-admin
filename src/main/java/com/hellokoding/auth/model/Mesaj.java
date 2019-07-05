@@ -1,10 +1,12 @@
 package com.hellokoding.auth.model;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 @Entity
 @Table(name="mesaje")
-public class Mesaj {
+public class Mesaj implements Comparable {
 
 
     private Long id;
@@ -89,5 +91,19 @@ public class Mesaj {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Mesaj m=(Mesaj)o;
+        SimpleDateFormat dateFormat= new SimpleDateFormat("dd-MM-yyyy hh:mm");
+        int rez=0;
+        try {
+             rez=dateFormat.parse(this.getData()).compareTo(dateFormat.parse(m.getData()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } if(rez!=0)
+            return -rez;
+        return 0;
     }
 }

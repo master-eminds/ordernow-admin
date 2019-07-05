@@ -32,7 +32,8 @@ public class MesajController {
         ModelAndView model = new ModelAndView("vizualizareMesaje");
         List<Mesaj> listaMesajeNecitite=mesajService.findAllByStare("necitit");
         List<Mesaj> listaMesajeCitite=mesajService.findAllByStare("citit");
-
+        listaMesajeCitite.sort(Mesaj::compareTo);
+        listaMesajeNecitite.sort(Mesaj::compareTo);
         model.addObject("listaMesajeNecitite", listaMesajeNecitite);
         model.addObject("listaMesajeCitite", listaMesajeCitite);
         return model;

@@ -103,7 +103,19 @@ public class AdminController {
         List<Ospatar> ospatari = ospatarService.findAll();
         List<Comanda> comenzi = comandaService.findAll();
         List<Mesaj> listaMesajeNecitite= mesajService.findAllByStare("necitit");
-        model.addAttribute("listaMesajeNecitite",listaMesajeNecitite);
+        List<Mesaj> listaPrimeleMesajeNecitite= new ArrayList<>();
+        if(listaMesajeNecitite.size()>3){
+            listaPrimeleMesajeNecitite.add(listaMesajeNecitite.get(0));
+            listaPrimeleMesajeNecitite.add(listaMesajeNecitite.get(1));
+            listaPrimeleMesajeNecitite.add(listaMesajeNecitite.get(2));
+            model.addAttribute("listaMesajeNecitite",listaPrimeleMesajeNecitite);
+        }
+        else {
+            model.addAttribute("listaMesajeNecitite",listaMesajeNecitite);
+
+        }
+        model.addAttribute("counterMesajeNecitite",listaMesajeNecitite.size());
+
         //alte date necesare
         model.addAttribute("listaMese",masaService.findAll());
         model.addAttribute("listaOspatari",ospatari);
@@ -114,6 +126,7 @@ public class AdminController {
         model.addAttribute("membriOnline",DateNecesare.calculareNrOspatariOnline(ospatari));
         model.addAttribute("comenziUltimeleLuni",DateNecesare.listaComenziUltimeleLuni(comenzi,4).size());
         model.addAttribute("incasari",DateNecesare.calculeazaValoareTotalaIncasata(comenzi));
+
         return "welcome";
     }
 

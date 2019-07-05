@@ -170,19 +170,29 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="send-mess-wrap">
-                                    <div class="send-mess__inner">
-                                        <div class="send-mess-list">
-                                            <div class="send-mess">${mesaj.continutRaspuns}</div>
+                                <c:if test="${not empty mesaj.continutRaspuns}">
+                                    <div class="send-mess-wrap">
+                                        <div class="send-mess__inner">
+                                            <div class="send-mess-list">
+                                                <div class="send-mess">${mesaj.continutRaspuns}</div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+
+                                </c:if>
+
+
                             </div>
                             <div class="au-chat-textfield">
                                 <c:if test="${dejaRaspuns== false}">
                             <form:form method="post" action="${contextPath}/trimiteRaspuns/${mesaj.id}" modelAttribute="raspunsForm"  class="au-form-icon">
                                 <form:input type="text" id="continutRaspuns" path="continutRaspuns" name="continutRaspuns" placeholder="Scrie un mesaj..." class="au-input au-input--full au-input--h65"></form:input>
-                                <button class="btn-primary" type="submit">Trimite</button>
+                                <button class="au-input-icon" type="submit">
+                                    <i class="zmdi zmdi-mail-send"></i>
+                                </button>
+<%--
+                                <button class="btn-outline-success" type="submit">Trimite</button>
+--%>
                             </form:form>
                                 </c:if>
                             </div>
