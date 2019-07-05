@@ -4,6 +4,7 @@ import com.hellokoding.auth.model.Meniu;
 import com.hellokoding.auth.model.Produs;
 import com.hellokoding.auth.model.Review;
 import com.hellokoding.auth.service.*;
+import com.hellokoding.auth.util.Global;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -17,10 +18,7 @@ import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 @Controller
@@ -71,19 +69,33 @@ public class ProdusController {
         if(bindingResult.hasErrors()){
             return "administrareProdus";
         }
-       /* if(produsForm.getId()!=null){
+        if(produsForm.getId()!=null){
             Produs old = produsService.findById(produsForm.getId());
-        }*/
-        produsService.save(produsForm);
+            Global.listaProduse.remove(old);
+        }
+        Produs produs= produsService.save(produsForm);
+        Global.listaProduse.add(produs);
         return "redirect:/detaliiCategorie/"+produsForm.getCategorie().getId();
     }
 
     @RequestMapping(value = "/detaliiCategorie/{categorie_id}", method = RequestMethod.GET)
     public ModelAndView vizualizareCategorii(@PathVariable ("categorie_id") Long categorie_id) {
         ModelAndView model = new ModelAndView("detaliiCategorie");
-        Set<Produs> listaProduse=categorieService.findById(categorie_id).getProduse();
+        int i=0;
+        while(i<Global.listaCategorii.size() && !Global.listaCategorii.get(i).getId().equals(categorie_id)){
+            i++;
+        }
+        Set<Produs> listaProduse=new LinkedHashSet<>();
+        Long meniu_id=0L;
+        if(i<Global.listaCategorii.size()){
+            if(Global.listaCategorii.get(i).getId().equals(categorie_id)){
+                listaProduse=Global.listaCategorii.get(i).getProduse();
+                meniu_id=Global.listaCategorii.get(i).getMeniu().getId();
+            }
+        }
+        //Set<Produs> listaProduse=categorieService.findById(categorie_id).getProduse();
         model.addObject("produse", listaProduse);
-        model.addObject("meniu_id", categorieService.findById(categorie_id).getMeniu().getId());
+        model.addObject("meniu_id",meniu_id);
 
         return model;
     }
@@ -94,30 +106,38 @@ public class ProdusController {
     @RequestMapping(value = "/statisticiReviewProduse", method = RequestMethod.GET)
     public ModelAndView statisticiReviewProduse() {
         ModelAndView model = new ModelAndView("statisticiReviewProduse");
-        List<Produs> produse= produsService.findAll();
-        String date= dateChartProduse(produse);
-        model.addObject("dateChartReview", date);
-        model.addObject("listaProduse",produse);
-        model.addObject("noteProdus", noteProdus);
+        //List<Produs> produse= produsService.findAll();
+        if(Global.listaProduse==null||Global.listaProduse.size()==0){
+            Global.listaProduse=produsService.findAll();
+        }
+        if(Global.dateChartReviewProduse.isEmpty() ||Global.dateChartReviewProduse.trim().length()==0){
+            Global.dateChartReviewProduse=dateChartProduse(Global.listaProduse);
+        }
+        //String date= dateChartProduse(Global.listaProduse);
+        model.addObject("dateChartReview", Global.dateChartReviewProduse);
+        model.addObject("listaProduse",Global.listaProduse);
+        model.addObject("noteProdus", Global.noteProduse);
 
         return model;
     }
     private String dateChartProduse (List<Produs> produses){
         int counterLow = 0;
         int counterHigh = 0;
-        noteProdus= new HashMap<>();
+        //noteProdus= new HashMap<>();
         for(Produs p: produses) {
-            reviewsProdus = reviewService.findByIdProdus(p.getId());
+            if(Global.reviewProduse==null||Global.reviewProduse.size()==0||!Global.reviewProduse.containsKey(p.getId())){
+               Global.reviewProduse.put(p.getId(),reviewService.findByIdProdus(p.getId()));
+            }
             float sum = 0;
-            if (reviewsProdus != null && reviewsProdus.size()!=0 && !reviewsProdus.isEmpty() ) {
-                for (Review review : reviewsProdus) {
+            if (Global.reviewProduse.get(p.getId()) != null && Global.reviewProduse.get(p.getId()).size()!=0 && !Global.reviewProduse.get(p.getId()).isEmpty() ) {
+                for (Review review : Global.reviewProduse.get(p.getId())) {
                     sum += review.getNota();
                 }
-                double medie = sum / reviewsProdus.size();
+                double medie = sum / Global.reviewProduse.get(p.getId()).size();
                 DecimalFormat df = new DecimalFormat("####0.00");
                 if (medie <= 3) counterLow++;
                 else counterHigh++;
-                noteProdus.put(p.getId(), Double.valueOf(df.format(medie)));
+                Global.noteProduse.put(p.getId(), Double.valueOf(df.format(medie)));
             }
         }
 
@@ -128,7 +148,14 @@ public class ProdusController {
     public ModelAndView vizualizareReviewProdus(@PathVariable Long idProdus) throws ParseException {
         ModelAndView model = new ModelAndView("vizualizareReviewProdus");
         //List<Review> reviews = reviewService.findByIdProdus(idProdus);
+        if(Global.reviewProduse!=null&& Global.reviewProduse.containsKey(idProdus)){
+            model.addObject("listaReviewuri", Global.reviewProduse.get(idProdus));
+
+        }
+        else{
             model.addObject("listaReviewuri", reviewService.findByIdProdus(idProdus));
+
+        }
             model.addObject("medieNote", noteProdus.get(idProdus));
             return model;
         }
@@ -137,7 +164,7 @@ public class ProdusController {
     public String stergeProdus(@PathVariable("id") Long id) {
         Produs produs=produsService.findById(id);
         produsService.delete(id);
-
+        Global.listaProduse.remove(produs);
         return "redirect:/detaliiCategorie/"+produs.getCategorie().getId();
     }
 

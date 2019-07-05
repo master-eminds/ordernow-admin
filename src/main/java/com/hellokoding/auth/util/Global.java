@@ -51,6 +51,16 @@ public static List<Ospatar> listaOspatari=new ArrayList<>();
     public static String dateChartComenziTotal ="";
     public static String dateChartComenziUS="";
     public static String dateChartComenziUL="";
+    public static String dateChartReviewProduse="";
+    public static Map<Long,Double> noteProduse= new HashMap<>();
+    public static Map<Long,Double> noteOspatari= new HashMap<>();
+
+    public static Map<Long,List<Review>> reviewProduse= new HashMap<>();
+    public static Map<Long,List<Review>> reviewOspatari= new HashMap<>();
+
+    private static Map<Long,Double> medieProdus=new HashMap<>();
+    public static String dateChartOspatari="";
+
     public static List<Comanda> toateComenzile=new ArrayList<>();
 
     public static String dateChartCeleMaiComandateProd="";
@@ -60,6 +70,7 @@ public static List<Ospatar> listaOspatari=new ArrayList<>();
     public static List<Meniu> listaMeniuri=new ArrayList<>();
     public static List<Produs> listaProduse=new ArrayList<>();
     public static List<Categorie> listaCategorii=new ArrayList<>();
+
 
 
 

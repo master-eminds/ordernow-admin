@@ -19,19 +19,18 @@ public class ProdusServiceImpl implements ProdusService {
     @PersistenceContext
     private EntityManager em;
     @Override
-    public void save(Produs produs) {
-        produsRepository.save(produs);
+    public Produs save(Produs produs) {
+        return produsRepository.saveAndFlush(produs);
     }
 
     @Override
     public void saveOrUpdate(Produs produs) {
         if(produs.getId()!=null){
             produsRepository.delete(produs.getId());
-            produsRepository.save(produs);
         }
-        else {
+
             produsRepository.save(produs);
-        }
+
     }
 
     @Override

@@ -72,12 +72,19 @@ public class OspatarController {
     @RequestMapping(value = "/statisticiReviewOspatari", method = RequestMethod.GET)
     public ModelAndView statisticiReviewOspatar() {
         ModelAndView model = new ModelAndView("statisticiReviewOspatari");
-        List<Ospatar> ospatari= ospatarService.findAll();
+        List<Ospatar> ospatari= Global.listaOspatari;
+                //ospatarService.findAll();
         ospatari.sort(Ospatar::compareTo);
-        String date= dateChartOspatari(ospatari);
-        model.addObject("dateChartReview", date);
+        if(Global.dateChartOspatari==null||Global.dateChartOspatari.isEmpty()||Global.dateChartOspatari.trim().length()==0){
+            if(Global.noteOspatari==null||Global.noteOspatari.size()==0){
+                Global.noteOspatari=dateReviewOspatari(ospatari);
+            }
+            Global.dateChartOspatari=dateChartOspatari(ospatari);
+        }
+        //String date= dateChartOspatari(ospatari);
+        model.addObject("dateChartReview", Global.dateChartOspatari);
         model.addObject("listaOspatari",ospatari);
-        model.addObject("noteOspatar", noteOspatar);
+        model.addObject("noteOspatar", Global.noteOspatari);
 
         return model;
     }
@@ -85,13 +92,16 @@ public class OspatarController {
 
         Map<Long, Double>  noteOspatar= new HashMap<>();
         for(Ospatar o: ospatari) {
-            List<Review> reviewsOspatar = reviewService.findByIdOspatar(o.getId());
+            if(Global.reviewOspatari==null||Global.reviewOspatari.size()==0||!Global.reviewOspatari.containsKey(o.getId())){
+                Global.reviewOspatari.put(o.getId(),reviewService.findByIdOspatar(o.getId()));
+            }
+            //List<Review> reviewsOspatar = reviewService.findByIdOspatar(o.getId());
             float sum = 0;
-            if (reviewsOspatar != null && reviewsOspatar.size()!=0 && !reviewsOspatar.isEmpty() ) {
-                for (Review review : reviewsOspatar) {
+            if (Global.reviewOspatari.get(o.getId()) != null && Global.reviewOspatari.get(o.getId()).size()!=0 && !Global.reviewOspatari.get(o.getId()).isEmpty() ) {
+                for (Review review : Global.reviewOspatari.get(o.getId())) {
                     sum += review.getNota();
                 }
-                double medie = sum / reviewsOspatar.size();
+                double medie = sum / Global.reviewOspatari.get(o.getId()).size();
                 DecimalFormat df = new DecimalFormat("####0.00");
 
                 noteOspatar.put(o.getId(), Double.valueOf(df.format(medie)));
@@ -102,14 +112,14 @@ public class OspatarController {
     }
 
     private String dateChartOspatari(List<Ospatar> ospatari){
-        noteOspatar= dateReviewOspatari(ospatari);
+        //Global.noteOspatari= dateReviewOspatari(ospatari);
 
         StringBuilder stringId=new StringBuilder();
         StringBuilder stringNote=new StringBuilder();
         for(Ospatar o: ospatari){
-            if(noteOspatar.containsKey(o.getId())){
+            if(Global.noteOspatari.containsKey(o.getId())){
                 stringId.append(o.getNume()).append("-");
-                stringNote.append(noteOspatar.get(o.getId())).append("-");
+                stringNote.append(Global.noteOspatari.get(o.getId())).append("-");
             }
 
         }
@@ -122,8 +132,8 @@ public class OspatarController {
     public ModelAndView vizualizareReviewOspatar(@PathVariable Long idOspatar) throws ParseException {
         ModelAndView model = new ModelAndView("vizualizareReviewOspatar");
         //List<Review> reviews = reviewService.findByIdProdus(idProdus);
-        model.addObject("listaReviewuri", reviewService.findByIdOspatar(idOspatar));
-        model.addObject("medieNote", noteOspatar.get(idOspatar));
+        model.addObject("listaReviewuri", Global.reviewOspatari.get(idOspatar));
+        model.addObject("medieNote", Global.noteOspatari.get(idOspatar));
         return model;
     }
 }
