@@ -233,11 +233,15 @@
         var checkBoxI= document.getElementById("filtruInactiv");
         if( checkBoxA.checked === true){
             btnAplica.setAttribute('href','${contextPath}/vizualizareMeniuri/activ')
+            btnAplica.click();
+            checkBoxA.checked=true;
         }
         else if (checkBoxI.checked===true){
             btnAplica.setAttribute('href','${contextPath}/vizualizareMeniuri/inactiv')
+            btnAplica.click();
+            checkBoxI.checked=true;
         }
-        btnAplica.click();
+
     }
 
 </script>

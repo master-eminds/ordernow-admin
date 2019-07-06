@@ -50,6 +50,17 @@ public class CategorieController {
         model.addObject("meniu_id",meniu_id);
         return model;
 }
+    @RequestMapping(value = "/vizualizareCategorii/{stare}", method = RequestMethod.GET)
+    public ModelAndView vizualizareCategoriiByStare(@PathVariable("stare") String stare) {
+        ModelAndView model = new ModelAndView("vizualizareCategorii");
+        /*if(Global.listaMeniuri==null||Global.listaMeniuri.size()==0) {
+           Global.listaMeniuri = meniuService.findAll();
+        }*/
+
+        model.addObject("categorii");
+
+        return model;
+    }
     @RequestMapping(value = "/administrareCategorie/{categorie_id}/{meniu_id}", method = RequestMethod.GET)
     public ModelAndView registration(@PathVariable("categorie_id") Long categorie_id,@PathVariable("meniu_id") Long meniu_id) {
         ModelAndView model = new ModelAndView("administrareCategorie");

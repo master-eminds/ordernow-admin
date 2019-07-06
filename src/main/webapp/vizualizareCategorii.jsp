@@ -182,6 +182,27 @@
                             <div class="product-sidebar-widget">
                                 <a href="${contextPath}/administrareCategorie/0/${meniu_id}"class="btn btn-danger btn-sm">Adauga o categorie</a>
                             </div>
+                            <div class="product-sidebar-widget">
+                                <h4 class="mb-0">Filtrare</h4>
+                            </div>
+                            <div class="product-sidebar-widget">
+                                <h4 class="product-sidebar-widget-title">Stare</h4>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="filtruActiv">
+                                    <label class="custom-control-label" for="filtruActiv">Vizibil</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="filtruInactiv">
+                                    <label class="custom-control-label" for="filtruInactiv">Invizibil</label>
+                                </div>
+                                <div class="product-sidebar-widget">
+                                    <a href="#" id="aplicaFiltru" onclick="aplicaFiltru()" class="btn btn-outline-light">Aplica</a>
+                                </div>
+                            </div>
+
+                            <div class="product-sidebar-widget">
+                                <a href="${contextPath}/vizualizareCategorii" class="btn btn-outline-light">Sterge filtrul</a>
+                            </div>
                         </div>
                     </div>
                     </div>
@@ -209,7 +230,27 @@
 <script src="${contextPath}/resources/tema/vendor/slimscroll/jquery.slimscroll.js"></script>
 <!-- main js -->
 <script src="${contextPath}/resources/tema/libs/js/main-js.js"></script>
+<script src="${contextPath}/resources/tema/libs/js/main-js.js"></script>
 
+<script>
+    function aplicaFiltru() {
+        var btnAplica = document.getElementById("aplicaFiltru");
+        var checkBoxA= document.getElementById("filtruActiv");
+        var checkBoxI= document.getElementById("filtruInactiv");
+        if( checkBoxA.checked === true){
+            btnAplica.setAttribute('href','${contextPath}/vizualizareCategorii/vizibil')
+            btnAplica.click();
+            checkBoxA.checked=true;
+        }
+        else if (checkBoxI.checked===true){
+            btnAplica.setAttribute('href','${contextPath}/vizualizareCategorii/invizibil')
+            btnAplica.click();
+            checkBoxI.checked=true;
+        }
+
+    }
+
+</script>
 </body>
 
 </html>
