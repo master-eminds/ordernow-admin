@@ -146,9 +146,9 @@
                                             <div class="product-content-head" style="margin: 0 auto; height: 150px">
                                                 <h3 class="product-title">${produs.denumire}</h3>
                                                 <div class="product-price">${produs.pret} lei</div>
-
-                                                <h2 class="product-title">${produs.ingrediente}</h2>
-                                                <h2 class="product-title">${produs.descriere}</h2>
+                                                <h2 class="product-title">${produs.vizibilitate.toUpperCase()}</h2>
+                                                <h2 class="product-title">Ingrediente: ${produs.ingrediente}</h2>
+                                                <h2 class="product-title">Descriere: ${produs.descriere}</h2>
 
                                             </div>
                                             <div class="product-btn">

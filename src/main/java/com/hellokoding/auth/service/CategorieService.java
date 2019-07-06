@@ -8,7 +8,7 @@ public interface CategorieService {
 
     Categorie save(Categorie categorie);
     void delete(Long id);
-
+    void stergeCategorie(Long id);
     Categorie findById(Long id);
     List<Categorie> findAll();
 }

@@ -6,7 +6,6 @@ import com.hellokoding.auth.service.CategorieService;
 import com.hellokoding.auth.service.MeniuService;
 import com.hellokoding.auth.service.ProdusService;
 import com.hellokoding.auth.service.SecurityService;
-import com.hellokoding.auth.util.Global;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -38,26 +36,25 @@ public class CategorieController {
     @RequestMapping(value = "/vizualizareCategorii/{meniu_id}", method = RequestMethod.GET)
             public ModelAndView vizualizareCategorii(@PathVariable ("meniu_id") Long meniu_id) {
             ModelAndView model = new ModelAndView("vizualizareCategorii");
-            int i=0;
-            while(i<Global.listaMeniuri.size() && !Global.listaMeniuri.get(i).getId().equals(meniu_id)){
-                i++;
-            }
-            List<Categorie> listaCategorii=new ArrayList<>();
-            if(i<Global.listaMeniuri.size()){
-                if(Global.listaMeniuri.get(i).getId().equals(meniu_id)){
-                    listaCategorii.addAll(Global.listaMeniuri.get(i).getCategorii());
+          /*  if(Global.mapCategoriiByMeniu==null||Global.mapCategoriiByMeniu.size()==0){
+                for(Meniu m: Global.listaMeniuri){
+                    Global.mapCategoriiByMeniu.put(m.getId(),m.getCategorii());
                 }
             }
 
-            model.addObject("categorii", listaCategorii);
-            model.addObject("meniu_id",meniu_id);
+         List<Categorie> listaCategorii=Global.mapCategoriiByMeniu.get(meniu_id);
+        */
+          List<Categorie> listaCategorii=meniuService.findById(meniu_id).getCategorii();
+
+        model.addObject("categorii", listaCategorii);
+        model.addObject("meniu_id",meniu_id);
         return model;
 }
     @RequestMapping(value = "/administrareCategorie/{categorie_id}/{meniu_id}", method = RequestMethod.GET)
     public ModelAndView registration(@PathVariable("categorie_id") Long categorie_id,@PathVariable("meniu_id") Long meniu_id) {
         ModelAndView model = new ModelAndView("administrareCategorie");
-        Meniu meniu= meniuService.findById(meniu_id);
         if(categorie_id == 0 ){
+            Meniu meniu= meniuService.findById(meniu_id);
             model.addObject("categorieForm", new Categorie(meniu));
             model.addObject("add","true");
         }else{
@@ -65,7 +62,6 @@ public class CategorieController {
             model.addObject("categorieForm",c);
             model.addObject("add","false");
             model.addObject("imageSrc",new String(c.getImagine()));
-
         }
         return model;
     }
@@ -80,13 +76,28 @@ public class CategorieController {
         if(bindingResult.hasErrors()){
             return "administrareCategorie";
         }
+        Categorie old=null;
         if(categorieForm.getId()!=null){
-            Categorie old = categorieService.findById(categorieForm.getId());
-            Global.listaCategorii.remove(old);
+            old = categorieService.findById(categorieForm.getId());
+            //Global.listaCategorii.remove(old);
+            //Global.mapCategoriiByMeniu.remove(meniu_id);
         }
 
         Categorie categorie=categorieService.save(categorieForm);
-        Global.listaCategorii.add(categorie);
+       /* Global.listaCategorii.add(categorie);
+
+        List<Categorie> listaVeche= Global.mapCategoriiByMeniu.get(meniu_id);
+        if(old!=null){
+            for(Categorie p: listaVeche){
+                if(p.getId().equals(old.getId())){
+                    listaVeche.remove(old);
+                }
+            }
+        }
+
+        listaVeche.add(categorie);
+        Global.mapCategoriiByMeniu.replace(meniu_id,listaVeche);
+*/
         return "redirect:/vizualizareCategorii/"+meniu_id;
     }
 
@@ -97,7 +108,13 @@ public class CategorieController {
     public String stergeMeniu(@PathVariable("categorie_id") Long categorie_id) {
         Categorie categorie=categorieService.findById(categorie_id);
         categorieService.delete(categorie_id);
-        Global.listaCategorii.remove(categorie);
+       /* Global.listaCategorii.remove(categorie);
+
+        Long meniu_id=categorie.getMeniu().getId();
+        List<Categorie> listaVeche= Global.mapCategoriiByMeniu.get(meniu_id);
+        listaVeche.remove(categorie);
+        Global.mapCategoriiByMeniu.replace(meniu_id,listaVeche);
+*/
         return "redirect:/vizualizareCategorii/"+categorie.getMeniu().getId();
     }
 }

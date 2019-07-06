@@ -147,15 +147,15 @@
                                         <div class="product-content" style="margin: 0 auto;height: 260px">
                                             <div class="product-content-head" style="margin: 0 auto; height: 100px">
                                                 <h3 class="product-title">${categorie.denumire}</h3>
-
+                                                <div class="product-price">${categorie.vizibilitate.toUpperCase()}</div>
                                             </div>
-                                            <div class="product-btn">
+                                            <div class="product-btn" >
                                                 <a href="${contextPath}/detaliiCategorie/${categorie.id}" class="btn btn-primary">Vezi detalii</a>
                                                 <a href="${contextPath}/administrareCategorie/${categorie.id}/${meniu_id}" class="btn btn-outline-light">Modifica</a>
-                                                <c:if test="${empty categorie.produse}">
+                                               <c:if test="${empty categorie.produse}">
                                                     <a href="${contextPath}/stergeCategorie/${categorie.id}" class="btn btn-danger btn-sm">Sterge</a>
-                                                </c:if>
 
+                                                </c:if>
                                             </div>
                                         </div>
                                     </div>

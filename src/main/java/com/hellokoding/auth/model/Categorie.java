@@ -1,7 +1,7 @@
 package com.hellokoding.auth.model;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
 
@@ -12,12 +12,14 @@ public class Categorie {
     private Long id;
     private String denumire;
     private String descriere;
+    private List<Produs> produse;
     @Lob @Basic(fetch = FetchType.LAZY)
     @Column(length=100000)
     private byte[] imagine;
-    private Set<Produs> produse;
+
     private Meniu meniu;
     private String vizibilitate;
+    private String sters;
 
     public Categorie() {
 
@@ -50,11 +52,11 @@ public class Categorie {
         this.denumire = denumire;
     }
     @OneToMany(cascade=ALL, mappedBy="categorie")
-    public Set<Produs> getProduse() {
+    public List<Produs> getProduse() {
         return produse;
     }
 
-    public void setProduse(Set<Produs> produse) {
+    public void setProduse(List<Produs> produse) {
         this.produse = produse;
     }
 
@@ -91,5 +93,13 @@ public class Categorie {
 
     public void setVizibilitate(String vizibilitate) {
         this.vizibilitate = vizibilitate;
+    }
+
+    public String getSters() {
+        return sters;
+    }
+
+    public void setSters(String sters) {
+        this.sters = sters;
     }
 }

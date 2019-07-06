@@ -1,7 +1,7 @@
 package com.hellokoding.auth.model;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
 
@@ -11,7 +11,7 @@ public class Meniu {
     private Long id;
     private String denumire;
     private String stare;
-    private Set<Categorie> categorii;
+    private List<Categorie> categorii;
     @Lob @Basic(fetch = FetchType.LAZY)
     @Column(length=100000)
     private byte[] image;
@@ -28,11 +28,11 @@ public class Meniu {
     }
 
     @OneToMany(cascade=ALL, mappedBy="meniu")
-    public Set<Categorie> getCategorii() {
+    public List<Categorie> getCategorii() {
         return categorii;
     }
 
-    public void setCategorii(Set<Categorie> categorii) {
+    public void setCategorii(List<Categorie> categorii) {
         this.categorii = categorii;
     }
 

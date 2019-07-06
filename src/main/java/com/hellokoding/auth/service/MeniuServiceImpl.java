@@ -5,6 +5,8 @@ import com.hellokoding.auth.repository.MeniuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
@@ -12,6 +14,8 @@ public class MeniuServiceImpl implements MeniuService {
 
     @Autowired
     MeniuRepository meniuRepository;
+    @PersistenceContext
+    private EntityManager em;
 
     @Override
     public Meniu save(Meniu meniu) {
@@ -32,4 +36,12 @@ public class MeniuServiceImpl implements MeniuService {
     public List<Meniu> findAll() {
         return meniuRepository.findAll();
     }
+
+    @Override
+    public List<Meniu> findAllByStare(String stare) {
+        List meniuri = em.createNativeQuery(
+                "select * from meniuri where stare=:stare", Meniu.class)
+                .setParameter("stare", stare)
+                .getResultList();
+        return meniuri;    }
 }

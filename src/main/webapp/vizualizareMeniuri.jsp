@@ -144,8 +144,7 @@
                                         <div class="product-content" style="margin: 0 auto;height: 260px" >
                                                 <div class="product-content-head" style="margin: 0 auto; height: 100px">
                                                 <h3 class="product-title">${meniu.denumire}</h3>
-                                                <div class="product-price">${meniu.stare.toUpperCase()}
-                                                </div>
+                                                <div class="product-price">${meniu.stare.toUpperCase()}</div>
                                             </div>
                                             <div class="product-btn">
                                                 <a href="vizualizareCategorii/${meniu.id}" class="btn btn-primary">Vezi detalii</a>
@@ -184,18 +183,20 @@
                             <div class="product-sidebar-widget">
                                 <h4 class="product-sidebar-widget-title">Stare</h4>
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="cat-1">
-                                    <label class="custom-control-label" for="cat-1">Activ</label>
+                                    <input type="checkbox" class="custom-control-input" id="filtruActiv">
+                                    <label class="custom-control-label" for="filtruActiv">Activ</label>
                                 </div>
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="cat-2">
-                                    <label class="custom-control-label" for="cat-2">Inactiv</label>
+                                    <input type="checkbox" class="custom-control-input" id="filtruInactiv">
+                                    <label class="custom-control-label" for="filtruInactiv">Inactiv</label>
                                 </div>
-
+                                <div class="product-sidebar-widget">
+                                    <a href="#" id="aplicaFiltru" onclick="aplicaFiltru()" class="btn btn-outline-light">Aplica</a>
+                                </div>
                             </div>
 
                             <div class="product-sidebar-widget">
-                                <a href="#" class="btn btn-outline-light">Reset Filter</a>
+                                <a href="${contextPath}/vizualizareMeniuri" class="btn btn-outline-light">Sterge filtrul</a>
                             </div>
                         </div>
                     </div>
@@ -224,8 +225,20 @@
 <script src="${contextPath}/resources/tema/vendor/slimscroll/jquery.slimscroll.js"></script>
 <!-- main js -->
 <script src="${contextPath}/resources/tema/libs/js/main-js.js"></script>
-<script>
 
+    <script>
+    function aplicaFiltru() {
+        var btnAplica = document.getElementById("aplicaFiltru");
+        var checkBoxA= document.getElementById("filtruActiv");
+        var checkBoxI= document.getElementById("filtruInactiv");
+        if( checkBoxA.checked === true){
+            btnAplica.setAttribute('href','${contextPath}/vizualizareMeniuri/activ')
+        }
+        else if (checkBoxI.checked===true){
+            btnAplica.setAttribute('href','${contextPath}/vizualizareMeniuri/inactiv')
+        }
+        btnAplica.click();
+    }
 
 </script>
 </body>

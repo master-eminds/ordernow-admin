@@ -4,7 +4,6 @@ import com.hellokoding.auth.model.Meniu;
 import com.hellokoding.auth.service.MeniuService;
 import com.hellokoding.auth.service.ProdusService;
 import com.hellokoding.auth.service.SecurityService;
-import com.hellokoding.auth.util.Global;
 import com.hellokoding.auth.validator.MeniuValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,14 +33,24 @@ public class MeniuController {
     @RequestMapping(value = "/vizualizareMeniuri", method = RequestMethod.GET)
     public ModelAndView vizualizareMeniuri() {
         ModelAndView model = new ModelAndView("vizualizareMeniuri");
-        if(Global.listaMeniuri==null||Global.listaMeniuri.size()==0) {
+        /*if(Global.listaMeniuri==null||Global.listaMeniuri.size()==0) {
            Global.listaMeniuri = meniuService.findAll();
-        }
-        model.addObject("meniuri", Global.listaMeniuri);
+        }*/
+        model.addObject("meniuri", meniuService.findAll());
 
         return model;
     }
+    @RequestMapping(value = "/vizualizareMeniuri/{stare}", method = RequestMethod.GET)
+    public ModelAndView vizualizareMeniuriByStare(@PathVariable("stare") String stare) {
+        ModelAndView model = new ModelAndView("vizualizareMeniuri");
+        /*if(Global.listaMeniuri==null||Global.listaMeniuri.size()==0) {
+           Global.listaMeniuri = meniuService.findAll();
+        }*/
 
+        model.addObject("meniuri", meniuService.findAllByStare(stare));
+
+        return model;
+    }
     @RequestMapping(value = "/administrareMeniu/{id}", method = RequestMethod.GET)
     public ModelAndView registration(@PathVariable("id") Long id) {
         ModelAndView model = new ModelAndView("administrareMeniu");
@@ -72,11 +81,11 @@ public class MeniuController {
         }
         if(meniuForm.getId()!=null){
             Meniu old = meniuService.findById(meniuForm.getId());
-            Global.listaMeniuri.remove(old);
+          //  Global.listaMeniuri.remove(old);
         }
 
         Meniu meniu=meniuService.save(meniuForm);
-        Global.listaMeniuri.add(meniu);
+        //Global.listaMeniuri.add(meniu);
         return "redirect:/vizualizareMeniuri";
     }
 
@@ -84,7 +93,7 @@ public class MeniuController {
     @RequestMapping(value = "/stergeMeniu/{meniu_id}", method = RequestMethod.GET)
     public String stergeMeniu(@PathVariable("meniu_id") Long meniu_id) {
         meniuService.delete(meniu_id);
-        Global.listaMeniuri.remove(meniuService.findById(meniu_id));
+        //Global.listaMeniuri.remove(meniuService.findById(meniu_id));
         return "redirect:/vizualizareMeniuri";
     }
 }
