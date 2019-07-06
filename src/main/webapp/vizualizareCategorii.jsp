@@ -186,7 +186,7 @@
                                 <h4 class="mb-0">Filtrare</h4>
                             </div>
                             <div class="product-sidebar-widget">
-                                <h4 class="product-sidebar-widget-title">Stare</h4>
+                                <h4 class="product-sidebar-widget-title">Vizibilitate</h4>
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input" id="filtruActiv">
                                     <label class="custom-control-label" for="filtruActiv">Vizibil</label>
@@ -196,7 +196,7 @@
                                     <label class="custom-control-label" for="filtruInactiv">Invizibil</label>
                                 </div>
                                 <div class="product-sidebar-widget">
-                                    <a href="#" id="aplicaFiltru" onclick="aplicaFiltru()" class="btn btn-outline-light">Aplica</a>
+                                    <a href="#" id="aplicaFiltru" onclick="aplicaFiltru(${meniu_id})" class="btn btn-outline-light">Aplica</a>
                                 </div>
                             </div>
 
@@ -233,17 +233,17 @@
 <script src="${contextPath}/resources/tema/libs/js/main-js.js"></script>
 
 <script>
-    function aplicaFiltru() {
+    function aplicaFiltru(meniu_id) {
         var btnAplica = document.getElementById("aplicaFiltru");
         var checkBoxA= document.getElementById("filtruActiv");
         var checkBoxI= document.getElementById("filtruInactiv");
         if( checkBoxA.checked === true){
-            btnAplica.setAttribute('href','${contextPath}/vizualizareCategorii/vizibil')
+            btnAplica.setAttribute('href','${contextPath}/vizualizareCategorii/'+meniu_id+'/vizibil')
             btnAplica.click();
             checkBoxA.checked=true;
         }
         else if (checkBoxI.checked===true){
-            btnAplica.setAttribute('href','${contextPath}/vizualizareCategorii/invizibil')
+            btnAplica.setAttribute('href','${contextPath}/vizualizareCategorii/'+meniu_id+'/invizibil')
             btnAplica.click();
             checkBoxI.checked=true;
         }

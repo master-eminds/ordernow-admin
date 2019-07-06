@@ -50,4 +50,13 @@ public class CategorieServiceImpl implements CategorieService {
     public List<Categorie> findAll() {
         return categorieRepository.findAll();
     }
+
+    @Override
+    public List<Categorie> findAllByVizibilitate(Long meniuId,String vizibilitate) {
+        List categorie = em.createNativeQuery(
+                "select * from categorii where meniu_id=:meniuId and vizibilitate =:vizibilitate", Categorie.class)
+                .setParameter("meniuId", meniuId)
+                .setParameter("vizibilitate", vizibilitate)
+                .getResultList();
+        return categorie;    }
 }

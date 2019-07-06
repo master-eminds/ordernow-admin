@@ -12,6 +12,7 @@ public interface ProdusService {
     void delete(Long id);
     List<Produs> findAll();
     List<CountProdus> numarProduseComandate();
+    List<Produs> findAllByVizibilitate(Long categorieId, String vizibilitate);
 
 
     Produs findById(Long id);

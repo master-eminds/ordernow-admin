@@ -120,6 +120,32 @@ public class ProdusController {
 
         return model;
     }
+    @RequestMapping(value = "/detaliiCategorie/{categorie_id}/{vizibilitate}", method = RequestMethod.GET)
+    public ModelAndView vizualizareCategorii(@PathVariable ("categorie_id") Long categorie_id, @PathVariable("vizibilitate") String vizibilitate){
+        ModelAndView model = new ModelAndView("detaliiCategorie");
+
+       /*Long meniu_id=0L;
+       if(Global.listaCategorii==null||Global.listaCategorii.size()==0){
+           Global.listaCategorii=categorieService.findAll();
+       }
+
+        if(Global.mapProduseByCategorie==null||Global.mapProduseByCategorie.size()==0){
+            for(Categorie c: Global.listaCategorii){
+                Global.mapProduseByCategorie.put(c.getId(),c.getProduse());
+            }
+        }
+        if(Global.mapProduseByCategorie.containsKey(categorie_id)){
+            List<Produs> listaProduse=Global.mapProduseByCategorie.get(categorie_id);
+            meniu_id=listaProduse.get(0).getMeniu_id();
+            model.addObject("produse", listaProduse);
+        }*/
+        Long meniu_id= categorieService.findById(categorie_id).getMeniu().getId();
+        List<Produs> listaProduse= produsService.findAllByVizibilitate(categorie_id,vizibilitate);
+        model.addObject("produse", listaProduse);
+        model.addObject("meniu_id",meniu_id);
+
+        return model;
+    }
 
 
 

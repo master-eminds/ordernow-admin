@@ -182,6 +182,20 @@
                             <div class="product-sidebar-widget">
                                 <a href="${contextPath}/administrareProdus/0/${meniu_id}" class="btn btn-danger btn-sm">Adauga un produs</a>
                             </div>
+                            <div class="product-sidebar-widget">
+                                <h4 class="product-sidebar-widget-title">Vizibilitate</h4>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="filtruActiv">
+                                    <label class="custom-control-label" for="filtruActiv">Vizibil</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="filtruInactiv">
+                                    <label class="custom-control-label" for="filtruInactiv">Invizibil</label>
+                                </div>
+                                <div class="product-sidebar-widget">
+                                    <a href="#" id="aplicaFiltru" onclick="aplicaFiltru(${categorie_id})" class="btn btn-outline-light">Aplica</a>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
@@ -209,7 +223,25 @@
 <script src="${contextPath}/resources/tema/vendor/slimscroll/jquery.slimscroll.js"></script>
 <!-- main js -->
 <script src="${contextPath}/resources/tema/libs/js/main-js.js"></script>
+<script>
+    function aplicaFiltru(categorie_id) {
+        var btnAplica = document.getElementById("aplicaFiltru");
+        var checkBoxA= document.getElementById("filtruActiv");
+        var checkBoxI= document.getElementById("filtruInactiv");
+        if( checkBoxA.checked === true){
+            btnAplica.setAttribute('href','${contextPath}/detaliiCategorie/'+categorie_id+'/vizibil')
+            btnAplica.click();
+            checkBoxA.checked=true;
+        }
+        else if (checkBoxI.checked===true){
+            btnAplica.setAttribute('href','${contextPath}/detaliiCategorie/'+categorie_id+'/invizibil')
+            btnAplica.click();
+            checkBoxI.checked=true;
+        }
 
+    }
+
+</script>
 </body>
 
 </html>

@@ -1,8 +1,8 @@
 package com.hellokoding.auth.service;
 
-import com.hellokoding.auth.util.CountProdus;
 import com.hellokoding.auth.model.Produs;
 import com.hellokoding.auth.repository.ProdusRepository;
+import com.hellokoding.auth.util.CountProdus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,5 +57,14 @@ public class ProdusServiceImpl implements ProdusService {
     public Produs findById(Long id) {
         return produsRepository.findOne(id);
     }
+
+    @Override
+    public List<Produs> findAllByVizibilitate(Long categorieId, String vizibilitate) {
+        List produse = em.createNativeQuery(
+                "select * from produse where categorie_id=:categorieId and vizibilitate =:vizibilitate", Produs.class)
+                .setParameter("categorieId", categorieId)
+                .setParameter("vizibilitate", vizibilitate)
+                .getResultList();
+        return produse;    }
 
 }

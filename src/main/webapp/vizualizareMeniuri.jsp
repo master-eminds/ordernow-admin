@@ -147,10 +147,10 @@
                                                 <div class="product-price">${meniu.stare.toUpperCase()}</div>
                                             </div>
                                             <div class="product-btn">
-                                                <a href="vizualizareCategorii/${meniu.id}" class="btn btn-primary">Vezi detalii</a>
-                                                <a href="administrareMeniu/${meniu.id}" class="btn btn-outline-light">Modifica</a>
+                                                <a href="${contextPath}/vizualizareCategorii/${meniu.id}" class="btn btn-primary">Vezi detalii</a>
+                                                <a href="${contextPath}/administrareMeniu/${meniu.id}" class="btn btn-outline-light">Modifica</a>
                                                 <c:if test="${empty meniu.categorii}">
-                                                <a href="stergeMeniu/${meniu.id}" class="btn btn-danger btn-sm">Sterge</a>
+                                                <a href="${contextPath}/stergeMeniu/${meniu.id}" class="btn btn-danger btn-sm">Sterge</a>
                                                 </c:if>
                                             </div>
                                         </div>

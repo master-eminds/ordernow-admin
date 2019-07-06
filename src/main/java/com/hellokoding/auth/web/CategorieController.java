@@ -33,8 +33,8 @@ public class CategorieController {
     private SecurityService securityService;
 
 
-    @RequestMapping(value = "/vizualizareCategorii/{meniu_id}", method = RequestMethod.GET)
-            public ModelAndView vizualizareCategorii(@PathVariable ("meniu_id") Long meniu_id) {
+    @RequestMapping(value = "/vizualizareCategorii/{meniu_id}/{vizibilitate}", method = RequestMethod.GET)
+            public ModelAndView vizualizareCategorii(@PathVariable ("meniu_id") Long meniu_id, @PathVariable("vizibilitate") String vizibilitate) {
             ModelAndView model = new ModelAndView("vizualizareCategorii");
           /*  if(Global.mapCategoriiByMeniu==null||Global.mapCategoriiByMeniu.size()==0){
                 for(Meniu m: Global.listaMeniuri){
@@ -44,20 +44,21 @@ public class CategorieController {
 
          List<Categorie> listaCategorii=Global.mapCategoriiByMeniu.get(meniu_id);
         */
-          List<Categorie> listaCategorii=meniuService.findById(meniu_id).getCategorii();
+          List<Categorie> listaCategorii=categorieService.findAllByVizibilitate(meniu_id,vizibilitate);
 
         model.addObject("categorii", listaCategorii);
         model.addObject("meniu_id",meniu_id);
         return model;
 }
-    @RequestMapping(value = "/vizualizareCategorii/{stare}", method = RequestMethod.GET)
-    public ModelAndView vizualizareCategoriiByStare(@PathVariable("stare") String stare) {
+    @RequestMapping(value = "/vizualizareCategorii/{meniu_id}", method = RequestMethod.GET)
+    public ModelAndView vizualizareCategorii(@PathVariable("meniu_id") Long meniu_id) {
         ModelAndView model = new ModelAndView("vizualizareCategorii");
         /*if(Global.listaMeniuri==null||Global.listaMeniuri.size()==0) {
            Global.listaMeniuri = meniuService.findAll();
         }*/
 
-        model.addObject("categorii");
+        model.addObject("categorii", meniuService.findById(meniu_id).getCategorii());
+        model.addObject("meniu_id",meniu_id);
 
         return model;
     }
