@@ -200,7 +200,7 @@
 
                             </div>
                             <div class="product-sidebar-widget">
-                                <a href="${contextPath}/vizualizareCategorii" class="btn btn-outline-light">Sterge filtrul</a>
+                                <a href="${contextPath}/detaliiCategorie/${categorie_id}/${meniu_id}" class="btn btn-outline-light">Sterge filtrul</a>
                             </div>
 
                         </div>
