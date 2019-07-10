@@ -31,6 +31,10 @@ public Produs(){}
         this.denumire = denumire;
     }
 
+    public Produs(Categorie c) {
+    this.categorie=c;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {

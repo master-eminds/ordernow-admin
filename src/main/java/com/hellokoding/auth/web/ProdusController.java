@@ -1,5 +1,6 @@
 package com.hellokoding.auth.web;
 
+import com.hellokoding.auth.model.Categorie;
 import com.hellokoding.auth.model.Meniu;
 import com.hellokoding.auth.model.Produs;
 import com.hellokoding.auth.model.Review;
@@ -45,14 +46,16 @@ public class ProdusController {
 
 
 
-    @RequestMapping(value = "/administrareProdus/{produs_id}/{meniu_id}", method = RequestMethod.GET)
-    public ModelAndView registration(@PathVariable("produs_id") Long produs_id, @PathVariable("meniu_id") Long meniu_id) {
+    @RequestMapping(value = "/administrareProdus/{produs_id}/{categ_id}/{meniu_id}", method = RequestMethod.GET)
+    public ModelAndView registration(@PathVariable("produs_id") Long produs_id,@PathVariable("categ_id") Long categ_id, @PathVariable("meniu_id") Long meniu_id) {
         ModelAndView model = new ModelAndView("administrareProdus");
         Meniu meniu= meniuService.findById(meniu_id);
 
         if(produs_id == 0 ){
+            Categorie c= categorieService.findById(categ_id);
+
             model.addObject("meniu",meniu);
-            model.addObject("produsForm", new Produs());
+            model.addObject("produsForm", new Produs(c));
             model.addObject("add","true");
         }else{
             Produs p = produsService.findById(produs_id);
@@ -94,9 +97,9 @@ public class ProdusController {
                 Global.mapProduseByCategorie.replace(categorie,listaVeche );
             }
         }
-        // la adaugare categorie
+        // la adaugare produs
         else {
-            //daca exista deja macar o categorie in meniu, stergem categoria veche din lista si o adaugam pe cea noua
+            //daca exista deja macar un produs in categorie, stergem produsul vechi din lista si o adaugam pe cea nou
             if (Global.mapProduseByCategorie.get(categorie)!=null&&Global.mapProduseByCategorie.get(categorie).size()!=0){
                 List<Produs> listaVeche= Global.mapProduseByCategorie.get(categorie);
 
@@ -129,8 +132,10 @@ public class ProdusController {
         if(Global.mapProduseByCategorie.get(categorie_id)==null||Global.mapProduseByCategorie.get(categorie_id).size()==0) {
             Global.mapProduseByCategorie.put(categorie_id, produsService.findAllByCategorie(categorie_id));
         }
+
         model.addObject("produse", Global.mapProduseByCategorie.get(categorie_id));
         model.addObject("meniu_id",meniu_id);
+        model.addObject("categorie_id",categorie_id);
 
         return model;
     }

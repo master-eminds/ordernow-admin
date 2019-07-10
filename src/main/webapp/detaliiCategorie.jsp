@@ -152,7 +152,7 @@
 
                                             </div>
                                             <div class="product-btn">
-                                                <a href="${contextPath}/administrareProdus/${produs.id}/${produs.meniu_id}" class="btn btn-outline-light">Modifica</a>
+                                                <a href="${contextPath}/administrareProdus/${produs.id}/${produs.categorie.id}/${produs.meniu_id}" class="btn btn-outline-light">Modifica</a>
 <%--
                                                 <c:if test="${empty produs.listaItemComanda}">
 --%>
@@ -182,7 +182,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12">
                         <div class="product-sidebar">
                             <div class="product-sidebar-widget">
-                                <a href="${contextPath}/administrareProdus/0/${meniu_id}" class="btn btn-danger btn-sm">Adauga un produs</a>
+                                <a href="${contextPath}/administrareProdus/0/${categorie_id}/${meniu_id}" class="btn btn-danger btn-sm">Adauga un produs</a>
                             </div>
                             <div class="product-sidebar-widget">
                                 <h4 class="product-sidebar-widget-title">Vizibilitate</h4>
