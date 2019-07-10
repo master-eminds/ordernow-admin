@@ -13,6 +13,7 @@ public interface ProdusService {
     List<Produs> findAll();
     List<CountProdus> numarProduseComandate();
     List<Produs> findAllByVizibilitate(Long categorieId, String vizibilitate);
+    List<Produs> findAllByCategorie(Long categorieId);
 
 
     Produs findById(Long id);

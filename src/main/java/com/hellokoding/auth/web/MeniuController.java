@@ -1,9 +1,11 @@
 package com.hellokoding.auth.web;
 
 import com.hellokoding.auth.model.Meniu;
+import com.hellokoding.auth.repository.MeniuRepository;
 import com.hellokoding.auth.service.MeniuService;
 import com.hellokoding.auth.service.ProdusService;
 import com.hellokoding.auth.service.SecurityService;
+import com.hellokoding.auth.util.Global;
 import com.hellokoding.auth.validator.MeniuValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ public class MeniuController {
     @Autowired
     private MeniuService meniuService;
     @Autowired
+    private MeniuRepository meniuRepository;
+    @Autowired
     private ProdusService produsService;
     @Autowired
     private MeniuValidator meniuValidator;
@@ -33,10 +37,10 @@ public class MeniuController {
     @RequestMapping(value = "/vizualizareMeniuri", method = RequestMethod.GET)
     public ModelAndView vizualizareMeniuri() {
         ModelAndView model = new ModelAndView("vizualizareMeniuri");
-        /*if(Global.listaMeniuri==null||Global.listaMeniuri.size()==0) {
+        if(Global.listaMeniuri==null||Global.listaMeniuri.size()==0) {
            Global.listaMeniuri = meniuService.findAll();
-        }*/
-        model.addObject("meniuri", meniuService.findAll());
+        }
+        model.addObject("meniuri", Global.listaMeniuri);
 
         return model;
     }
@@ -80,20 +84,43 @@ public class MeniuController {
             return "administrareMeniu";
         }
         if(meniuForm.getId()!=null){
-            Meniu old = meniuService.findById(meniuForm.getId());
-          //  Global.listaMeniuri.remove(old);
+            //Meniu old = meniuService.findById(meniuForm.getId());
+            int sters=0;
+            for(int i=0;i<Global.listaMeniuri.size() && sters==0;i++){
+                Meniu meniu=Global.listaMeniuri.get(i);
+                if(meniu.getId().equals(meniuForm.getId())){
+                    Global.listaMeniuri.remove(i);
+                    sters=1;
+                }
+            }
         }
 
         Meniu meniu=meniuService.save(meniuForm);
-        //Global.listaMeniuri.add(meniu);
+        Global.listaMeniuri.add(meniu);
         return "redirect:/vizualizareMeniuri";
     }
 
 
     @RequestMapping(value = "/stergeMeniu/{meniu_id}", method = RequestMethod.GET)
     public String stergeMeniu(@PathVariable("meniu_id") Long meniu_id) {
-        meniuService.delete(meniu_id);
-        //Global.listaMeniuri.remove(meniuService.findById(meniu_id));
+        //List<Categorie> categories=meniuService.findById(meniu_id).getCategorii();
+        /*if(categories==null||categories.size()==0){
+            meniuService.delete(meniu_id);
+        }*/
+        /*else {
+            meniuRepository.deleteMeniu(1,meniu_id);
+        }*/
+        int sters=0;
+        for(int i=0;i<Global.listaMeniuri.size() && sters==0;i++){
+            Meniu meniu=Global.listaMeniuri.get(i);
+            if(meniu.getId().equals(meniu_id)){
+                Global.listaMeniuri.remove(i);
+                sters=1;
+            }
+        }
+        meniuRepository.deleteMeniu(1,meniu_id);
+
+
         return "redirect:/vizualizareMeniuri";
     }
 }

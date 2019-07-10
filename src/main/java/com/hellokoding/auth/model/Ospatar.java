@@ -18,6 +18,7 @@ public class Ospatar implements Comparable{
     private String status;
     private Set<Review> reviews;
     private Set<Comanda> listaComenzi;
+    private int sters;
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     public Long getId() {
@@ -89,5 +90,13 @@ public class Ospatar implements Comparable{
     public int compareTo(Object o) {
         Ospatar ospatar=(Ospatar) o;
         return this.getNume().compareTo(ospatar.getNume());
+    }
+
+    public int getSters() {
+        return sters;
+    }
+
+    public void setSters(int sters) {
+        this.sters = sters;
     }
 }

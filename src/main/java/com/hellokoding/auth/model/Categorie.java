@@ -19,7 +19,7 @@ public class Categorie {
 
     private Meniu meniu;
     private String vizibilitate;
-    private String sters;
+    private int sters;
 
     public Categorie() {
 
@@ -95,11 +95,12 @@ public class Categorie {
         this.vizibilitate = vizibilitate;
     }
 
-    public String getSters() {
+
+    public int getSters() {
         return sters;
     }
 
-    public void setSters(String sters) {
+    public void setSters(int sters) {
         this.sters = sters;
     }
 }

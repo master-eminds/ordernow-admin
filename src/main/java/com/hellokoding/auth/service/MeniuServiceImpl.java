@@ -33,14 +33,20 @@ public class MeniuServiceImpl implements MeniuService {
     }
 
     @Override
-    public List<Meniu> findAll() {
+    public List<Meniu> findTot() {
         return meniuRepository.findAll();
     }
-
+    @Override
+    public List<Meniu> findAll() {
+        List meniuri= em.createNativeQuery(
+                "select * from meniuri where sters=0", Meniu.class)
+                .getResultList();
+        return meniuri;
+    }
     @Override
     public List<Meniu> findAllByStare(String stare) {
         List meniuri = em.createNativeQuery(
-                "select * from meniuri where stare=:stare", Meniu.class)
+                "select * from meniuri where stare=:stare and sters=0", Meniu.class)
                 .setParameter("stare", stare)
                 .getResultList();
         return meniuri;    }

@@ -142,8 +142,8 @@
                                                 <img src="${String(produs.imagine)}" style="margin: 0 auto; max-height: 80%; max-width: 80%; object-fit: cover" alt="" class="img-fluid"></div>
 
                                         </div>
-                                        <div class="product-content" style="margin: 0 auto; height: 260px">
-                                            <div class="product-content-head" style="margin: 0 auto; height: 150px">
+                                        <div class="product-content" style="margin: 0 auto; height: 280px">
+                                            <div class="product-content-head" style="margin: 0 auto; height: 200px">
                                                 <h3 class="product-title">${produs.denumire}</h3>
                                                 <div class="product-price">${produs.pret} lei</div>
                                                 <h2 class="product-title">${produs.vizibilitate.toUpperCase()}</h2>
@@ -153,9 +153,11 @@
                                             </div>
                                             <div class="product-btn">
                                                 <a href="${contextPath}/administrareProdus/${produs.id}/${produs.meniu_id}" class="btn btn-outline-light">Modifica</a>
+<%--
                                                 <c:if test="${empty produs.listaItemComanda}">
-                                                    <a href="${contextPath}/stergeProdus/${produs.id}" class="btn btn-danger btn-sm">Sterge</a>
-                                                </c:if>
+--%>
+                                                    <a href="${contextPath}/stergeProdus/${produs.id}/${produs.categorie.id}/${meniu_id}" class="btn btn-danger btn-sm">Sterge</a>
+
                                             </div>
                                         </div>
                                     </div>
@@ -193,8 +195,12 @@
                                     <label class="custom-control-label" for="filtruInactiv">Invizibil</label>
                                 </div>
                                 <div class="product-sidebar-widget">
-                                    <a href="#" id="aplicaFiltru" onclick="aplicaFiltru(${categorie_id})" class="btn btn-outline-light">Aplica</a>
+                                    <a href="#" id="aplicaFiltru" onclick="aplicaFiltru(${categorie_id}, ${meniu_id})" class="btn btn-outline-light">Aplica</a>
                                 </div>
+
+                            </div>
+                            <div class="product-sidebar-widget">
+                                <a href="${contextPath}/vizualizareCategorii" class="btn btn-outline-light">Sterge filtrul</a>
                             </div>
 
                         </div>
@@ -224,17 +230,17 @@
 <!-- main js -->
 <script src="${contextPath}/resources/tema/libs/js/main-js.js"></script>
 <script>
-    function aplicaFiltru(categorie_id) {
+    function aplicaFiltru(categorie_id, meniu_id) {
         var btnAplica = document.getElementById("aplicaFiltru");
         var checkBoxA= document.getElementById("filtruActiv");
         var checkBoxI= document.getElementById("filtruInactiv");
         if( checkBoxA.checked === true){
-            btnAplica.setAttribute('href','${contextPath}/detaliiCategorie/'+categorie_id+'/vizibil')
+            btnAplica.setAttribute('href','${contextPath}/detaliiCategorie/'+categorie_id+'/'+meniu_id+'/vizibil')
             btnAplica.click();
             checkBoxA.checked=true;
         }
         else if (checkBoxI.checked===true){
-            btnAplica.setAttribute('href','${contextPath}/detaliiCategorie/'+categorie_id+'/invizibil')
+            btnAplica.setAttribute('href','${contextPath}/detaliiCategorie/'+categorie_id+'/'+meniu_id+'/invizibil')
             btnAplica.click();
             checkBoxI.checked=true;
         }

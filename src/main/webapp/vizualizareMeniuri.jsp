@@ -149,9 +149,8 @@
                                             <div class="product-btn">
                                                 <a href="${contextPath}/vizualizareCategorii/${meniu.id}" class="btn btn-primary">Vezi detalii</a>
                                                 <a href="${contextPath}/administrareMeniu/${meniu.id}" class="btn btn-outline-light">Modifica</a>
-                                                <c:if test="${empty meniu.categorii}">
                                                 <a href="${contextPath}/stergeMeniu/${meniu.id}" class="btn btn-danger btn-sm">Sterge</a>
-                                                </c:if>
+
                                             </div>
                                         </div>
                                     </div>

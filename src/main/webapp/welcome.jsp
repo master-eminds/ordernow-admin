@@ -47,7 +47,7 @@
             <div class="container-fluid">
                 <div class="header-mobile-inner">
                     <a href="#">
-                        <img src="${contextPath}/resources/tema/images/icon/logo_administrare1Cc.png" alt="Logo" style="max-width: 20%;max-height: 20%" />
+                        <img src="${contextPath}/resources/tema/images/icon/logo_administrare2C.png" alt="Logo" style="max-width: 20%;max-height: 20%" />
                     </a>
                     <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -107,7 +107,7 @@
         <c:if test="${not empty user}">
             <div style="    max-width: 46%;margin-left: 23%;">
                 <a href="#">
-                    <img src="${contextPath}/resources/tema/images/icon/logo_administrare1Cc.png" alt="Logo" />
+                    <img src="${contextPath}/resources/tema/images/icon/logo_administrare2C.png" alt="Logo" />
                 </a>
             </div>
         </c:if>
@@ -163,11 +163,11 @@
                 <div class="container-fluid">
                     <div class="header-wrap">
 
-                         <c:if test="${master eq true}">
+                         <c:if test="${master eq 1}">
                              <div class="row">
                                  <div class="col-md-12">
                                      <div class="overview-wrap">
-                                         <a class="btn btn-primary" href="${contextPath}/registration">Adauga admin</a>
+                                         <a class="btn btn-primary" href="${contextPath}/registration/${0}">Adauga admin</a>
 
                                      </div>
                                  </div>
@@ -245,7 +245,7 @@
                                                     <i class="zmdi zmdi-account"></i>Cont</a>
                                             </div>
                                             <div class="account-dropdown__item">
-                                                <a href="#">
+                                                <a href="${contextPath}/registration/${user.id}">
                                                     <i class="zmdi zmdi-settings"></i>Setari</a>
                                             </div>
                                         </div>
@@ -407,7 +407,7 @@
                                                         <a href="#">${ospatar.nume}</a>
                                                     </h5>
                                                 </tr>
-                                               <tr>
+                                               <td>
                                                    <td width="200">
                                                        <span class="time">${ospatar.email}</span>
                                                    </td>
@@ -421,6 +421,13 @@
                                                    </td>
                                                    <td width="120">
                                                        <a href="/administrareOspatari/${ospatar.id}"><span class="role user">EDITARE</span></a>
+                                                   </td>
+
+                                                  <td width="120">
+
+                                                      <a href="/stergeOspatar/${ospatar.id}"  type="button" class="btn btn-danger btn-sm">
+                                                          <i class="fa fa-eraser"></i>&nbsp;Sterge</a>
+<%----%>
                                                    </td>
                                                </tr>
                                                 </table>
@@ -460,8 +467,12 @@
                                                     <div class="au-task__item-inner">
                                                         <h5 class="task">
                                                             <a href="#">Masa numarul : ${masa.id}</a>
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/stergeMasa/${masa.id}" type="button" style="color: whitesmoke; width:30px; height:30px" class="btn btn-danger btn-sm">
+                                                                <i class="fa fa-eraser"></i></a>
                                                         </h5>
                                                         <span class="time">Numar comenzi : ${masa.comenzi.size()}</span>
+
+
                                                     </div>
                                                 </c:forEach>
                                             </div>

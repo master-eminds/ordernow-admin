@@ -48,13 +48,24 @@ public class CategorieServiceImpl implements CategorieService {
 
     @Override
     public List<Categorie> findAll() {
-        return categorieRepository.findAll();
+        List categorii= em.createNativeQuery(
+                "select * from categorii where sters=0", Categorie.class)
+                .getResultList();
+        return categorii;
     }
+
+    @Override
+    public List<Categorie> findAllByMeniuId(Long meniu_id) {
+        List categorie = em.createNativeQuery(
+                "select * from categorii where meniu_id=:meniuId and sters =0", Categorie.class)
+                .setParameter("meniuId", meniu_id)
+                .getResultList();
+        return categorie;   }
 
     @Override
     public List<Categorie> findAllByVizibilitate(Long meniuId,String vizibilitate) {
         List categorie = em.createNativeQuery(
-                "select * from categorii where meniu_id=:meniuId and vizibilitate =:vizibilitate", Categorie.class)
+                "select * from categorii where meniu_id=:meniuId and vizibilitate =:vizibilitate and sters=0", Categorie.class)
                 .setParameter("meniuId", meniuId)
                 .setParameter("vizibilitate", vizibilitate)
                 .getResultList();

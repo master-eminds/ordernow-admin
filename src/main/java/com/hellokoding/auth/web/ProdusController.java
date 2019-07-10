@@ -1,9 +1,9 @@
 package com.hellokoding.auth.web;
 
-import com.hellokoding.auth.model.Categorie;
 import com.hellokoding.auth.model.Meniu;
 import com.hellokoding.auth.model.Produs;
 import com.hellokoding.auth.model.Review;
+import com.hellokoding.auth.repository.ProdusRepository;
 import com.hellokoding.auth.service.*;
 import com.hellokoding.auth.util.Global;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,8 @@ import java.util.Map;
 public class ProdusController {
     @Autowired
     private ProdusService produsService;
+    @Autowired
+    private ProdusRepository produsRepository;
     @Autowired
     private MeniuService meniuService;
     @Autowired
@@ -65,81 +68,77 @@ public class ProdusController {
     @RequestMapping(value = "/salvareProdus/{meniu_id}", method = RequestMethod.POST)
     public String adaugareMeniu(@ModelAttribute("produsForm") Produs produsForm, @PathVariable("meniu_id") Long meniu_id, BindingResult bindingResult) throws UnsupportedEncodingException, SQLException {
 
-        byte[] file = produsForm.getImagine();
         produsForm.setMeniu_id(meniu_id);
 
         if(bindingResult.hasErrors()){
             return "administrareProdus";
         }
-        Produs old=null;
-        if(produsForm.getId()!=null){
-            old = produsService.findById(produsForm.getId());
-        }
-    /*    Produs produs= produsService.save(produsForm);
-        //Global.listaProduse.add(produs);
-        Long categorie_id=produs.getCategorie().getId();
-        List<Produs> listaVeche= Global.mapProduseByCategorie.get(categorie_id);
-        if(old!=null){
-            for(Produs p: listaVeche){
-                if(p.getId().equals(old.getId())){
-                    listaVeche.remove(old);
+
+        Produs produs=produsService.save(produsForm);
+
+        Long categorie= produsForm.getCategorie().getId();
+        //la modificare produs
+        if(produsForm.getId()!=0){
+            if (Global.mapProduseByCategorie.get(categorie)!=null&&Global.mapProduseByCategorie.get(categorie).size()!=0){
+                List<Produs> listaVeche= Global.mapProduseByCategorie.get(categorie);
+
+                int sters=0;
+                for(int i=0;i<listaVeche.size() && sters==0;i++){
+                    Produs produs1=listaVeche.get(i);
+                    if(produs1.getId().equals(produsForm.getId())){
+                        listaVeche.remove(i);
+                        sters=1;
+                    }
                 }
+                listaVeche.add(produs);
+                Global.mapProduseByCategorie.replace(categorie,listaVeche );
             }
         }
-        listaVeche.add(produs);
-        Global.mapProduseByCategorie.replace(produs.getCategorie().getId(),listaVeche);*/
+        // la adaugare categorie
+        else {
+            //daca exista deja macar o categorie in meniu, stergem categoria veche din lista si o adaugam pe cea noua
+            if (Global.mapProduseByCategorie.get(categorie)!=null&&Global.mapProduseByCategorie.get(categorie).size()!=0){
+                List<Produs> listaVeche= Global.mapProduseByCategorie.get(categorie);
 
-        produsService.save(produsForm);
-        return "redirect:/detaliiCategorie/"+produsForm.getCategorie().getId();
+                int sters=0;
+                for(int i=0;i<listaVeche.size() && sters==0;i++){
+                    Produs produs1=listaVeche.get(i);
+                    if(produs1.getId().equals(produsForm.getId())){
+                        listaVeche.remove(i);
+                        sters=1;
+                    }
+                }
+                listaVeche.add(produs);
+                Global.mapProduseByCategorie.replace(categorie,listaVeche );
+            }
+            // daca nu exista nicio categorie in meniu, adaugam noi o lista cu categ noua
+            else {
+                List<Produs> listaVeche = new ArrayList<>();
+                listaVeche.add(produs);
+                Global.mapProduseByCategorie.put(categorie, listaVeche);
+            }
+        }
+        return "redirect:/detaliiCategorie/"+produsForm.getCategorie().getId()+"/"+meniu_id;
     }
 
-    @RequestMapping(value = "/detaliiCategorie/{categorie_id}", method = RequestMethod.GET)
-    public ModelAndView vizualizareCategorii(@PathVariable ("categorie_id") Long categorie_id) {
+    @RequestMapping(value = "/detaliiCategorie/{categorie_id}/{meniu_id}", method = RequestMethod.GET)
+    public ModelAndView vizualizareProduse(@PathVariable ("categorie_id") Long categorie_id, @PathVariable("meniu_id") Long meniu_id) {
         ModelAndView model = new ModelAndView("detaliiCategorie");
 
-       /*Long meniu_id=0L;
-       if(Global.listaCategorii==null||Global.listaCategorii.size()==0){
-           Global.listaCategorii=categorieService.findAll();
-       }
 
-        if(Global.mapProduseByCategorie==null||Global.mapProduseByCategorie.size()==0){
-            for(Categorie c: Global.listaCategorii){
-                Global.mapProduseByCategorie.put(c.getId(),c.getProduse());
-            }
+        if(Global.mapProduseByCategorie.get(categorie_id)==null||Global.mapProduseByCategorie.get(categorie_id).size()==0) {
+            Global.mapProduseByCategorie.put(categorie_id, produsService.findAllByCategorie(categorie_id));
         }
-        if(Global.mapProduseByCategorie.containsKey(categorie_id)){
-            List<Produs> listaProduse=Global.mapProduseByCategorie.get(categorie_id);
-            meniu_id=listaProduse.get(0).getMeniu_id();
-            model.addObject("produse", listaProduse);
-        }*/
-       Categorie categorie= categorieService.findById(categorie_id);
-       Long meniu_id=categorie.getMeniu().getId();
-        List<Produs> listaProduse= categorie.getProduse();
-        model.addObject("produse", listaProduse);
+        model.addObject("produse", Global.mapProduseByCategorie.get(categorie_id));
         model.addObject("meniu_id",meniu_id);
 
         return model;
     }
-    @RequestMapping(value = "/detaliiCategorie/{categorie_id}/{vizibilitate}", method = RequestMethod.GET)
-    public ModelAndView vizualizareCategorii(@PathVariable ("categorie_id") Long categorie_id, @PathVariable("vizibilitate") String vizibilitate){
+    @RequestMapping(value = "/detaliiCategorie/{categorie_id}/{meniu_id}/{vizibilitate}", method = RequestMethod.GET)
+    public ModelAndView vizualizareProduseByVizibil(@PathVariable ("categorie_id") Long categorie_id, @PathVariable("meniu_id") Long meniu_id,@PathVariable("vizibilitate") String vizibilitate){
         ModelAndView model = new ModelAndView("detaliiCategorie");
 
-       /*Long meniu_id=0L;
-       if(Global.listaCategorii==null||Global.listaCategorii.size()==0){
-           Global.listaCategorii=categorieService.findAll();
-       }
 
-        if(Global.mapProduseByCategorie==null||Global.mapProduseByCategorie.size()==0){
-            for(Categorie c: Global.listaCategorii){
-                Global.mapProduseByCategorie.put(c.getId(),c.getProduse());
-            }
-        }
-        if(Global.mapProduseByCategorie.containsKey(categorie_id)){
-            List<Produs> listaProduse=Global.mapProduseByCategorie.get(categorie_id);
-            meniu_id=listaProduse.get(0).getMeniu_id();
-            model.addObject("produse", listaProduse);
-        }*/
-        Long meniu_id= categorieService.findById(categorie_id).getMeniu().getId();
         List<Produs> listaProduse= produsService.findAllByVizibilitate(categorie_id,vizibilitate);
         model.addObject("produse", listaProduse);
         model.addObject("meniu_id",meniu_id);
@@ -153,7 +152,6 @@ public class ProdusController {
     @RequestMapping(value = "/statisticiReviewProduse", method = RequestMethod.GET)
     public ModelAndView statisticiReviewProduse() {
         ModelAndView model = new ModelAndView("statisticiReviewProduse");
-        //List<Produs> produse= produsService.findAll();
         if(Global.listaProduse==null||Global.listaProduse.size()==0){
             Global.listaProduse=produsService.findAll();
         }
@@ -206,17 +204,22 @@ public class ProdusController {
             return model;
         }
 
-    @RequestMapping(value = "/stergeProdus/{id}", method = RequestMethod.GET)
-    public String stergeProdus(@PathVariable("id") Long id) {
-        Produs produs=produsService.findById(id);
-        produsService.delete(id);
-        /*Global.listaProduse.remove(produs);
-        Long categorie_id=produs.getCategorie().getId();
-        List<Produs> listaVeche= Global.mapProduseByCategorie.get(categorie_id);
-        listaVeche.remove(produs);
-        Global.mapProduseByCategorie.replace(produs.getCategorie().getId(),listaVeche);
-*/
-        return "redirect:/detaliiCategorie/"+produs.getCategorie().getId();
+    @RequestMapping(value = "/stergeProdus/{id}/{categ}/{meniu_id}", method = RequestMethod.GET)
+    public String stergeProdus(@PathVariable("id") Long id, @PathVariable("categ") Long id_categ, @PathVariable("meniu_id") Long meniu_id) {
+
+        produsRepository.deleteProdus(1,id);
+        List<Produs> listaVeche= Global.mapProduseByCategorie.get(id_categ);
+        int sters=0;
+        for(int i=0;i<listaVeche.size() && sters==0;i++){
+            Produs produs1=listaVeche.get(i);
+            if(produs1.getId().equals(id)){
+                listaVeche.remove(i);
+                sters=1;
+            }
+        }
+
+        Global.mapProduseByCategorie.replace(id_categ,listaVeche);
+        return "redirect:/detaliiCategorie/"+id_categ+"/"+meniu_id;
     }
 
 }

@@ -11,6 +11,7 @@ import static javax.persistence.CascadeType.ALL;
 public class Masa {
     private Long id;
     private Set<Comanda> comenzi;
+    private int sters;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -28,5 +29,13 @@ public class Masa {
 
     public void setComenzi(Set<Comanda> comenzi) {
         this.comenzi = comenzi;
+    }
+
+    public int getSters() {
+        return sters;
+    }
+
+    public void setSters(int sters) {
+        this.sters = sters;
     }
 }

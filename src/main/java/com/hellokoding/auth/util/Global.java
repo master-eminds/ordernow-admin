@@ -10,6 +10,8 @@ import java.util.*;
 public class Global {
     public static String AES="AES";
     public static String cheieCriptare="criptare";
+    public static Admin admin=new Admin();
+    public static Rol rol;
 
 
     public static String criptare(String data, String password) throws Exception{

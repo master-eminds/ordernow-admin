@@ -11,5 +11,8 @@ public interface CategorieService {
     void stergeCategorie(Long id);
     Categorie findById(Long id);
     List<Categorie> findAll();
+
+    List<Categorie> findAllByMeniuId(Long meniu_id);
+
     List<Categorie> findAllByVizibilitate(Long meniuId,String vizibilitate);
     }

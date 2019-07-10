@@ -12,4 +12,6 @@ public interface OspatarService {
     Ospatar findByEmail(String email);
 
     List<Ospatar> findAll();
+    List<Ospatar>  findAllNestersi();
+    void delete(Long id);
 }

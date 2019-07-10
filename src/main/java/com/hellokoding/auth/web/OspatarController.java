@@ -2,6 +2,7 @@ package com.hellokoding.auth.web;
 
 import com.hellokoding.auth.model.Ospatar;
 import com.hellokoding.auth.model.Review;
+import com.hellokoding.auth.repository.OspatarRepository;
 import com.hellokoding.auth.service.OspatarService;
 import com.hellokoding.auth.service.ReviewService;
 import com.hellokoding.auth.service.SecurityService;
@@ -29,6 +30,9 @@ public class OspatarController {
     private SecurityService securityService;
     @Autowired
     private OspatarValidator ospatarValidator;
+    @Autowired
+    private OspatarRepository ospatarRepository;
+
     @Autowired
     private OspatarService ospatarService;
     @Autowired
@@ -68,7 +72,21 @@ public class OspatarController {
         return "redirect:/welcome";
     }
 
+    @RequestMapping(value = "/stergeOspatar/{id}", method = RequestMethod.GET)
 
+    public String stergeMeniu(@PathVariable("id") Long id) {
+        //Ospatar ospatar=ospatarService.findById(id);
+        ospatarRepository.deleteOspatar(1,id);
+        int sters=0;
+        for(int i=0;i< Global.listaOspatari.size() && sters==0;i++){
+            Ospatar ospatar= Global.listaOspatari.get(i);
+            if(ospatar.getId().equals(id)){
+                sters=1;
+                Global.listaOspatari.remove(i);
+            }
+        }
+        return "redirect:/welcome";
+    }
     @RequestMapping(value = "/statisticiReviewOspatari", method = RequestMethod.GET)
     public ModelAndView statisticiReviewOspatar() {
         ModelAndView model = new ModelAndView("statisticiReviewOspatari");

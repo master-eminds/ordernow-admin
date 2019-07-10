@@ -142,7 +142,7 @@
                                         <div class="product-img-head" style="margin: 0 auto;" >
                                             <div class="product-img" style="margin: 0 auto; height: 220px">
                                                <img src="${String(categorie.imagine)}" style="margin: 0 auto; max-height:80%; max-width: 80%; object-fit: cover" alt="" class="img-fluid"></div>
-                                            <div class=""><a href="${contextPath}/detaliiCategorie/${categorie.id}" class="product-wishlist-btn"><i class="fas fa-eye"></i></a></div>
+                                            <div class=""><a href="${contextPath}/detaliiCategorie/${categorie.id}/${meniu_id}" class="product-wishlist-btn"><i class="fas fa-eye"></i></a></div>
                                         </div>
                                         <div class="product-content" style="margin: 0 auto;height: 260px">
                                             <div class="product-content-head" style="margin: 0 auto; height: 100px">
@@ -150,12 +150,16 @@
                                                 <div class="product-price">${categorie.vizibilitate.toUpperCase()}</div>
                                             </div>
                                             <div class="product-btn" >
-                                                <a href="${contextPath}/detaliiCategorie/${categorie.id}" class="btn btn-primary">Vezi detalii</a>
+                                                <a href="${contextPath}/detaliiCategorie/${categorie.id}/${meniu_id}" class="btn btn-primary">Vezi detalii</a>
                                                 <a href="${contextPath}/administrareCategorie/${categorie.id}/${meniu_id}" class="btn btn-outline-light">Modifica</a>
+<%--
                                                <c:if test="${empty categorie.produse}">
-                                                    <a href="${contextPath}/stergeCategorie/${categorie.id}" class="btn btn-danger btn-sm">Sterge</a>
+--%>
+                                                    <a href="${contextPath}/stergeCategorie/${categorie.id}/${meniu_id}" class="btn btn-danger btn-sm">Sterge</a>
 
+<%--
                                                 </c:if>
+--%>
                                             </div>
                                         </div>
                                     </div>

@@ -92,7 +92,7 @@
     <aside class="menu-sidebar d-none d-lg-block">
         <div class="logo">
             <a href="/welcome">
-                <img src="${contextPath}/resources/tema/images/icon/logo_administrare1Cc.png" alt="Logo" />
+                <img src="${contextPath}/resources/tema/images/icon/logo_administrare2C.png" alt="Logo" />
             </a>
         </div>
         <div class="menu-sidebar__content js-scrollbar1">
@@ -206,6 +206,7 @@
                                         <button type="reset" class="btn btn-danger btn-sm">
                                             <i class="fa fa-ban"></i> Reset
                                         </button>
+
                                     </div>
                                 </div>
                                 </form:form>

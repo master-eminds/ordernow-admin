@@ -38,13 +38,26 @@
 <div class="container">
 
 
-    <form:form method="POST" modelAttribute="adminForm" class="splash-container">
+    <form:form method="POST" action="${contextPath}/salvareCont"  modelAttribute="adminForm" class="splash-container">
     <div class="card">
         <div class="card-header">
-            <h3 class="mb-1">Creare cont</h3>
+            <c:if test="${add!=false}">
+                <h3 class="mb-1">Creare cont</h3>
+            </c:if>
+            <c:if test="${add==false}">
+                <h3 class="mb-1">Setari cont</h3>
+            </c:if>
             <p>Introduceti informatiile despre dumneavoastra.</p>
         </div>
         <div class="card-body">
+            <spring:bind path="id">
+            <div class="form-group">
+                <form:input type="hidden" id="id" path="id" name="id"  class="form-control"></form:input>
+                </spring:bind>
+                <spring:bind path="rol">
+                <div class="form-group">
+                    <form:input type="hidden" id="rol" path="rol" name="rol"  class="form-control"></form:input>
+                    </spring:bind>
             <spring:bind path="nume">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
                     <form:input type="text" path="nume" class="form-control form-control-lg" placeholder="Nume"
@@ -87,13 +100,26 @@
                     <form:errors path="passwordConfirm"></form:errors>
                 </div>
             </spring:bind>
+           <%-- <c:if test="${add !=false}">
+                <div class="form-group pt-2">
+                    <button class="btn btn-block btn-primary" type="submit">Inregistrare cont</button>
+                </div>
+                <div class="card-footer bg-white">
+                    <p>Ai deja un cont? <a href="${contextPath}/login" class="text-secondary">Autentifica-te aici.</a></p>
+                </div>
+            </c:if>--%>
 
-            <div class="form-group pt-2">
-                <button class="btn btn-block btn-primary" type="submit">Inregistrare cont</button>
-            </div>
-            <div class="card-footer bg-white">
-                <p>Ai deja un cont? <a href="${contextPath}/login" class="text-secondary">Autentifica-te aici.</a></p>
-            </div>
+            <%--<c:if test="${add==false}">--%>
+                <div class="form-group pt-2">
+                    <button class="btn btn-block btn-primary" type="submit">Salveaza modificarile</button>
+                </div>
+                <div class="card-footer bg-white">
+                    <p>Vrei sa renunti?<a href="${contextPath}/welcome" class="text-secondary">Revino la pagina principala.</a></p>
+                </div>
+<%--
+                        </c:if>
+--%>
+
         </div>
     </div>
         </form:form>

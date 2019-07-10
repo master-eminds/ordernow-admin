@@ -15,6 +15,7 @@ public class Produs {
     private String descriere;
     private String ingrediente;
     private String vizibilitate;
+    private int sters;
 
     @Lob @Basic(fetch = FetchType.LAZY)
     @Column(length=100000)
@@ -140,5 +141,13 @@ public Produs(){}
 
     public void setVizibilitate(String vizibilitate) {
         this.vizibilitate = vizibilitate;
+    }
+
+    public int getSters() {
+        return sters;
+    }
+
+    public void setSters(int sters) {
+        this.sters = sters;
     }
 }

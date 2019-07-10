@@ -28,7 +28,6 @@ public class ProdusServiceImpl implements ProdusService {
         if(produs.getId()!=null){
             produsRepository.delete(produs.getId());
         }
-
             produsRepository.save(produs);
 
     }
@@ -40,7 +39,10 @@ public class ProdusServiceImpl implements ProdusService {
 
     @Override
     public List<Produs> findAll() {
-        return produsRepository.findAll();
+        List produse= em.createNativeQuery(
+                "select * from produse where sters=0", Produs.class)
+                .getResultList();
+        return produse;
     }
 
     @Override
@@ -61,10 +63,19 @@ public class ProdusServiceImpl implements ProdusService {
     @Override
     public List<Produs> findAllByVizibilitate(Long categorieId, String vizibilitate) {
         List produse = em.createNativeQuery(
-                "select * from produse where categorie_id=:categorieId and vizibilitate =:vizibilitate", Produs.class)
+                "select * from produse where categorie_id=:categorieId and vizibilitate =:vizibilitate and sters=0", Produs.class)
                 .setParameter("categorieId", categorieId)
                 .setParameter("vizibilitate", vizibilitate)
                 .getResultList();
         return produse;    }
+
+    @Override
+    public List<Produs> findAllByCategorie(Long categorieId) {
+        List produse = em.createNativeQuery(
+                "select * from produse where categorie_id=:categorieId and sters=0", Produs.class)
+                .setParameter("categorieId", categorieId)
+                .getResultList();
+        return produse;
+    }
 
 }

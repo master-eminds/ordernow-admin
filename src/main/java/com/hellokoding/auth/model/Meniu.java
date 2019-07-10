@@ -15,6 +15,7 @@ public class Meniu {
     @Lob @Basic(fetch = FetchType.LAZY)
     @Column(length=100000)
     private byte[] image;
+    private int sters;
 
 
     @Id
@@ -60,6 +61,13 @@ public class Meniu {
         this.stare = stare;
     }
 
+    public int getSters() {
+        return sters;
+    }
+
+    public void setSters(int sters) {
+        this.sters = sters;
+    }
     @Override
     public String toString() {
         return "Meniu: " + denumire +

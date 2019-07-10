@@ -6,6 +6,8 @@ import com.hellokoding.auth.util.Global;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
@@ -13,6 +15,8 @@ public class OspatarServiceImpl implements OspatarService {
 
     @Autowired
     OspatarRepository ospatarRepository;
+    @PersistenceContext
+    EntityManager em;
 
     @Override
     public Ospatar save(Ospatar ospatar) {
@@ -42,5 +46,26 @@ public class OspatarServiceImpl implements OspatarService {
     public List<Ospatar> findAll() {
         return ospatarRepository.findAll();
     }
+
+    @Override
+    public void delete(Long id) {
+        em.createNativeQuery(
+                "UPDATE ospatari  set sters=?1 where id= ?2")
+                .setParameter(1, 1)
+                .setParameter(2,id)
+                .executeUpdate();
+
+
+    }
+    @Override
+    public List<Ospatar> findAllNestersi() {
+
+        List ospatari= em.createNativeQuery(
+                "select * from ospatari where sters=?1",Ospatar.class)
+                .setParameter(1,0)
+                .getResultList();
+        return ospatari;
+    }
+
 
 }
