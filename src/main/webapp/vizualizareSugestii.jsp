@@ -36,6 +36,12 @@
     <!-- Main CSS-->
     <link href="${contextPath}/resources/tema/css/theme.css" rel="stylesheet" media="all">
 
+    <link rel="stylesheet" href="${contextPath}/resources/tema/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="${contextPath}/resources/tema/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="${contextPath}/resources/tema/assets/libs/css/style.css">
+    <link rel="stylesheet" href="${contextPath}/resources/tema/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="${contextPath}/resources/tema/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
+
 </head>
 
 <body class="animsition">
@@ -45,7 +51,7 @@
         <div class="header-mobile__bar">
             <div class="container-fluid">
                 <div class="header-mobile-inner">
-                    <a href="/welcome">
+                    <a href="#">
                         <img src="${contextPath}/resources/tema/images/icon/logo_administrare2C.png" alt="Logo" style="max-width: 20%;max-height: 20%" />
                     </a>
                     <button class="hamburger hamburger--slider" type="button">
@@ -101,6 +107,7 @@
     <!-- END HEADER MOBILE-->
 
     <!-- MENU SIDEBAR-->
+
     <aside class="menu-sidebar d-none d-lg-block">
         <div class="logo">
                 <a href="/welcome">
@@ -154,101 +161,116 @@
 
     <!-- PAGE CONTAINER-->
     <div class="page-container">
-        <!-- MAIN CONTENT-->
         <div class="main-content">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
-                                <div class="au-card-title" style="background-image:url('${contextPath}/resources/tema/images/bg-title-02.jpg');">
-                                    <div class="bg-overlay bg-overlay--blue"></div>
-                                    <h3><i class="zmdi zmdi-comment-text"></i>Mesaje</h3>
-                                </div>
-                                <div class="au-inbox-wrap js-inbox-wrap">
-                                    <div class="au-message js-list-load">
-                                        <div class="au-message__noti">
-                                            <c:if test="${listaMesajeNecitite.size() eq 1}">
-                                                <p>Ai un mesaj nou</p>
-                                            </c:if>
-                                            <c:if test="${listaMesajeNecitite.size() ne 1}">
-                                                <p>Ai ${listaMesajeNecitite.size()} mesaje noi</p>
-                                            </c:if>
-                                        </div>
-                                        <div class="au-message-list">
-                                            <a id="aTrimiteRaspuns" type="hidden" href="#"></a>
 
-                                            <c:forEach var="mesajNecitit" items="${listaMesajeNecitite}">
-
-                                            <div class="au-message__item unread" onclick="goToTrimiteRaspuns(${mesajNecitit.id})">
-                                                <div class="au-message__item-inner">
-                                                    <div class="au-message__item-text">
-                                                        <div class="text">
-                                                            <h5 style="font-weight: bold" class="name">${mesajNecitit.expeditor}</h5>
-                                                            <p style="color: #0a3c93">Subiect: ${mesajNecitit.subiect}</p>
-
-                                                            <c:if test="${mesajNecitit.continut.length() gt 21}">
-                                                                <p>${mesajNecitit.continut.substring(0,20)}...</p>
-                                                            </c:if>
-                                                            <c:if test="${mesajNecitit.continut.length() le 21}">
-                                                                <p>${mesajNecitit.continut}</p>
-                                                            </c:if>
-                                                        </div>
-                                                    </div>
-                                                    <div class="au-message__item-time">
-                                                        <span>${mesajNecitit.data}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            </c:forEach>
-                                            <c:forEach var="mesajCitit" items="${listaMesajeCitite}">
-                                            <div class="au-message__item" onclick="goToTrimiteRaspuns(${mesajCitit.id})">
-                                                <div class="au-message__item-inner">
-                                                    <div class="au-message__item-text">
-                                                        <div class="text">
-                                                            <h5 style="font-weight: bold" class="name">${mesajCitit.expeditor}</h5>
-                                                            <p style="color: #0a3c93">Subiect: ${mesajCitit.subiect}</p>
-                                                            <c:if test="${mesajCitit.continut.length() gt 21}">
-                                                                <p>${mesajCitit.continut.substring(0,20)}...</p>
-                                                            </c:if>
-                                                            <c:if test="${mesajCitit.continut.length() le 21}">
-                                                                <p>${mesajCitit.continut}</p>
-                                                            </c:if>
-                                                        </div>
-                                                    </div>
-                                                    <div class="au-message__item-time">
-                                                        <span>${mesajCitit.data}</span>
-                                                    </div>
-                                                    <c:if test="${not empty mesajCitit.continutRaspuns}">
-                                                        <span style="color: red">Ai raspuns la acest mesaj!</span>
-                                                    </c:if>
-                                                </div>
-                                            </div>
-                                            </c:forEach>
-
-                                        <div class="au-message__footer">
-                                            <button class="au-btn au-btn-load js-load-btn" >Vezi mai multe</button>
-                                        </div>
+                    <div class="main-content container-fluid p-0">
+                        <div class="email-inbox-header">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="email-title">
+                        <span class="icon"><i class="fas fa-inbox"></i>
+                        </span> Sugestii
+                                        <c:if test="${not empty listaSugestiiNoi}">
+                                            <span class="new-messages">(${counterSugestiiNoi} sugestii necitite)</span>
+                                        </c:if>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
+                        <div class="email-filters">
+                            <div class="email-filters-left">
+                                <label class="custom-control custom-checkbox be-select-all">
+                                    <input class="custom-control-input chk_all" type="checkbox" name="chk_all"><span class="custom-control-label"></span>
+                                </label>
+                                <div class="btn-group">
+                                    <button class="btn btn-light dropdown-toggle" data-toggle="dropdown" type="button">
+                                        Sugestii selectate <span class="caret"></span></button>
+                                    <div class="dropdown-menu" role="menu">
+                                        <a id="mark-citite" class="dropdown-item" href="#" onclick="marcheazaCaCitite()">Marcheaza ca citit</a>
+                                        <a id="mark-necitite" class="dropdown-item" href="#" onclick="marcheazaCaNecitite()">Marcheaza ca necitit</a>
+                                    </div>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-light dropdown-toggle" data-toggle="dropdown" type="button">
+                                        Stare <span class="caret"></span></button>
+                                    <div class="dropdown-menu" role="menu">
+                                        <a class="dropdown-item" href="${contextPath}/vizualizareSugestii">Toate</a>
+                                        <a class="dropdown-item" href="${contextPath}/vizualizareSugestii/stare/citit">Citite</a>
+                                        <a class="dropdown-item" href="${contextPath}/vizualizareSugestii/stare/necitit">Necitite</a>
+                                    </div>
+                                </div>
+
+                                <div class="btn-group">
+                                    <button class="btn btn-light dropdown-toggle" data-toggle="dropdown" type="button">Categorii <span class="caret"></span></button>
+                                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                        <a class="dropdown-item" href="${contextPath}/vizualizareSugestii">Toate</a>
+                                        <a class="dropdown-item" href="${contextPath}/vizualizareSugestii/produse">Produse</a>
+                                        <a class="dropdown-item" href="${contextPath}/vizualizareSugestii/aplicatie">Aplicatie</a>
+                                        <a class="dropdown-item" href="${contextPath}/vizualizareSugestii/altceva">Altceva</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="email-filters-right"><span class="email-pagination-indicator">1-50 of 253</span>
+                                <div class="btn-group email-pagination-nav">
+                                    <button class="btn btn-light" type="button"><i class="fas fa-angle-left"></i></button>
+                                    <button class="btn btn-light" type="button"><i class="fas fa-angle-right"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="email-list">
+                            <c:forEach var="sugestie" items="${listaSugestiiNoi}">
+
+                                <div class="email-list-item email-list-item--unread">
+                                    <div class="email-list-actions">
+                                        <label class="custom-control custom-checkbox">
+                                            <input class="custom-control-input checkboxes" type="checkbox" value="${sugestie.id}" id="${sugestie.id}">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </div>
+                                    <div class="email-list-detail"><span class="date float-right"><span class="icon">
+                </span>${sugestie.data}</span><span class="from">${sugestie.categorie.toUpperCase()}</span>
+                                        <p class="msg">${sugestie.continut}</p>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                            <c:forEach var="sugestie" items="${listaSugestiiVechi}">
+
+                                <div class="email-list-item">
+                                    <div class="email-list-actions">
+                                        <label class="custom-control custom-checkbox">
+                                            <input class="custom-control-input checkboxes" type="checkbox" value="${sugestie.id}" id="${sugestie.id}">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </div>
+                                    <div class="email-list-detail">
+                                        <span class="date float-right">${sugestie.data}</span>
+                                        <span class="from">${sugestie.categorie.toUpperCase()}</span>
+                                        <p class="msg">${sugestie.continut}</p>
+                                    </div>
+                                </div>
+                            </c:forEach>
+
+                        </div>
+                    </div>
 
 
                 </div>
             </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
-    </div>
-</div>
 <!-- Jquery JS-->
 <script src="${contextPath}/resources/tema/vendor/jquery-3.2.1.min.js"></script>
 <!-- Bootstrap JS-->
 <script src="${contextPath}/resources/tema/vendor/bootstrap-4.1/popper.min.js"></script>
 <script src="${contextPath}/resources/tema/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+<script src="${contextPath}/resources/tema/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="${contextPath}/resources/tema/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+<script src="${contextPath}/resources/tema/assets/libs/js/main-js.js"></script>
+
 <!-- Vendor JS       -->
 <script src="${contextPath}/resources/tema/vendor/slick/slick.min.js">
 </script>
@@ -256,6 +278,7 @@
 <script src="${contextPath}/resources/tema/vendor/animsition/animsition.min.js"></script>
 <script src="${contextPath}/resources/tema/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
 </script>
+
 <script src="${contextPath}/resources/tema/vendor/counter-up/jquery.waypoints.min.js"></script>
 <script src="${contextPath}/resources/tema/vendor/counter-up/jquery.counterup.min.js">
 </script>
@@ -274,6 +297,73 @@
       link.click();
     }
 
+    $(document).ready(function() {
+
+        // binding the check all box to onClick event
+        $(".chk_all").click(function() {
+
+            var checkAll = $(".chk_all").prop('checked');
+            if (checkAll) {
+                $(".checkboxes").prop("checked", true);
+            } else {
+                $(".checkboxes").prop("checked", false);
+            }
+
+        });
+
+        // if all checkboxes are selected, then checked the main checkbox class and vise versa
+        $(".checkboxes").click(function() {
+
+            if ($(".checkboxes").length == $(".subscheked:checked").length) {
+                $(".chk_all").attr("checked", "checked");
+            } else {
+                $(".chk_all").removeAttr("checked");
+            }
+
+        });
+
+    });
+
+
+    function get_selected_checkboxes_array(){
+        var array = []
+        var checkboxes = document.querySelectorAll('input[type=checkbox].checkboxes:checked')
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            array.push(checkboxes[i].value)
+        }
+        return array; }
+
+    function marcheazaCaCitite() {
+
+        var array = [];
+        var selected = get_selected_checkboxes_array();
+        var link=document.getElementById('mark-citite');
+        console.log('a ajuns aici');
+
+        var idSel='';
+        for (var i = 0; i < selected.length-1; i++) {
+            idSel+=selected[i] +',';
+        }
+        idSel+= selected[selected.length-1];
+        if(selected.length !=0){
+            link.setAttribute('href', '/marcheazaCaCitite/'+ idSel);
+        }
+    }
+    function marcheazaCaNecitite() {
+        var selected = get_selected_checkboxes_array();
+
+        var link=document.getElementById('mark-necitite');
+
+        var idSel='';
+        for (var i = 0; i < selected.length-1; i++) {
+            idSel+=selected[i] +',';
+        }
+        idSel+= selected[selected.length-1];
+        if(selected.length !=0){
+            link.setAttribute('href', '/marcheazaCaNecitite/'+ idSel);
+        }
+    }
 </script>
 
 </body>

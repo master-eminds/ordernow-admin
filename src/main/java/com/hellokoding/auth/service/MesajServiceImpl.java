@@ -40,10 +40,11 @@ public class MesajServiceImpl implements MesajService {
     @Override
     public int findCounterByStare(String stare) {
 
-        return em.createNativeQuery(
+        String counter= em.createNativeQuery(
                 "select count(id) from mesaje where stare=:stare")
                 .setParameter("stare", stare)
-                .getFirstResult();
+                .getSingleResult().toString();
+        return Integer.parseInt(counter);
 
     }
     @Override

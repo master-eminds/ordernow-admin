@@ -12,6 +12,7 @@ public class Global {
     public static String cheieCriptare="criptare";
     public static Admin admin=new Admin();
     public static Rol rol;
+    public static List<Comanda> listaComenzi= new ArrayList<>();
 
 
     public static String criptare(String data, String password) throws Exception{

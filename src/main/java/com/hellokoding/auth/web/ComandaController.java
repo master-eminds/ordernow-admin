@@ -70,8 +70,15 @@ public class ComandaController {
     @RequestMapping(value = "/statisticiComenziTotal", method = RequestMethod.GET)
     public ModelAndView statisticiTotalComenzi() throws ParseException {
         ModelAndView model = new ModelAndView("statisticiComenziTotal");
-        comenzi=Global.listaComenziUltimeleLuni;
-                //comandaService.findAll();
+       if(Global.listaComenzi!=null || Global.listaComenzi.size()!=0){
+           comenzi=Global.listaComenzi;
+
+       }
+       else{
+           comenzi=comandaService.findAll();
+           //Global.listaComenziUltimeleLuni;
+       }
+
         if(Global.valoriPeLuna==null||Global.valoriPeLuna.size()==0) {
             Global.valoriPeLuna = DateNecesare.calculareIncasariComenziTotal(comenzi);
         }

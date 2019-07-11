@@ -2,10 +2,10 @@ package com.hellokoding.auth.web;
 
 import com.hellokoding.auth.model.*;
 import com.hellokoding.auth.service.*;
-import com.hellokoding.auth.util.DateNecesare;
-import com.hellokoding.auth.util.Global;
+import com.hellokoding.auth.util.*;
 import com.hellokoding.auth.validator.AdminValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -39,6 +39,8 @@ public class AdminController {
     @Autowired
     private ComandaService comandaService;
     @Autowired
+    private SugestieService sugestieService;
+    @Autowired
     private ProdusService produsService;
     @Autowired
     private ReviewService reviewService;
@@ -48,21 +50,7 @@ public class AdminController {
     @Autowired
     private AdminValidator adminValidator;
 
-  /*  @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration(Model model) {
-        model.addAttribute("adminForm", new Admin());
-        model.addAttribute("add","true");
 
-
-        return "registration";
-    }*/
- /*   @RequestMapping(value = "/registration/{id_admin}", method = RequestMethod.GET)
-    public String setariCont(Model model) {
-        model.addAttribute("adminForm", Global.admin);
-        model.addAttribute("add","false");
-
-        return "registration";
-    }*/
   @RequestMapping(value = "/registration/{id}", method = RequestMethod.GET)
   public ModelAndView administrareAdmin(@PathVariable("id") Long id) {
       ModelAndView model = new ModelAndView("registration");
@@ -109,46 +97,7 @@ public class AdminController {
 
         return "redirect:/welcome";
     }
-   /* @RequestMapping(value = "/registration/{id}", method = RequestMethod.GET)
-    public ModelAndView veziOspatari(@PathVariable("id") Long id) {
-        ModelAndView model = new ModelAndView("registration");
-        if(id == 0 ){
-            model.addObject("adminForm", new Admin());
-            model.addObject("add","true");
-        }else{
-            model.addObject("adminForm", Global.admin);
-            model.addObject("add","false");
-        }
-        return model;
-    }
-    @RequestMapping(value = "/salvareCont", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("adminForm") Admin adminForm, @ModelAttribute("add") String add , BindingResult bindingResult, Model model) {
-        adminValidator.validate(adminForm, bindingResult);
-        if(add.equals("false")){
-                if (bindingResult.hasErrors()) {
-                    return "registration";
-                }
-                adminService.update(adminForm);
-        }
 
-        else {
-            adminForm.setRol(rolService.findRolById(2L));
-            if (bindingResult.hasErrors()) {
-                return "registration";
-            }
-            try {
-                adminService.save(adminForm);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-
-
-        //securityService.autologin(adminForm.getUsername(), adminForm.getPasswordConfirm());
-
-        return "redirect:/welcome";
-    }*/
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
@@ -164,16 +113,16 @@ public class AdminController {
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) throws ParseException {
-
+        if(Global.listaProduse==null || Global.listaProduse.size()==0){
+            incarcaListaProduse();
+        }
+        if(Global.listaComenzi==null || Global.listaComenzi.size()==0){
+            incarcaListaComenzi();
+        }
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         Global.admin = adminService.findByUsername(currentPrincipalName);
         Global.rol= Global.admin.getRol();
-         /* boolean master=false;
-      if(Global.rol.getId()==1){
-        master=true;
-            }*/
-
         model.addAttribute("master", Global.rol.getId());
 
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
@@ -185,25 +134,20 @@ public class AdminController {
             Global.listaMese=masaService.findAllNesterse();
         }
         List<Comanda> comenzi=new ArrayList<>();
-        if(Global.listaComenziUltimeleLuni!=null&&Global.listaComenziUltimeleLuni.size()!=0){
-            comenzi=Global.listaComenziUltimeleLuni;
+        if(Global.listaComenzi!=null&&Global.listaComenzi.size()!=0){
+            comenzi=Global.listaComenzi;
         }
         else{
             comenzi=comandaService.findAll();
         }
-        List<Mesaj> listaMesajeNecitite= mesajService.findAllByStare("necitit");
-        List<Mesaj> listaPrimeleMesajeNecitite= new ArrayList<>();
-        if(listaMesajeNecitite.size()>3){
-            listaPrimeleMesajeNecitite.add(listaMesajeNecitite.get(0));
-            listaPrimeleMesajeNecitite.add(listaMesajeNecitite.get(1));
-            listaPrimeleMesajeNecitite.add(listaMesajeNecitite.get(2));
-            model.addAttribute("listaMesajeNecitite",listaPrimeleMesajeNecitite);
-        }
-        else {
-            model.addAttribute("listaMesajeNecitite",listaMesajeNecitite);
+        List<Mesaj> listaPrimeleMesajeNecitite= mesajService.findFirstByStare("necitit",3);
+        model.addAttribute("listaMesajeNecitite",listaPrimeleMesajeNecitite);
 
-        }
-        model.addAttribute("counterMesajeNecitite",listaMesajeNecitite.size());
+        List<Sugestie> listaPrimeleSugestiiNecitite= sugestieService.findFirstByStare("necitit",3);
+        model.addAttribute("listaSugestiiNoi",listaPrimeleSugestiiNecitite);
+
+        model.addAttribute("counterMesajeNecitite",mesajService.findCounterByStare("necitit"));
+        model.addAttribute("counterSugestiiNecitite",sugestieService.findCounterByStare("necitit"));
 
         //alte date necesare
         model.addAttribute("listaMese", Global.listaMese);
@@ -218,7 +162,7 @@ public class AdminController {
             Global.listaComenziUltimaSaptamana=DateNecesare.listaComenziUltimaSaptamana(comenzi);
         }
         if(Global.valoareTotala==null|| Global.valoareTotala==0){
-            Global.valoareTotala=DateNecesare.calculeazaValoareTotalaIncasata(comenzi);
+           Global.valoareTotala=DateNecesare.calculeazaValoareTotalaIncasata(comenzi);
         }
         model.addAttribute("counterThisWeek", Global.listaComenziUltimaSaptamana.size());
         model.addAttribute("membriOnline",DateNecesare.calculareNrOspatariOnline(Global.listaOspatari));
@@ -228,33 +172,53 @@ public class AdminController {
         return "welcome";
     }
 
-    private  HashMap<Long, Integer> listaMeses (List<Comanda> comenzi){
-       HashMap<Long, Integer> comenziMese= new HashMap<>();
-
-       //List<Masa> mese= masaService.findAll();
-       for(Masa masa: Global.listaMese){
-           if(!comenziMese.containsKey(masa.getId())){
-               comenziMese.put(masa.getId(),0);
-           }
-       }
-        for(Comanda comanda:comenzi){
-            Long idMasa=comanda.getMasa().getId();
-            if (comenziMese.containsKey(idMasa)){
-                comenziMese.replace(idMasa,comenziMese.get(idMasa)+1);
-            }
-
-        }
-        return comenziMese;
+    @Scheduled(fixedRate = 30000)
+    public void recalculareValoareTotala() {
+        ThreadValoareTotala util= new ThreadValoareTotala();
+        util.setSomeCondition(true);
+        util.run();
+        //Global.valoareTotala=DateNecesare.calculeazaValoareTotalaIncasata(Global.listaComenzi);
     }
+    @Scheduled(fixedDelay = 30000, initialDelay = 30000)
+    public void reincarcaListaMese() {
+      incarcaListaMese();
+     }
+    private void incarcaListaComenzi() {
+        ThreadComenziTotale util= new ThreadComenziTotale();
+        util.setSomeCondition(true);
+        util.setComandaService(comandaService);
+        util.run();
+    }
+    private void incarcaListaMese() {
+        ThreadMese util= new ThreadMese();
+        util.setSomeCondition(true);
+        util.setMasaService(masaService);
+        util.run();
+    }
+    private void incarcaListaProduse() {
 
+        ThreadStatisticiProduse util= new ThreadStatisticiProduse();
+        util.setSomeCondition(true);
+        util.setProdusService(produsService);
+        util.setReviewService(reviewService);
+        util.run();
+       }
+
+    @Scheduled(fixedRate = 30000)
+    public void reportCurrentTime() {
+        incarcaListaProduse();
+    }
+    @Scheduled(fixedRate = 60000)
+    public void incarcareComenzi() {
+        incarcaListaComenzi();
+    }
     @RequestMapping(value = "/vizualizareComenzi/{nrMasa}", method = RequestMethod.GET)
     public ModelAndView getComenzi(@PathVariable Long nrMasa) throws ParseException {
         ModelAndView model = new ModelAndView("vizualizareComenzi");
         Masa masa= masaService.findById(nrMasa);
-        Set<Comanda> comenzi= masa.getComenzi();
-        List<Comanda> listaComenzi = new ArrayList<>(comenzi);
+        List<Comanda> listaComenzi = masa.getComenzi();
         listaComenzi.sort(Comanda::compareTo);
-        for(Comanda comanda:comenzi ){
+        for(Comanda comanda:listaComenzi ){
             model.addObject("valoareTotalaComanda",comanda.getValoare());
         }
         model.addObject("listaComenzi",listaComenzi);

@@ -9,6 +9,7 @@ public interface MesajService {
     List<Mesaj> findAll();
     List<Mesaj> findAllByStare(String stare);
     List<Mesaj> findFirstByStare(String stare, int limit);
+
     int findCounterByStare(String stare);
 
     void save(Mesaj mesaj);

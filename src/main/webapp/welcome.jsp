@@ -216,8 +216,36 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="noti__item js-item-menu">
+                                    <i class="zmdi zmdi-notifications"></i>
+                                    <span class="quantity">${counterSugestiiNecitite}</span>
+                                    <div class="notifi-dropdown js-dropdown">
 
-                            </div>
+                                        <div class="notifi__title">
+                                            <p>Ai ${counterSugestiiNecitite} sugestii necitite de la clienti</p>
+                                        </div>
+                                        <c:forEach var="sugestie" items="${listaSugestiiNoi}">
+                                            <div class="mess__item" >
+
+                                                <div class="content">
+                                                    <h5>${sugestie.categorie.toUpperCase()}</h5>
+                                                    <c:if test="${sugestie.continut.length() gt 21}">
+                                                        <p>${sugestie.continut.substring(0,20)}...</p>
+                                                    </c:if>
+                                                    <c:if test="${sugestie.continut.length() le 21}">
+                                                        <p>${sugestie.continut}</p>
+                                                    </c:if>
+                                                    <span class="time">${sugestie.data}</span>
+                                                </div>
+                                            </div>
+
+                                        </c:forEach>
+                                        <div class="notifi__footer">
+                                            <a href="vizualizareSugestii">Toate sugestiile</a>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
                          <c:if test="${not empty user}">
                             <div class="account-wrap">
                                 <div class="account-item clearfix js-item-menu">

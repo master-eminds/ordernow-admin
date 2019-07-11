@@ -157,6 +157,7 @@ public class ProdusController {
     @RequestMapping(value = "/statisticiReviewProduse", method = RequestMethod.GET)
     public ModelAndView statisticiReviewProduse() {
         ModelAndView model = new ModelAndView("statisticiReviewProduse");
+
         if(Global.listaProduse==null||Global.listaProduse.size()==0){
             Global.listaProduse=produsService.findAll();
         }
@@ -170,7 +171,7 @@ public class ProdusController {
 
         return model;
     }
-    private String dateChartProduse (List<Produs> produses){
+     private String dateChartProduse(List<Produs> produses){
         int counterLow = 0;
         int counterHigh = 0;
         //noteProdus= new HashMap<>();

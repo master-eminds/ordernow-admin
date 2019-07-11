@@ -1,8 +1,7 @@
 package com.hellokoding.auth.model;
 
 import javax.persistence.*;
-
-import java.util.Set;
+import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
 
@@ -10,7 +9,7 @@ import static javax.persistence.CascadeType.ALL;
 @Table(name="mese")
 public class Masa {
     private Long id;
-    private Set<Comanda> comenzi;
+    private List<Comanda> comenzi;
     private int sters;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,13 +20,13 @@ public class Masa {
     public void setId(Long id) {
         this.id = id;
     }
-    @OneToMany(cascade=ALL, mappedBy="masa")
+    @OneToMany(fetch = FetchType.EAGER,cascade=ALL, mappedBy="masa")
 
-    public Set<Comanda> getComenzi() {
+    public List<Comanda> getComenzi() {
         return comenzi;
     }
 
-    public void setComenzi(Set<Comanda> comenzi) {
+    public void setComenzi(List<Comanda> comenzi) {
         this.comenzi = comenzi;
     }
 
