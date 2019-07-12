@@ -31,6 +31,8 @@ public class SugestieController {
         model.addObject("counterSugestiiNoi",listaSugestiiNoi.size());
         model.addObject("listaSugestiiNoi", listaSugestiiNoi);
         model.addObject("listaSugestiiVechi", listaSugestiiVechi);
+        model.addObject("numarSugestii",listaSugestiiNoi.size()+listaSugestiiVechi.size() );
+
         return model;
     }
 
@@ -44,6 +46,7 @@ public class SugestieController {
         model.addObject("counterSugestiiNoi",listaSugestiiNoi.size());
         model.addObject("listaSugestiiNoi", listaSugestiiNoi);
         model.addObject("listaSugestiiVechi", listaSugestiiVechi);
+        model.addObject("numarSugestii",listaSugestiiNoi.size()+listaSugestiiVechi.size() );
         return model;
     }
     @RequestMapping(value = "/vizualizareSugestii/stare/{stare}", method = RequestMethod.GET)
@@ -54,10 +57,13 @@ public class SugestieController {
         if(stare.equals("citit")){
             model.addObject("listaSugestiiNoi", listaSugestii);
             model.addObject("counterSugestiiNoi",listaSugestii.size());
+            model.addObject("numarSugestii", listaSugestii.size());
 
         }
         else  if(stare.equals("necitit")){
             model.addObject("listaSugestiiVechi", listaSugestii);
+            model.addObject("numarSugestii", listaSugestii.size());
+
 
         }
         return model;

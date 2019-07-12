@@ -212,7 +212,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="email-filters-right"><span class="email-pagination-indicator">1-${listaSugestiiVechi.size()} din 50</span>
+                            <div class="email-filters-right"><span class="email-pagination-indicator">1-${numarSugestii} din 50</span>
                                 <div class="btn-group email-pagination-nav">
                                     <button class="btn btn-light" type="button"><i class="fas fa-angle-left"></i></button>
                                     <button class="btn btn-light" type="button"><i class="fas fa-angle-right"></i></button>

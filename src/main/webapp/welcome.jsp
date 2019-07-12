@@ -78,7 +78,7 @@
                             <i class="fas fa-chart-bar"></i>Statistici</a>
                         <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                             <li>
-                                <a href="${contextPath}/statisticiComenziUltimaSaptamana">Comenzi ultima saptamana</a>
+                                <a href="${contextPath}/">Comenzi ultima saptamana</a>
                             </li>
                             <li>
                                 <a href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi ultimele 4 luni</a>
@@ -312,7 +312,8 @@
                             </div>
                         </div>
                         <div class="col-sm-6 col-lg-3">
-                            <div class="overview-item overview-item--c2">
+                            <div class="overview-item overview-item--c2" onclick="goToStatisticiLunare('statisticiComenziUltimeleLuni')">
+                                <a type="hidden" href="#" id="aStatisticiL"></a>
                                 <div class="overview__inner">
                                     <div class="overview-box clearfix">
                                         <div class="icon">
@@ -329,7 +330,9 @@
                             </div>
                         </div>
                             <div class="col-sm-6 col-lg-3">
-                                <div class="overview-item overview-item--c3">
+                                <div class="overview-item overview-item--c3" onclick="goToStatisticiSaptamanale('statisticiComenziUltimaSaptamana')">
+                                    <a type="hidden" href="#" id="aStatisticiS"></a>
+
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="icon">
@@ -347,7 +350,9 @@
                                 </div>
                             </div>
                             <div class="col-sm-6 col-lg-3">
-                                <div class="overview-item overview-item--c4">
+                                <div class="overview-item overview-item--c4" onclick="goToStatisticiTotale('statisticiComenziTotal')">
+                                    <a type="hidden" href="#" id="aStatisticiT"></a>
+
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="icon">
@@ -543,7 +548,21 @@
         link.setAttribute('href','${contextPath}/raspunsMesaj/'+id)
         link.click();
     }
-
+    function goToStatisticiLunare(adresa) {
+        var link = document.getElementById("aStatisticiL");
+        link.setAttribute('href','${contextPath}/'+adresa)
+        link.click();
+    }
+    function goToStatisticiSaptamanale(adresa) {
+        var link = document.getElementById("aStatisticiS");
+        link.setAttribute('href','${contextPath}/'+adresa)
+        link.click();
+    }
+    function goToStatisticiTotale(adresa) {
+        var link = document.getElementById("aStatisticiT");
+        link.setAttribute('href','${contextPath}/'+adresa)
+        link.click();
+    }
 </script>
 </body>
 
