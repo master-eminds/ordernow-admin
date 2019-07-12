@@ -37,11 +37,15 @@ public class AdminController {
     @Autowired
     private SecurityService securityService;
     @Autowired
+    private CategorieService categorieService;
+    @Autowired
     private ComandaService comandaService;
     @Autowired
     private SugestieService sugestieService;
     @Autowired
     private ProdusService produsService;
+    @Autowired
+    private MeniuService meniuService;
     @Autowired
     private ReviewService reviewService;
 
@@ -113,6 +117,9 @@ public class AdminController {
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) throws ParseException {
+        if(Global.listaMeniuri==null || Global.listaMeniuri.size()==0){
+            incarcaListaMeniuri();
+        }
         if(Global.listaProduse==null || Global.listaProduse.size()==0){
             incarcaListaProduse();
         }
@@ -172,17 +179,8 @@ public class AdminController {
         return "welcome";
     }
 
-    @Scheduled(fixedRate = 30000)
-    public void recalculareValoareTotala() {
-        ThreadValoareTotala util= new ThreadValoareTotala();
-        util.setSomeCondition(true);
-        util.run();
-        //Global.valoareTotala=DateNecesare.calculeazaValoareTotalaIncasata(Global.listaComenzi);
-    }
-    @Scheduled(fixedDelay = 30000, initialDelay = 30000)
-    public void reincarcaListaMese() {
-      incarcaListaMese();
-     }
+
+
     private void incarcaListaComenzi() {
         ThreadComenziTotale util= new ThreadComenziTotale();
         util.setSomeCondition(true);
@@ -203,14 +201,33 @@ public class AdminController {
         util.setReviewService(reviewService);
         util.run();
        }
+    private void incarcaListaMeniuri() {
+        ThreadMeniuriSiCategorii threadMeniuriSiCategorii= new ThreadMeniuriSiCategorii();
+        threadMeniuriSiCategorii.setCategorieService(categorieService);
+        threadMeniuriSiCategorii.setMeniuService(meniuService);
+        threadMeniuriSiCategorii.setProdusService(produsService);
+        threadMeniuriSiCategorii.setSomeCondition(true);
+        threadMeniuriSiCategorii.run();
+    }
 
     @Scheduled(fixedRate = 30000)
-    public void reportCurrentTime() {
+    public void incarcareProduse() {
         incarcaListaProduse();
     }
     @Scheduled(fixedRate = 60000)
     public void incarcareComenzi() {
         incarcaListaComenzi();
+    }
+    @Scheduled(fixedRate = 30000)
+    public void recalculareValoareTotala() {
+        ThreadValoareTotala util= new ThreadValoareTotala();
+        util.setSomeCondition(true);
+        util.run();
+        //Global.valoareTotala=DateNecesare.calculeazaValoareTotalaIncasata(Global.listaComenzi);
+    }
+    @Scheduled(fixedDelay = 10000, initialDelay = 10000)
+    public void reincarcaListaMese() {
+        incarcaListaMese();
     }
     @RequestMapping(value = "/vizualizareComenzi/{nrMasa}", method = RequestMethod.GET)
     public ModelAndView getComenzi(@PathVariable Long nrMasa) throws ParseException {

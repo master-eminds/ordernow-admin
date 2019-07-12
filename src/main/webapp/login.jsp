@@ -37,7 +37,7 @@
 
 <div class="splash-container">
     <div class="card ">
-        <div class="card-header text-center"><a href="../index.html">
+        <div class="card-header text-center"><a href="#">
             <img class="logo-img" src="${contextPath}/resources/tema/images/icon/logo_administrare2C.png" width="240" height="120" alt="logo"></a>
             <span class="splash-description">Introduceti informatiile contului dumneavoastra.</span></div>
 

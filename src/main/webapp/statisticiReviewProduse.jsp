@@ -35,6 +35,8 @@
     <link href="${contextPath}/resources/tema/vendor/select2/select2.min.css" rel="stylesheet" media="all">
     <link href="${contextPath}/resources/tema/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
 
+    <link rel="stylesheet" href="${contextPath}/resources/tema/assets/vendor/charts/chartist-bundle/chartist.css">
+
     <!-- Main CSS-->
     <link href="${contextPath}/resources/tema/css/theme.css" rel="stylesheet" media="all">
 
@@ -160,6 +162,9 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12" style="margin: 0 auto">
+
+
+
                        <div class="au-card chart-percent-card" style="margin: 0 auto">
                             <div class="au-card-inner">
                                 <h3 class="title-2 tm-b-5">Numar de produse in functie de raiting</h3>
@@ -176,10 +181,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xl-6" >
-                                        <div class="percent-chart">
-                                            <canvas id="percent-chart"></canvas>
-                                            <input type="hidden" value="${dateChartReview}" id="dateChartReview"/>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12" style="margin: 0 auto">
+                                        <div class="card">
+                                            <h5 class="card-header">Evaluari produse</h5>
+                                            <div class="card-body">
+                                                <input type="hidden" value="${dateChartReview}" id="dateChartReview"/>
+                                                <div class="ct-chart-donut ct-golden-section"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -190,7 +198,7 @@
                     <!-- hoverable table -->
                     <!-- ============================================================== -->
                     <div style="max-width: 85%; max-height: 85%; margin: 0 auto"
-                         class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                         class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12" >
 
                         <c:if test="${not empty listaProduse}">
                             <div class="card">
@@ -266,9 +274,11 @@
 <script src="${contextPath}/resources/tema/vendor/circle-progress/circle-progress.min.js"></script>
 <script src="${contextPath}/resources/tema/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
 <script src="${contextPath}/resources/tema/vendor/chartjs/Chart.bundle.min.js"></script>
-<script src="${contextPath}/resources/tema/vendor/select2/select2.min.js">
-</script>
+<script src="${contextPath}/resources/tema/vendor/select2/select2.min.js"></script>
 
+
+<script src="${contextPath}/resources/tema/assets/vendor/charts/chartist-bundle/chartist.min.js"></script>
+<script src="${contextPath}/resources/tema/assets/vendor/charts/chartist-bundle/Chartistjs.js"></script>
 <!-- Main JS-->
 <script src="${contextPath}/resources/tema/js/mainReview.js"></script>
 

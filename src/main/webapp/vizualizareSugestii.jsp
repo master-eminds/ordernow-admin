@@ -51,7 +51,7 @@
         <div class="header-mobile__bar">
             <div class="container-fluid">
                 <div class="header-mobile-inner">
-                    <a href="#">
+                    <a href="/welcome">
                         <img src="${contextPath}/resources/tema/images/icon/logo_administrare2C.png" alt="Logo" style="max-width: 20%;max-height: 20%" />
                     </a>
                     <button class="hamburger hamburger--slider" type="button">
@@ -212,7 +212,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="email-filters-right"><span class="email-pagination-indicator">1-50 of 253</span>
+                            <div class="email-filters-right"><span class="email-pagination-indicator">1-${listaSugestiiVechi.size()} din 50</span>
                                 <div class="btn-group email-pagination-nav">
                                     <button class="btn btn-light" type="button"><i class="fas fa-angle-left"></i></button>
                                     <button class="btn btn-light" type="button"><i class="fas fa-angle-right"></i></button>

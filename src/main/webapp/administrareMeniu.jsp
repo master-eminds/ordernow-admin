@@ -92,7 +92,7 @@
     <aside class="menu-sidebar d-none d-lg-block">
         <div class="logo">
             <a href="/welcome">
-                <img src="${contextPath}/resources/tema/images/icon/logo_administrare2C" alt="Logo" />
+                <img src="${contextPath}/resources/tema/images/icon/logo_administrare2C.png" alt="Logo" />
             </a>
         </div>
         <div class="menu-sidebar__content js-scrollbar1">

@@ -227,7 +227,9 @@
                                             </c:forEach>
 
                                         <div class="au-message__footer">
-                                            <button class="au-btn au-btn-load js-load-btn" >Vezi mai multe</button>
+                                            <button class="au-btn au-btn-load js-load-btn" id="load-btn" <%--onclick="citesteUrmatoarele()--%>>Vezi mai multe</button>
+                                         <%--   <p type="hidden" id="numar_urmatoarele">1</p>
+                                            <a type="hidden" href="#" id="citireUrmatoarele"></a>--%>
                                         </div>
                                     </div>
 
@@ -273,7 +275,26 @@
         link.setAttribute('href','${contextPath}/raspunsMesaj/'+id)
       link.click();
     }
+    /*function citesteUrmatoarele() {
+        var numar = document.getElementById("numar_urmatoarele").innerHTML;
+        var aCitire=document.getElementById("citireUrmatoarele");
+        var load_btn =document.getElementById('load-btn');
+        load_btn.innerHTML("Incarca...").delay()(1500).queue(function (next) {
 
+            console.log('asta ar trb sa fie nuamrul' +numar)
+        var numarTrans= parseInt(numar);
+        console.log (' nr transformat ok')
+        numarTrans++;
+        console.log (' nr transformat ok'+ numarTrans)
+
+        numar.innerHTML=numarTrans;
+        aCitire.setAttribute('href','${contextPath}/citesteUrmatoarele/'+numar)
+
+        console.log('${contextPath}/citesteUrmatoarele/'+numar)
+        aCitire.click();
+
+        })
+    }*/
 </script>
 
 </body>

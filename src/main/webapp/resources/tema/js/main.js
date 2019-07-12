@@ -346,6 +346,25 @@
         }
       });
     }
+    var valori =  document.getElementById("dateChartReview").value;
+    var valoriLow= valori.split(";")[0];
+    var valoriHigh= valori.split(";")[1];
+    var v=[]
+    v.push(parseInt(valoriLow))
+    v.push(parseInt(valoriHigh))
+
+    if ($('.ct-chart-donut').length) {
+      new Chartist.Pie('.ct-chart-donut', {
+        series: v
+      }, {
+        donut: true,
+        donutWidth: 60,
+        donutSolid: true,
+        startAngle: 270,
+        showLabel: true
+      });
+    }
+
 
     // Percent Chart
     var ctx = document.getElementById("percent-chart");
@@ -1699,7 +1718,7 @@
     console.log(error);
   }
 })(jQuery);
-(function ($) {
+/*(function ($) {
   // USE STRICT
   "use strict";
 
@@ -1713,8 +1732,8 @@
         var load_btn = that.find('.js-load-btn');
         load_btn.on('click', function (e) {
           $(this).text("Loading...").delay(1500).queue(function (next) {
-            $(this).hide();
-            that.find(".js-load-item").fadeToggle("slow", 'swing');
+            //$(this).hide();
+            //that.find(".js-load-item").fadeToggle("slow", 'swing');
           });
           e.preventDefault();
         });
@@ -1725,7 +1744,7 @@
     console.log(error);
   }
 
-})(jQuery);
+})(jQuery);*/
 (function ($) {
   // USE STRICT
   "use strict";

@@ -16,4 +16,5 @@ public interface MesajService {
     void update(Long idMesaj, String continutRaspuns);
 
 
+    List<Mesaj> findAllByLimit(int start);
 }

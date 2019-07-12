@@ -50,7 +50,6 @@ public class MeniuController {
         /*if(Global.listaMeniuri==null||Global.listaMeniuri.size()==0) {
            Global.listaMeniuri = meniuService.findAll();
         }*/
-
         model.addObject("meniuri", meniuService.findAllByStare(stare));
 
         return model;

@@ -46,7 +46,7 @@
         <div class="header-mobile__bar">
             <div class="container-fluid">
                 <div class="header-mobile-inner">
-                    <a href="#">
+                    <a href="/welcome">
                         <img src="${contextPath}/resources/tema/images/icon/logo_administrare2C.png" alt="Logo" style="max-width: 20%;max-height: 20%" />
                     </a>
                     <button class="hamburger hamburger--slider" type="button">
@@ -106,7 +106,7 @@
     <aside class="menu-sidebar d-none d-lg-block">
         <c:if test="${not empty user}">
             <div style="    max-width: 46%;margin-left: 23%;">
-                <a href="#">
+                <a href="/welcome">
                     <img src="${contextPath}/resources/tema/images/icon/logo_administrare2C.png" alt="Logo" />
                 </a>
             </div>
@@ -255,11 +255,7 @@
                                     </div>
                                     <div class="account-dropdown js-dropdown">
                                         <div class="info clearfix">
-                                            <div class="image">
-                                                <a href="#">
-                                                    <img src="${contextPath}/resources/tema/images/icon/avatar-01.jpg" alt="${user.nume} ${user.prenume}" />
-                                                </a>
-                                            </div>
+
                                             <div class="content">
                                                 <h5 class="name">
                                                     <a href="#">${user.nume} ${user.prenume}</a>
@@ -268,10 +264,7 @@
                                             </div>
                                         </div>
                                         <div class="account-dropdown__body">
-                                            <div class="account-dropdown__item">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-account"></i>Cont</a>
-                                            </div>
+
                                             <div class="account-dropdown__item">
                                                 <a href="${contextPath}/registration/${user.id}">
                                                     <i class="zmdi zmdi-settings"></i>Setari</a>

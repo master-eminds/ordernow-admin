@@ -52,7 +52,7 @@ public class MesajServiceImpl implements MesajService {
 
 
         return em.createNativeQuery(
-                "select * from mesaje where stare=:stare limit "+limit, Mesaj.class)
+                "select * from mesaje where stare=:stare order by id desc limit "+limit, Mesaj.class)
                 .setParameter("stare", stare)
                 .getResultList();
 
@@ -69,6 +69,14 @@ public class MesajServiceImpl implements MesajService {
                 .setParameter(1, continutRaspuns)
                 .setParameter(2,idMesaj)
                 .executeUpdate();
+    }
+
+    @Override
+    public List<Mesaj> findAllByLimit(int start) {
+
+       return em.createNativeQuery( "select * from mesaje order by id desc limit :start, 10", Mesaj.class)
+                .setParameter("start", start)
+                .getResultList();
     }
 
 
