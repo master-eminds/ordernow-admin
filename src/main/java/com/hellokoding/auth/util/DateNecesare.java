@@ -21,7 +21,6 @@ public class DateNecesare {
     public DateNecesare() {
     }
     public static  List<Comanda> listaComenziUltimeleLuni(List<Comanda> comenzi, int numarLuni){
-        //nrComenziOnMonth=new HashMap<>();
         List<Comanda> listaComenzi=new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
@@ -118,36 +117,7 @@ public class DateNecesare {
         }
         return counterOspatariOnline;
     }
-    public static  int numarComenziUltimaSaptamana(List<Comanda> comenzi){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_YEAR,-8);
-        Date limita=cal.getTime();
-        String dataLimita= sdf.format(limita);
-        cal.add(Calendar.DAY_OF_YEAR,+8);
-       counterComenziThisWeek=0;
-        // get starting date
-        for(int i=0;i<8;i++) {
-            String data = sdf.format(cal.getTime());
-            String zi = data.split(" ")[0];
-            for (int j = comenzi.size() - 1; j >= 0; j--) {
-                Comanda c = comenzi.get(j);
-                try {
-                    if (sdf.parse(c.getData()).compareTo(sdf.parse(dataLimita)) < 0) {
-                        j = -1;
-                    } else {
-                        if (zi.equals(c.getData().split(" ")[0])) {
-                            counterComenziThisWeek++;
-                        }
-                    }
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-            cal.add(Calendar.DAY_OF_YEAR, -1);
-        }
-        return counterComenziThisWeek;
-    }
+
     public static  List<Comanda> listaComenziUltimaSaptamana(List<Comanda> comenzi){
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         Calendar cal = Calendar.getInstance();

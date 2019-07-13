@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -48,10 +47,11 @@ public class ProdusServiceImpl implements ProdusService {
     @Override
     public List<CountProdus> numarProduseComandate() {
 
-        HashMap<Long, Integer> map=new HashMap<Long, Integer>();
 
         return em.createNativeQuery(
-                "select p.id, denumire, count(i.produs_id) as numar_aparitii from itemi_comanda i, produse p where p.id=i.produs_id group by p.id order by numar_aparitii desc limit 6", CountProdus.class)
+                "select p.id, denumire, sum(cantitate) as cantitate_totala" +
+                        " from itemi_comanda i, produse p where p.id=i.produs_id" +
+                        " group by p.id order by cantitate_totala desc limit 6;", CountProdus.class)
                 .getResultList();
     }
 

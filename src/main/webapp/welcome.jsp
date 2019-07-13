@@ -312,7 +312,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6 col-lg-3">
-                            <div class="overview-item overview-item--c2" onclick="goToStatisticiLunare('statisticiComenziUltimeleLuni')">
+                            <div class="overview-item overview-item--c2" onclick="goToStatisticiLunare('statisticiComenziUltimeleLuni/2')">
                                 <a type="hidden" href="#" id="aStatisticiL"></a>
                                 <div class="overview__inner">
                                     <div class="overview-box clearfix">

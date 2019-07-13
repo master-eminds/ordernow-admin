@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!doctype html>
 <html lang="en">
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -101,7 +102,7 @@
                                             <a class="nav-link" href="/statisticiComenziUltimaSaptamana">Ultima saptamana</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi ultimele 4 luni</a>
+                                            <a class="nav-link" href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi ultimele luni</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="${contextPath}/statisticiComenziTotal">Total comenzi</a>
@@ -159,6 +160,11 @@
 
                     <div class="row m-t-25" style="width: 100%; height: 100% ;margin: 0 auto;" >
                         <div class="col-sm-6 col-lg-3" style="margin: 0 auto"  >
+                            <label for="inputNrLuni">Numar luni:</label>
+                            <input type='text' id='inputNrLuni' />
+                            <input type='button' onclick='incarcaStatistici()' value='Submit' />
+
+                            <div><a href="" id="divNrLuni" target="_blank" ></a></div>
                             <div class="overview-item overview-item--c2" style="max-width: 100%; max-height: 100%">
                                 <div class="overview__inner">
                                     <div class="overview-box clearfix">
@@ -167,7 +173,7 @@
                                         </div>
                                         <div class="text">
                                             <h2>${numarComenzi}</h2>
-                                            <span>Numar comenzi din ultimele 4 luni</span>
+                                            <span id="spanNrLuni" >Numar comenzi din ultimele ${numarLuni} luni</span>
                                         </div>
                                     </div>
                                     <div class="overview-chart">
@@ -265,6 +271,17 @@
 
     <!-- main js -->
 <script src="${contextPath}/resources/tema/js/main.js"></script>
+<script>
+    function incarcaStatistici()
+    {
+        var ip = document.getElementById('inputNrLuni');
+        document.getElementById('divNrLuni').innerHTML = ip.value;
+        document.getElementById('divNrLuni').href="${contextPath}/statisticiComenziUltimeleLuni/"+ip.value;
+        document.getElementById('divNrLuni').click()
+
+    }
+</script>
+
 
 </body>
 

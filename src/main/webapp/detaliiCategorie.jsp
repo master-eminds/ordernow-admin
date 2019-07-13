@@ -142,7 +142,7 @@
                                                 <img src="${String(produs.imagine)}" style="margin: 0 auto; max-height: 80%; max-width: 80%; object-fit: cover" alt="" class="img-fluid"></div>
 
                                         </div>
-                                        <div class="product-content" style="margin: 0 auto; height: 280px">
+                                        <div class="product-content" style="margin: 0 auto; height: 290px">
                                             <div class="product-content-head" style="margin: 0 auto; height: 220px">
                                                 <h3 class="product-title">${produs.denumire}</h3>
                                                 <div class="product-price">${produs.pret} lei</div>
@@ -154,10 +154,7 @@
                                             </div>
                                             <div class="product-btn">
                                                 <a href="${contextPath}/administrareProdus/${produs.id}/${produs.categorie.id}/${produs.meniu_id}" class="btn btn-outline-light">Modifica</a>
-<%--
-                                                <c:if test="${empty produs.listaItemComanda}">
---%>
-                                                    <a href="${contextPath}/stergeProdus/${produs.id}/${produs.categorie.id}/${meniu_id}" class="btn btn-danger btn-sm">Sterge</a>
+                                                <a href="${contextPath}/stergeProdus/${produs.id}/${produs.categorie.id}/${meniu_id}" class="btn btn-danger btn-sm">Sterge</a>
 
                                             </div>
                                         </div>

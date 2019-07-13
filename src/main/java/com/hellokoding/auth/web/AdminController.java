@@ -4,6 +4,7 @@ import com.hellokoding.auth.model.*;
 import com.hellokoding.auth.service.*;
 import com.hellokoding.auth.util.*;
 import com.hellokoding.auth.validator.AdminValidator;
+import com.hellokoding.auth.validator.ModificareAdminValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
@@ -53,9 +54,11 @@ public class AdminController {
 
     @Autowired
     private AdminValidator adminValidator;
+    @Autowired
+    private ModificareAdminValidator modificareAdminValidator;
 
 
-  @RequestMapping(value = "/registration/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/registration/{id}", method = RequestMethod.GET)
   public ModelAndView administrareAdmin(@PathVariable("id") Long id) {
       ModelAndView model = new ModelAndView("registration");
       if(id == 0 ){
@@ -75,6 +78,10 @@ public class AdminController {
 
 
         if(adminForm.getId()!=null&& adminForm.getId()!=0){
+            modificareAdminValidator.validate(adminForm,bindingResult);
+            if(bindingResult.hasErrors()){
+                return "registration";
+            }
             try {
                 adminService.update(adminForm);
             } catch (Exception e) {
@@ -231,9 +238,7 @@ public class AdminController {
         Masa masa= masaService.findById(nrMasa);
         List<Comanda> listaComenzi = masa.getComenzi();
         listaComenzi.sort(Comanda::compareTo);
-       /* for(Comanda comanda:listaComenzi ){
-            model.addObject("valoareTotalaComanda",comanda.getValoare());
-        }*/
+
         model.addObject("listaComenzi",listaComenzi);
         return model;
     }

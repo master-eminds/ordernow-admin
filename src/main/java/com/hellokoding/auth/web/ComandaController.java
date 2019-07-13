@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,15 +38,11 @@ public class ComandaController {
     @RequestMapping(value = "/statisticiComenziUltimaSaptamana", method = RequestMethod.GET)
     public ModelAndView getStatistici() throws ParseException {
         ModelAndView model = new ModelAndView("statisticiComenziUltimaSaptamana");
-        //comenzi= Global.listaComenziUltimeleLuni;
-                //comandaService.findAll();
-        //List<Comanda> comenziUS= DateNecesare.listaComenziUltimaSaptamana(comenzi);
         Global.listaComenziUltimaSaptamana.sort(Comanda::compareTo);
         int counter= Global.listaComenziUltimaSaptamana.size();
         if(Global.dateChartComenziUS==null||Global.dateChartComenziUS.isEmpty()||Global.dateChartComenziUS.trim().length()==0){
             Global.dateChartComenziUS= dateChartUS(Global.listaComenziUltimaSaptamana);
         }
-        String date= dateChartUS(Global.listaComenziUltimaSaptamana);
         model.addObject("dateChart", Global.dateChartComenziUS);
         model.addObject("counterThisWeek", counter);
         model.addObject("listaComenzi", Global.listaComenziUltimaSaptamana);
@@ -56,27 +53,39 @@ public class ComandaController {
     public ModelAndView getStatisticiUL() throws ParseException {
         ModelAndView model = new ModelAndView("statisticiComenziUltimeleLuni");
         int numarLuni=4;
-        //List<Comanda> comenziUL= DateNecesare.listaComenziUltimeleLuni(comenzi,numarLuni);
         Global.listaComenziUltimeleLuni.sort(Comanda::compareTo);
         if(Global.dateChartComenziUL==null||Global.dateChartComenziUL.isEmpty()||Global.dateChartComenziUL.trim().length()==0){
             Global.dateChartComenziUL= dateChartUL(Global.listaComenziUltimeleLuni,numarLuni);
         }
-       // String date= dateChartUL(Global.listaComenziUltimeleLuni, numarLuni);
         model.addObject("dateChart", Global.dateChartComenziUL);
         model.addObject("listaComenzi", Global.listaComenziUltimeleLuni);
         model.addObject("numarComenzi", Global.listaComenziUltimeleLuni.size());
         return model;
     }
+    @RequestMapping(value = "/statisticiComenziUltimeleLuni/{numarLuni}", method = RequestMethod.GET)
+    public ModelAndView getStatisticiULNumar(@PathVariable("numarLuni") int numarLuni) throws ParseException {
+        ModelAndView model = new ModelAndView("statisticiComenziUltimeleLuni");
+        Global.listaComenziUltimeleLuni.sort(Comanda::compareTo);
+        List<Comanda> comenziNr=DateNecesare.listaComenziUltimeleLuni(Global.listaComenziUltimeleLuni,numarLuni);
+        comenziNr.sort(Comanda::compareTo);
+        String date= dateChartULNr(comenziNr,numarLuni);
+      /*  if(Global.dateChartComenziUL==null||Global.dateChartComenziUL.isEmpty()||Global.dateChartComenziUL.trim().length()==0){
+            Global.dateChartComenziUL= dateChartUL(Global.listaComenziUltimeleLuni,numarLuni);
+        }*/
+        model.addObject("dateChart", date);
+        model.addObject("listaComenzi", comenziNr);
+        model.addObject("numarComenzi", comenziNr.size());
+        model.addObject("numarLuni",numarLuni);
+        return model;
+    }
     @RequestMapping(value = "/statisticiComenziTotal", method = RequestMethod.GET)
     public ModelAndView statisticiTotalComenzi() throws ParseException {
         ModelAndView model = new ModelAndView("statisticiComenziTotal");
-       if(Global.listaComenzi!=null || Global.listaComenzi.size()!=0){
+       if(Global.listaComenzi!=null && Global.listaComenzi.size()!=0){
            comenzi=Global.listaComenzi;
-
        }
        else{
            comenzi=comandaService.findAll();
-           //Global.listaComenziUltimeleLuni;
        }
 
         if(Global.valoriPeLuna==null||Global.valoriPeLuna.size()==0) {
@@ -85,7 +94,6 @@ public class ComandaController {
         if(Global.dateChartComenziTotal==null||Global.dateChartComenziTotal.isEmpty()||Global.dateChartComenziTotal.trim().length()==0){
            Global.dateChartComenziTotal= dateChartIncasari(Global.valoriPeLuna);
         }
-        //String dateProduse= dateChartCounterProduse(produseComandate);
         if(Global.dateChartCeleMaiComandateProd==null||Global.dateChartCeleMaiComandateProd.isEmpty()||Global.dateChartCeleMaiComandateProd.trim().length()==0){
             if(Global.produseComandate==null ||Global.produseComandate.size()==0){
                 Global.produseComandate= produsService.numarProduseComandate();
@@ -155,7 +163,7 @@ public class ComandaController {
         StringBuilder stringNumar=new StringBuilder();
         for(CountProdus produs: produseComandate){
                 stringId.append(produs.getDenumire()).append("-");
-                stringNumar.append(produs.getNumarAparitii()).append("-");
+                stringNumar.append(produs.getCantitate_totala()).append("-");
             }
 
         return stringId.toString().substring(0,stringId.length()-1).concat(";").concat(stringNumar.toString().substring(0,stringNumar.length()-1));
@@ -195,6 +203,21 @@ public class ComandaController {
 
         return stringLuni.toString().substring(0,stringLuni.length()-1).concat(";").concat(stringNumarcomenzi.toString().substring(0,stringNumarcomenzi.length()-1));
     }
+    private String dateChartULNr(List<Comanda> comenziUL, int numarLuni) {
 
+        Map<String,Integer> mapLuni=new HashMap<>();
+        mapLuni=DateNecesare.calculareNrComenziLunar(comenziUL,numarLuni);
+        StringBuilder stringLuni=new StringBuilder();
+        StringBuilder stringNumarcomenzi=new StringBuilder();
+        String[] luni={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+        for(String luna:luni){
+            if(mapLuni.containsKey(luna)){
+                stringLuni.append(luna).append(",");
+                stringNumarcomenzi.append(mapLuni.get(luna)).append(",");
+            }
+        }
+
+        return stringLuni.toString().substring(0,stringLuni.length()-1).concat(";").concat(stringNumarcomenzi.toString().substring(0,stringNumarcomenzi.length()-1));
+    }
 
 }

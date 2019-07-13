@@ -10,15 +10,15 @@ public class CountProdus {
 
     private Long id;
     private String denumire;
-    private int numarAparitii;
+    private int cantitate_totala;
 
     public CountProdus() {
     }
 
-    public CountProdus(Long id, String denumire, int numarAparitii) {
+    public CountProdus(Long id, String denumire, int cantitate_totala) {
         this.id = id;
         this.denumire=denumire;
-        this.numarAparitii = numarAparitii;
+        this.cantitate_totala = cantitate_totala;
     }
 @Id
     public Long getId() {
@@ -37,12 +37,12 @@ public class CountProdus {
         this.denumire = denumire;
     }
 
-    public int getNumarAparitii() {
-        return numarAparitii;
+    public int getCantitate_totala() {
+        return cantitate_totala;
     }
 
-    public void setNumarAparitii(int numarAparitii) {
-        this.numarAparitii = numarAparitii;
+    public void setCantitate_totala(int cantitate_totala) {
+        this.cantitate_totala = cantitate_totala;
     }
 
 
