@@ -13,7 +13,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Forms</title>
+    <title>Administrare meniu</title>
 
     <!-- Fontfaces CSS-->
     <link href="${contextPath}/resources/tema/css/font-face.css" rel="stylesheet" media="all">
@@ -167,19 +167,20 @@
                                             <div class="form-group ${status.error ? 'has-error' : ''}">
                                                 <label for="denumire" class=" form-control-label">Denumire</label>
                                                 <form:input type="text" id="denumire" path="denumire" name="denumire" placeholder="nume" class="form-control"></form:input>
-                                          <form:errors path="denumire"></form:errors>
+                                          <form:errors cssStyle="color: red" path="denumire"></form:errors>
                                       </spring:bind>
                                        <spring:bind path="stare">
                                            <div class="form-group ${status.error ? 'has-error' : ''}">
                                                         <label for="stare" class=" form-control-label">Stare</label>
                                                 <form:select id="stare" path="stare" name="stare" class="form-control">
-                                                    <option value="0" >Alegeti starea</option>
-                                                    <c:if test="${meniuForm.stare==null}">
+                                                        <option value="0" >Alegeti starea</option>
+                                                    <c:if test="${meniuForm.stare=='0'}">
+
                                                         <option value="activ" >Activ</option>
                                                         <option value="inactiv">Inactiv</option>
                                                     </c:if>
                                                     <c:if test="${meniuForm.stare=='activ'}">
-                                                        <option value="activ" selected>Activ</option>
+                                                        <option value="activ" selected >Activ</option>
                                                         <option value="inactiv">Inactiv</option>
                                                     </c:if>
                                                     <c:if test="${meniuForm.stare=='inactiv'}">
@@ -187,10 +188,10 @@
                                                         <option value="inactiv" selected>Inactiv</option>
                                                     </c:if>
                                                 </form:select>
-                                          <form:errors path="stare"></form:errors>
+                                          <form:errors cssStyle="color: red" path="stare"></form:errors>
                                         </spring:bind>
                                         <spring:bind path="image">
-                                            <div class="form-group">
+                                            <div class="form-group ${status.error ? 'has-error' : ''}">
                                                     <label for="image" class=" form-control-label">Incarca o imagine</label>
                                                     <input type="file" id="image" class="form-control-file"/>
                                                     <form:input type="hidden" name="image" path="image" id="idS" />
@@ -205,6 +206,8 @@
                                                     <img style="max-width: 150px; max-height: 150px; margin: 0 auto; object-fit: cover" src="" id="preview">
 
                                             </div>
+                                            <form:errors cssStyle="color: red" path="image"></form:errors>
+
                                         </spring:bind>
                                                <div class="card-footer">
                                         <button type="submit" class="btn btn-success btn-sm">

@@ -10,7 +10,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Creare cont</title>
+    <title>Adaugare cont admin</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="${contextPath}/resources/tema/vendor/bootstrap/css/bootstrap.min.css">
     <link href="${contextPath}/resources/tema/vendor/fonts/circular-std/style.css" rel="stylesheet">
@@ -62,7 +62,7 @@
                 <div class="form-group ${status.error ? 'has-error' : ''}">
                     <form:input type="text" path="nume" class="form-control form-control-lg" placeholder="Nume"
                                 autofocus="true"></form:input>
-                    <form:errors path="nume"></form:errors>
+                    <form:errors cssStyle="color: red" path="nume"></form:errors>
 
                 </div>
             </spring:bind>
@@ -71,7 +71,7 @@
 
                     <form:input type="text" path="prenume" class="form-control form-control-lg" placeholder="Prenume"
                                 autofocus="true"></form:input>
-                    <form:errors path="prenume"></form:errors>
+                    <form:errors cssStyle="color: red" path="prenume"></form:errors>
                 </div>
             </spring:bind>
             <spring:bind path="username">
@@ -79,7 +79,7 @@
 
                     <form:input type="text" path="username" class="form-control form-control-lg" placeholder="Email"
                                 autofocus="true"></form:input>
-                    <form:errors path="username"></form:errors>
+                    <form:errors cssStyle="color: red" path="username"></form:errors>
                 </div>
             </spring:bind>
 
@@ -88,7 +88,7 @@
 
                     <form:input type="password" path="password" id="pass1" class="form-control form-control-lg" placeholder="Parola"
                                 autofocus="true"></form:input>
-                    <form:errors path="password"></form:errors>
+                    <form:errors cssStyle="color: red" path="password"></form:errors>
                 </div>
             </spring:bind>
 
@@ -97,28 +97,17 @@
 
                     <form:input type="password" path="passwordConfirm" class="form-control form-control-lg" placeholder="Confirmare parola"
                                 autofocus="true"></form:input>
-                    <form:errors path="passwordConfirm"></form:errors>
+                    <form:errors cssStyle="color: red" path="passwordConfirm"></form:errors>
                 </div>
             </spring:bind>
-           <%-- <c:if test="${add !=false}">
-                <div class="form-group pt-2">
-                    <button class="btn btn-block btn-primary" type="submit">Inregistrare cont</button>
-                </div>
-                <div class="card-footer bg-white">
-                    <p>Ai deja un cont? <a href="${contextPath}/login" class="text-secondary">Autentifica-te aici.</a></p>
-                </div>
-            </c:if>--%>
 
-            <%--<c:if test="${add==false}">--%>
                 <div class="form-group pt-2">
                     <button class="btn btn-block btn-primary" type="submit">Salveaza modificarile</button>
                 </div>
                 <div class="card-footer bg-white">
                     <p>Vrei sa renunti?<a href="${contextPath}/welcome" class="text-secondary">Revino la pagina principala.</a></p>
                 </div>
-<%--
-                        </c:if>
---%>
+
 
         </div>
     </div>

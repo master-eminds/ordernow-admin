@@ -39,7 +39,7 @@
     <!-- Main CSS-->
     <link href="${contextPath}/resources/tema/css/theme.css" rel="stylesheet" media="all">
 
-    <title>Produse comandate</title>
+    <title>Produse ultimele luni</title>
 </head>
 
 <body>

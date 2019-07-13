@@ -16,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.UnsupportedEncodingException;
-import java.sql.SQLException;
-
 @Controller
 public class MeniuController {
     @Autowired
@@ -59,7 +56,11 @@ public class MeniuController {
         ModelAndView model = new ModelAndView("administrareMeniu");
 
         if(id == 0 ){
-            model.addObject("meniuForm", new Meniu());
+            Meniu m= new Meniu();
+            if(m.getStare()==null){
+                m.setStare("0");
+            }
+            model.addObject("meniuForm", m);
             model.addObject("add","true");
         }else{
             Meniu m = meniuService.findById(id);
@@ -73,17 +74,13 @@ public class MeniuController {
 
 
     @RequestMapping(value = "/salvareMeniu", method = RequestMethod.POST)
-    public String adaugareMeniu(@ModelAttribute("meniuForm") Meniu meniuForm, BindingResult bindingResult) throws UnsupportedEncodingException, SQLException {
+    public String adaugareMeniu(@ModelAttribute("meniuForm") Meniu meniuForm, BindingResult bindingResult)  {
 
         meniuValidator.validate(meniuForm,bindingResult);
-        byte[] file = meniuForm.getImage();
-        System.out.println(new String(file));
-
         if(bindingResult.hasErrors()){
             return "administrareMeniu";
         }
         if(meniuForm.getId()!=null){
-            //Meniu old = meniuService.findById(meniuForm.getId());
             int sters=0;
             for(int i=0;i<Global.listaMeniuri.size() && sters==0;i++){
                 Meniu meniu=Global.listaMeniuri.get(i);
@@ -102,13 +99,7 @@ public class MeniuController {
 
     @RequestMapping(value = "/stergeMeniu/{meniu_id}", method = RequestMethod.GET)
     public String stergeMeniu(@PathVariable("meniu_id") Long meniu_id) {
-        //List<Categorie> categories=meniuService.findById(meniu_id).getCategorii();
-        /*if(categories==null||categories.size()==0){
-            meniuService.delete(meniu_id);
-        }*/
-        /*else {
-            meniuRepository.deleteMeniu(1,meniu_id);
-        }*/
+
         int sters=0;
         for(int i=0;i<Global.listaMeniuri.size() && sters==0;i++){
             Meniu meniu=Global.listaMeniuri.get(i);

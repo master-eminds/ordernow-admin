@@ -13,7 +13,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Forms</title>
+    <title>Administrare produs</title>
 
     <!-- Fontfaces CSS-->
     <link href="${contextPath}/resources/tema/css/font-face.css" rel="stylesheet" media="all">
@@ -169,7 +169,7 @@
 
                                             <form:input type="text" path="denumire" id="denumire" class="form-control" placeholder="Denumire"
                                                         autofocus="true"></form:input>
-                                            <form:errors path="denumire"></form:errors>
+                                                <form:errors cssStyle="color: red" path="denumire"></form:errors>
                                         </div>
                                     </spring:bind>
 
@@ -178,7 +178,7 @@
                                             <label for="pret" class=" form-control-label">Pret</label>
 
                                             <form:input type="text" id="pret" path="pret" class="form-control" placeholder="Pret"></form:input>
-                                            <form:errors path="pret"></form:errors>
+                                            <form:errors cssStyle="color: red" path="pret"></form:errors>
                                         </div>
                                     </spring:bind>
 
@@ -188,7 +188,36 @@
 
                                             <form:input type="text" id="gramaj"  path="gramaj" class="form-control"
                                                         placeholder="Gramaj"></form:input>
-                                            <form:errors path="gramaj"></form:errors>
+                                            <form:errors cssStyle="color: red" path="gramaj"></form:errors>
+                                        </div>
+                                    </spring:bind>
+                                    <spring:bind path="unitateMasura">
+                                        <div class="form-group ${status.error ? 'has-error' : ''}">
+                                            <label for="unitateMasura" class=" form-control-label">Unitate de masura</label>
+                                            <form:select id="unitateMasura" path="unitateMasura" name="unitateMasura" class="form-control">
+                                                <option value="0" >Alegeti unitatea de masura</option>
+                                                <c:if test="${produsForm.unitateMasura=='0' || produsForm.unitateMasura==null}">
+                                                    <option value="g" >Grame</option>
+                                                    <option value="ml">Mililitri</option>
+                                                    <option value="l">Litru</option>
+                                                </c:if>
+                                                <c:if test="${produsForm.unitateMasura=='g'}">
+                                                    <option value="g" selected>Grame</option>
+                                                    <option value="ml">Mililitri</option>
+                                                    <option value="l">Litru</option>
+                                                </c:if>
+                                                <c:if test="${produsForm.unitateMasura=='ml'}">
+                                                    <option value="g" >Grame</option>
+                                                    <option value="ml" selected>Mililitri</option>
+                                                    <option value="l">Litru</option>
+                                                </c:if>
+                                                <c:if test="${produsForm.unitateMasura=='l'}">
+                                                    <option value="g" >Grame</option>
+                                                    <option value="ml">Mililitri</option>
+                                                    <option value="l" selected>Litru</option>
+                                                </c:if>
+                                            </form:select>
+                                            <form:errors cssStyle="color: red" path="unitateMasura"></form:errors>
                                         </div>
                                     </spring:bind>
 
@@ -199,7 +228,6 @@
                                         <form:select path="categorie" id="categorie">
                                             <form:options items="${meniu.categorii}"  itemLabel="denumire" itemValue="id"/>
                                         </form:select>
-                                                <form:errors path="categorie"></form:errors>
 
                                             </div>
                                     </spring:bind>
@@ -209,7 +237,7 @@
 
                                             <form:input type="text" id="descriere" path="descriere" class="form-control"
                                                         placeholder="Descriere"></form:input>
-                                            <form:errors path="descriere"></form:errors>
+                                            <form:errors cssStyle="color: red" path="descriere"></form:errors>
                                         </div>
                                     </spring:bind>
                                     <spring:bind path="ingrediente">
@@ -217,8 +245,8 @@
                                             <label for="ingrediente" class=" form-control-label">Ingrediente</label>
 
                                             <form:input type="text" id="ingrediente" path="ingrediente" class="form-control"
-                                                        placeholder="Ingrediente"></form:input>
-                                            <form:errors path="ingrediente"></form:errors>
+                                                        placeholder="Ex: (rosii, salata, masline)"></form:input>
+                                            <form:errors cssStyle="color: red" path="ingrediente"></form:errors>
                                         </div>
                                     </spring:bind>
                                             <spring:bind path="vizibilitate">
@@ -227,6 +255,10 @@
                                                     <form:select id="vizibilitate" path="vizibilitate" name="vizibilitate" class="form-control">
                                                         <option value="0" >Alegeti vizibilitatea</option>
                                                         <c:if test="${produsForm.vizibilitate==null}">
+                                                            <option value="vizibil" >Vizibil</option>
+                                                            <option value="invizibil">Invizibil</option>
+                                                        </c:if>
+                                                        <c:if test="${produsForm.vizibilitate=='0'}">
                                                             <option value="vizibil" >Vizibil</option>
                                                             <option value="invizibil">Invizibil</option>
                                                         </c:if>
@@ -239,11 +271,11 @@
                                                             <option value="invizibil" selected>Invizibil</option>
                                                         </c:if>
                                                     </form:select>
-                                                <form:errors path="vizibilitate"></form:errors>
+                                                <form:errors cssStyle="color: red" path="vizibilitate"></form:errors>
                                             </div>
                                                 </spring:bind>
                                         <spring:bind path="imagine">
-                                            <div class="form-group">
+                                            <div class="form-group ${status.error ? 'has-error' : ''}">
                                                     <label for="imagine" class=" form-control-label">Incarca o imagine</label>
                                                     <input type="file" id="imagine" class="form-control-file"/>
                                                     <form:input type="hidden" name="imagine" path="imagine" id="idS" />
@@ -258,6 +290,8 @@
                                                 <img style="max-width: 150px; max-height: 150px; margin: 0 auto; object-fit: cover" src="" id="preview">
 
                                             </div>
+                                            <form:errors cssStyle="color: red" path="imagine"></form:errors>
+
                                         </spring:bind>
                                                <div class="card-footer">
                                         <button type="submit" class="btn btn-success btn-sm">
@@ -299,9 +333,9 @@
 <script src="${contextPath}/resources/tema/vendor/circle-progress/circle-progress.min.js"></script>
 <script src="${contextPath}/resources/tema/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
 <script src="${contextPath}/resources/tema/vendor/chartjs/Chart.bundle.min.js"></script>
-<script src="${contextPath}/resources/tema/vendor/select2/select2.min.js">
-</script>
-
+<script src="${contextPath}/resources/tema/vendor/select2/select2.min.js"></script>
+<script src="${contextPath}/resources/tema/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="${contextPath}/resources/tema/assets/vendor/parsley/parsley.js"></script>
 <!-- Main JS-->
 <script src="${contextPath}/resources/tema/js/main.js"></script>
 <script>

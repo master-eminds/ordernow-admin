@@ -13,7 +13,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Forms</title>
+    <title>Administrare ospatar</title>
 
     <!-- Fontfaces CSS-->
     <link href="${contextPath}/resources/tema/css/font-face.css" rel="stylesheet" media="all">
@@ -166,8 +166,8 @@
                                       <spring:bind path="nume">
                                             <div class="form-group ${status.error ? 'has-error' : ''}">
                                                 <label for="nume" class=" form-control-label">Nume</label>
-                                                <form:input type="text" id="nume" path="nume" name="nume" placeholder="nume" class="form-control"></form:input>
-                                          <form:errors path="nume"></form:errors>
+                                                <form:input type="text" id="nume" path="nume" name="nume" placeholder="Nume Prenume" class="form-control"></form:input>
+                                          <form:errors cssStyle="color: red" path="nume"></form:errors>
                                       </spring:bind>
                                     </div>
                                         <spring:bind path="email">
@@ -175,7 +175,7 @@
                                                 <label for="email" class=" form-control-label">Email</label>
                                                 <form:input type="email" id="email" path="email" name="email" placeholder="Email"
                                                        class="form-control"></form:input>
-                                                <form:errors path="email"></form:errors>
+                                                <form:errors cssStyle="color: red" path="email"></form:errors>
                                             </div>
                                         </spring:bind >
                                     <div class="row form-group">
@@ -184,7 +184,7 @@
                                             <div class="form-group ${status.error ? 'has-error' : ''}">
                                                 <label for="parola" class=" form-control-label">Parola</label>
                                                 <form:input type="password" path="parola" id="parola" name="parola" class="form-control"></form:input>
-                                                <form:errors path="parola"></form:errors>
+                                                <form:errors cssStyle="color: red" path="parola"></form:errors>
                                             </div>
                                          </spring:bind>
                                         </div>
@@ -194,7 +194,7 @@
                                                     <label for="passwordConfirm" class=" form-control-label">RepetaParola</label>
                                                     <form:input type="password" path="passwordConfirm" id="passwordConfirm" name="passwordConfirm"
                                                            class="form-control"></form:input>
-                                                    <form:errors path="passwordConfirm"></form:errors>
+                                                    <form:errors cssStyle="color: red" path="passwordConfirm"></form:errors>
                                                 </div>
                                             </spring:bind>
                                         </div>

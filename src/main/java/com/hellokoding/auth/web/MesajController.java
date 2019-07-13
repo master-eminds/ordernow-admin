@@ -3,7 +3,7 @@ package com.hellokoding.auth.web;
 import com.hellokoding.auth.model.Mesaj;
 import com.hellokoding.auth.repository.MesajRepository;
 import com.hellokoding.auth.service.MesajService;
-import com.hellokoding.auth.service.SecurityService;
+import com.hellokoding.auth.validator.MesajValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -25,8 +25,7 @@ public class MesajController {
     private MesajRepository mesajRepository;
 
     @Autowired
-    private SecurityService securityService;
-
+    private MesajValidator mesajValidator;
     @RequestMapping(value = "/vizualizareMesaje", method = RequestMethod.GET)
     public ModelAndView vizualizareMesaje() {
         ModelAndView model = new ModelAndView("vizualizareMesaje");
@@ -65,9 +64,10 @@ public class MesajController {
     }
     @RequestMapping(value = "/trimiteRaspuns/{idMesaj}", method = RequestMethod.POST)
     public String adaugareMeniu(@ModelAttribute("raspunsForm") Mesaj raspunsForm, @PathVariable("idMesaj") Long idMesaj, BindingResult bindingResult) throws UnsupportedEncodingException, SQLException {
+        mesajValidator.validate(raspunsForm,bindingResult);
 
         if(bindingResult.hasErrors()){
-            return "vizualizareMesaje";
+            return "redirect:/raspunsMesaj/"+idMesaj;
         }
         mesajRepository.updateMesaj( raspunsForm.getContinutRaspuns(),idMesaj);
         return "redirect:/vizualizareMesaje";

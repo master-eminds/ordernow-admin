@@ -26,8 +26,6 @@ public class OspatarValidator implements Validator {
 
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nume", "NotEmpty");
-            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "parola", "NotEmpty");
-            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "passwordConfirm", "NotEmpty");
 
             if (ospatarService.findByEmail(ospatar.getEmail()) != null) {
                 errors.rejectValue("email", "Duplicate.ospatarForm.email");
@@ -52,8 +50,6 @@ public class OspatarValidator implements Validator {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nume", "NotEmpty");
 
-            if ((!ospatar.getParola().equals("") || ospatar.getParola() != null) &&
-                    (!ospatar.getPasswordConfirm().equals("") || ospatar.getPasswordConfirm() != null)) {
                 if (ospatar.getParola().length() < 4 || ospatar.getParola().length() > 32) {
                     errors.rejectValue("parola", "Size.ospatarForm.parola");
                 }
@@ -67,7 +63,7 @@ public class OspatarValidator implements Validator {
                     errors.rejectValue("parola", "Diff.ospatarForm.passwordConfirm");
                     errors.rejectValue("passwordConfirm", "Diff.ospatarForm.passwordConfirm");
                 }
-            }
+
         }
 
     }

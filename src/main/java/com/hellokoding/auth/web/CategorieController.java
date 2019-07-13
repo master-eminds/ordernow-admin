@@ -6,8 +6,8 @@ import com.hellokoding.auth.repository.CategorieRepository;
 import com.hellokoding.auth.service.CategorieService;
 import com.hellokoding.auth.service.MeniuService;
 import com.hellokoding.auth.service.ProdusService;
-import com.hellokoding.auth.service.SecurityService;
 import com.hellokoding.auth.util.Global;
+import com.hellokoding.auth.validator.CategorieValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -33,9 +33,8 @@ public class CategorieController {
 private CategorieRepository categorieRepository;
     @Autowired
     private MeniuService meniuService;
-    @Autowired
-    private SecurityService securityService;
-
+@Autowired
+private CategorieValidator categorieValidator;
 
     @RequestMapping(value = "/vizualizareCategorii/{meniu_id}/{vizibilitate}", method = RequestMethod.GET)
             public ModelAndView vizualizareCategorii(@PathVariable ("meniu_id") Long meniu_id, @PathVariable("vizibilitate") String vizibilitate) {
@@ -70,7 +69,11 @@ private CategorieRepository categorieRepository;
         ModelAndView model = new ModelAndView("administrareCategorie");
         if(categorie_id == 0 ){
             Meniu meniu= meniuService.findById(meniu_id);
-            model.addObject("categorieForm", new Categorie(meniu));
+            Categorie c= new Categorie(meniu);
+            if(c.getVizibilitate()==null){
+                c.setVizibilitate("0");
+            }
+            model.addObject("categorieForm", c);
             model.addObject("add","true");
         }else{
             Categorie c = categorieService.findById(categorie_id);
@@ -85,6 +88,10 @@ private CategorieRepository categorieRepository;
     @RequestMapping(value = "/salvareCategorie/{meniu_id}", method = RequestMethod.POST)
     public String adaugareMeniu(@ModelAttribute("categorieForm") Categorie categorieForm, @PathVariable("meniu_id") Long meniu_id, BindingResult bindingResult) throws UnsupportedEncodingException, SQLException {
 
+        categorieValidator.validate(categorieForm,bindingResult);
+        if(bindingResult.hasErrors()){
+            return "administrareCategorie";
+        }
         categorieForm.setMeniu(meniuService.findById(meniu_id));
         if(bindingResult.hasErrors()){
             return "administrareCategorie";

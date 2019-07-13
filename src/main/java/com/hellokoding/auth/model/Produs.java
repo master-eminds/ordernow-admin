@@ -11,7 +11,8 @@ public class Produs {
     private Long id;
     private String denumire;
     private Float pret;
-    private Integer gramaj;
+    private Double gramaj;
+    private String unitateMasura;
     private String descriere;
     private String ingrediente;
     private String vizibilitate;
@@ -61,12 +62,20 @@ public Produs(){}
         this.pret = pret;
     }
 
-    public Integer getGramaj() {
+    public Double getGramaj() {
         return gramaj;
     }
 
-    public void setGramaj(Integer gramaj) {
+    public void setGramaj(Double gramaj) {
         this.gramaj = gramaj;
+    }
+
+    public String getUnitateMasura() {
+        return unitateMasura;
+    }
+
+    public void setUnitateMasura(String unitateMasura) {
+        this.unitateMasura = unitateMasura;
     }
 
     public String getDescriere() {

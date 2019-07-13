@@ -12,7 +12,7 @@
     <link href="${contextPath}/resources/tema/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="${contextPath}/resources/tema/libs/css/style.css">
     <link rel="stylesheet" href="${contextPath}/resources/tema/vendor/fonts/fontawesome/css/fontawesome-all.css">
-    <title>Vizualizare meniuri</title>
+    <title>Vizualizare categorii</title>
 </head>
 
 <body>

@@ -40,7 +40,7 @@
     <!-- Main CSS-->
     <link href="${contextPath}/resources/tema/css/theme.css" rel="stylesheet" media="all">
 
-    <title>Statistici produs</title>
+    <title>Statistici produse</title>
 </head>
 
 <body>

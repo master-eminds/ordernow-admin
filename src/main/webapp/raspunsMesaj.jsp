@@ -13,7 +13,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Forms</title>
+    <title>Conversatie</title>
 
     <!-- Fontfaces CSS-->
     <link href="${contextPath}/resources/tema/css/font-face.css" rel="stylesheet" media="all">
@@ -186,13 +186,16 @@
                             <div class="au-chat-textfield">
                                 <c:if test="${dejaRaspuns== false}">
                             <form:form method="post" action="${contextPath}/trimiteRaspuns/${mesaj.id}" modelAttribute="raspunsForm"  class="au-form-icon">
-                                <form:input type="text" id="continutRaspuns" path="continutRaspuns" name="continutRaspuns" placeholder="Scrie un mesaj..." class="au-input au-input--full au-input--h65"></form:input>
+                                    <div class="form-group ${status.error ? 'has-error' : ''}">
+
+                                    <form:input type="text" id="continutRaspuns" path="continutRaspuns" name="continutRaspuns" placeholder="Scrie un mesaj..." class="au-input au-input--full au-input--h65"></form:input>
+                                        <form:errors cssStyle="color: red" path="continutRaspuns"></form:errors>
+
+                                    </div>
+
                                 <button class="au-input-icon" type="submit">
                                     <i class="zmdi zmdi-mail-send"></i>
                                 </button>
-<%--
-                                <button class="btn-outline-success" type="submit">Trimite</button>
---%>
                             </form:form>
                                 </c:if>
                             </div>

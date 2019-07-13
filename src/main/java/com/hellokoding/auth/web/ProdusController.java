@@ -7,6 +7,7 @@ import com.hellokoding.auth.model.Review;
 import com.hellokoding.auth.repository.ProdusRepository;
 import com.hellokoding.auth.service.*;
 import com.hellokoding.auth.util.Global;
+import com.hellokoding.auth.validator.ProdusValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -22,7 +23,6 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 @Controller
@@ -39,8 +39,8 @@ public class ProdusController {
     private SecurityService securityService;
     @Autowired
     private ReviewService reviewService;
-
-    private Map<Long,Double> noteProdus;
+    @Autowired
+    private ProdusValidator produsValidator;
     private List<Review> reviewsProdus;
 
 
@@ -52,10 +52,14 @@ public class ProdusController {
         Meniu meniu= meniuService.findById(meniu_id);
 
         if(produs_id == 0 ){
-            Categorie c= categorieService.findById(categ_id);
-
+            Produs produs = new Produs();
+            if(categ_id!=null||categ_id!=0){
+                Categorie categorie= categorieService.findById(categ_id);
+                produs.setCategorie(categorie);
+            }
+            produs.setVizibilitate("0");
             model.addObject("meniu",meniu);
-            model.addObject("produsForm", new Produs(c));
+            model.addObject("produsForm", produs);
             model.addObject("add","true");
         }else{
             Produs p = produsService.findById(produs_id);
@@ -72,29 +76,16 @@ public class ProdusController {
     public String adaugareMeniu(@ModelAttribute("produsForm") Produs produsForm, @PathVariable("meniu_id") Long meniu_id, BindingResult bindingResult) throws UnsupportedEncodingException, SQLException {
 
         produsForm.setMeniu_id(meniu_id);
-
+        produsValidator.validate(produsForm, bindingResult);
         if(bindingResult.hasErrors()){
             return "administrareProdus";
         }
-
         Produs produs=produsService.save(produsForm);
-
         Long categorie= produsForm.getCategorie().getId();
         //la modificare produs
         if(produsForm.getId()!=0){
             if (Global.mapProduseByCategorie.get(categorie)!=null&&Global.mapProduseByCategorie.get(categorie).size()!=0){
-                List<Produs> listaVeche= Global.mapProduseByCategorie.get(categorie);
-
-                int sters=0;
-                for(int i=0;i<listaVeche.size() && sters==0;i++){
-                    Produs produs1=listaVeche.get(i);
-                    if(produs1.getId().equals(produsForm.getId())){
-                        listaVeche.remove(i);
-                        sters=1;
-                    }
-                }
-                listaVeche.add(produs);
-                Global.mapProduseByCategorie.replace(categorie,listaVeche );
+                inlocuireProdusInMap(categorie,produs);
             }
         }
         // la adaugare produs
@@ -122,6 +113,21 @@ public class ProdusController {
             }
         }
         return "redirect:/detaliiCategorie/"+produsForm.getCategorie().getId()+"/"+meniu_id;
+    }
+
+    private void inlocuireProdusInMap(Long categorie, Produs produs) {
+        List<Produs> listaVeche= Global.mapProduseByCategorie.get(categorie);
+
+        int sters=0;
+        for(int i=0;i<listaVeche.size() && sters==0;i++){
+            Produs produs1=listaVeche.get(i);
+            if(produs1.getId().equals(produs.getId())){
+                listaVeche.remove(i);
+                sters=1;
+            }
+        }
+        listaVeche.add(produs);
+        Global.mapProduseByCategorie.replace(categorie,listaVeche );
     }
 
     @RequestMapping(value = "/detaliiCategorie/{categorie_id}/{meniu_id}", method = RequestMethod.GET)

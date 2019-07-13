@@ -75,10 +75,6 @@ public class AdminController {
 
 
         if(adminForm.getId()!=null&& adminForm.getId()!=0){
-
-            Admin old = adminService.findById(adminForm.getId());
-            //adminForm.setRol(old.getRol());
-
             try {
                 adminService.update(adminForm);
             } catch (Exception e) {

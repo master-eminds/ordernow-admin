@@ -38,7 +38,7 @@
     <!-- Main CSS-->
     <link href="${contextPath}/resources/tema/css/theme.css" rel="stylesheet" media="all">
 
-    <title>Vizualizare comenzi ultimele luni</title>
+    <title>Statistici comenzi</title>
 </head>
 
 <body>
