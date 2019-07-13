@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface CategorieRepository extends JpaRepository<Categorie, Long>{
     @Transactional
     @Modifying
-    @Query(value = "UPDATE categorii  set sters=?1 where id= ?2",
+    @Query(value = "UPDATE categorii  set sters=1 where id= ?1",
             nativeQuery = true)
-    void deleteCategorie( int sters, Long id);
+    void deleteCategorie(  Long id);
 }

@@ -10,7 +10,7 @@ public interface OspatarRepository extends JpaRepository<Ospatar, Long>{
     Ospatar findByEmail(String email);
     @Transactional
     @Modifying
-    @Query(value = "UPDATE ospatari  set sters=?1 where id= ?2",
+    @Query(value = "UPDATE ospatari  set sters=1 where id= ?1",
             nativeQuery = true)
-    void deleteOspatar( int sters, Long id);
+    void deleteOspatar(Long id);
 }

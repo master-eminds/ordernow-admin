@@ -42,45 +42,57 @@
 <div class="page-wrapper">
     <!-- HEADER MOBILE-->
     <header class="header-mobile d-block d-lg-none">
+        <div class="header-mobile__bar">
+            <div class="container-fluid">
+                <div class="header-mobile-inner">
+                    <a href="/welcome">
+                        <img src="${contextPath}/resources/tema/images/icon/logo_administrare2C.png" alt="Logo" style="max-width: 20%;max-height: 20%" />
+                    </a>
+                    <button class="hamburger hamburger--slider" type="button">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                    </button>
+                </div>
+            </div>
+        </div>
         <nav class="navbar-mobile">
             <div class="container-fluid">
                 <ul class="navbar-mobile__list list-unstyled">
                     <li class="has-sub">
                         <a class="js-arrow" href="#">
                             <i class="fas fa-tachometer-alt"></i>Gestionare meniuri</a>
-                        <ul class="list-unstyled navbar__sub-list js-sub-list">
-                            <li >
-                                <a href="/vizualizareMeniuri" >Vizualizare meniuri</a>
+                        <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                            <li>
+                                <a href="${contextPath}/vizualizareMeniuri">Vizualizare meniuri</a>
                             </li>
-                            <li >
-                                <a  href="/administrareMeniu/0">Adaugare meniu</a>
+                            <li>
+                                <a href="${contextPath}/administrareMeniu/0">Adaugare meniu</a>
                             </li>
+
                         </ul>
                     </li>
-
-
                     <li class="has-sub">
                         <a class="js-arrow" href="#">
-                            <i class="fas fa-copy"></i>Statistici</a>
-                        <ul class="list-unstyled navbar__sub-list js-sub-list">
-                            <li >
-                                <a  href="/statisticiComenziUltimaSaptamana">Ultima saptamana</a>
+                            <i class="fas fa-chart-bar"></i>Statistici</a>
+                        <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                            <li>
+                                <a href="${contextPath}/statisticiComenziUltimaSaptamana">Comenzi ultima saptamana</a>
                             </li>
-                            <li >
-                                <a  href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi ultimele 4 luni</a>
+                            <li>
+                                <a href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi ultimele 4 luni</a>
                             </li>
-                            <li >
+                            <li>
                                 <a href="${contextPath}/statisticiComenziTotal">Total comenzi</a>
                             </li>
-                            <li >
-                                <a  href="${contextPath}/statisticiReviewProduse">Evaluari produse</a>
+                            <li>
+                                <a href="${contextPath}/statisticiReviewProduse">Evaluari produse</a>
                             </li>
-                            <li >
+                            <li>
                                 <a href="${contextPath}/statisticiReviewOspatari">Evaluari ospatari</a>
                             </li>
                         </ul>
                     </li>
-
 
                 </ul>
             </div>
@@ -89,6 +101,7 @@
     <!-- END HEADER MOBILE-->
 
     <!-- MENU SIDEBAR-->
+
     <aside class="menu-sidebar d-none d-lg-block">
         <div class="logo">
             <a href="/welcome">

@@ -219,21 +219,21 @@ public class AdminController {
         ThreadValoareTotala util= new ThreadValoareTotala();
         util.setSomeCondition(true);
         util.run();
-        //Global.valoareTotala=DateNecesare.calculeazaValoareTotalaIncasata(Global.listaComenzi);
     }
     @Scheduled(fixedDelay = 10000, initialDelay = 10000)
     public void reincarcaListaMese() {
         incarcaListaMese();
     }
+
     @RequestMapping(value = "/vizualizareComenzi/{nrMasa}", method = RequestMethod.GET)
-    public ModelAndView getComenzi(@PathVariable Long nrMasa) throws ParseException {
+    public ModelAndView getComenzi(@PathVariable Long nrMasa)  {
         ModelAndView model = new ModelAndView("vizualizareComenzi");
         Masa masa= masaService.findById(nrMasa);
         List<Comanda> listaComenzi = masa.getComenzi();
         listaComenzi.sort(Comanda::compareTo);
-        for(Comanda comanda:listaComenzi ){
+       /* for(Comanda comanda:listaComenzi ){
             model.addObject("valoareTotalaComanda",comanda.getValoare());
-        }
+        }*/
         model.addObject("listaComenzi",listaComenzi);
         return model;
     }

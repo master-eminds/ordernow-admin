@@ -5,7 +5,6 @@ import com.hellokoding.auth.model.Review;
 import com.hellokoding.auth.repository.OspatarRepository;
 import com.hellokoding.auth.service.OspatarService;
 import com.hellokoding.auth.service.ReviewService;
-import com.hellokoding.auth.service.SecurityService;
 import com.hellokoding.auth.util.Global;
 import com.hellokoding.auth.validator.OspatarValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +25,7 @@ import java.util.Map;
 
 @Controller
 public class OspatarController {
-    @Autowired
-    private SecurityService securityService;
+
     @Autowired
     private OspatarValidator ospatarValidator;
     @Autowired
@@ -37,8 +35,6 @@ public class OspatarController {
     private OspatarService ospatarService;
     @Autowired
     private ReviewService reviewService;
-    private Map<Long,Double> noteOspatar;
-    private List<Review> reviewsOspatar;
 
     @RequestMapping(value = "/administrareOspatari/{id}", method = RequestMethod.GET)
     public ModelAndView veziOspatari(@PathVariable("id") Long id) {
@@ -75,8 +71,7 @@ public class OspatarController {
     @RequestMapping(value = "/stergeOspatar/{id}", method = RequestMethod.GET)
 
     public String stergeMeniu(@PathVariable("id") Long id) {
-        //Ospatar ospatar=ospatarService.findById(id);
-        ospatarRepository.deleteOspatar(1,id);
+        ospatarRepository.deleteOspatar(id);
         int sters=0;
         for(int i=0;i< Global.listaOspatari.size() && sters==0;i++){
             Ospatar ospatar= Global.listaOspatari.get(i);
@@ -99,7 +94,6 @@ public class OspatarController {
             }
             Global.dateChartOspatari=dateChartOspatari(ospatari);
         }
-        //String date= dateChartOspatari(ospatari);
         model.addObject("dateChartReview", Global.dateChartOspatari);
         model.addObject("listaOspatari",ospatari);
         model.addObject("noteOspatar", Global.noteOspatari);
@@ -113,7 +107,6 @@ public class OspatarController {
             if(Global.reviewOspatari==null||Global.reviewOspatari.size()==0||!Global.reviewOspatari.containsKey(o.getId())){
                 Global.reviewOspatari.put(o.getId(),reviewService.findByIdOspatar(o.getId()));
             }
-            //List<Review> reviewsOspatar = reviewService.findByIdOspatar(o.getId());
             float sum = 0;
             if (Global.reviewOspatari.get(o.getId()) != null && Global.reviewOspatari.get(o.getId()).size()!=0 && !Global.reviewOspatari.get(o.getId()).isEmpty() ) {
                 for (Review review : Global.reviewOspatari.get(o.getId())) {
@@ -130,7 +123,6 @@ public class OspatarController {
     }
 
     private String dateChartOspatari(List<Ospatar> ospatari){
-        //Global.noteOspatari= dateReviewOspatari(ospatari);
 
         StringBuilder stringId=new StringBuilder();
         StringBuilder stringNote=new StringBuilder();
@@ -149,7 +141,6 @@ public class OspatarController {
     @RequestMapping(value = "/vizualizareReviewOspatar/{idOspatar}", method = RequestMethod.GET)
     public ModelAndView vizualizareReviewOspatar(@PathVariable Long idOspatar) throws ParseException {
         ModelAndView model = new ModelAndView("vizualizareReviewOspatar");
-        //List<Review> reviews = reviewService.findByIdProdus(idProdus);
         model.addObject("listaReviewuri", Global.reviewOspatari.get(idOspatar));
         model.addObject("medieNote", Global.noteOspatari.get(idOspatar));
         return model;

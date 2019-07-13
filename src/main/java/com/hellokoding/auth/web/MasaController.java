@@ -35,8 +35,7 @@ public class MasaController {
     @RequestMapping(value = "/stergeMasa/{id}", method = RequestMethod.GET)
 
     public String stergeMasa(@PathVariable("id") Long id) {
-        //Ospatar ospatar=ospatarService.findById(id);
-        masaRepository.deleteMasa(1,id);
+        masaRepository.deleteMasa(id);
         int sters=0;
         for(int i=0;i< Global.listaMese.size() && sters==0;i++){
             Masa masa= Global.listaMese.get(i);

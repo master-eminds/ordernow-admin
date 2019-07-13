@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 public interface ProdusRepository extends JpaRepository<Produs, Long>{
     @Transactional
     @Modifying
-    @Query(value = "UPDATE produse  set sters=?1 where id= ?2",
+    @Query(value = "UPDATE produse  set sters=1 where id= ?1",
             nativeQuery = true)
-    void deleteProdus( int sters, Long id);
+    void deleteProdus(Long id);
 
 }

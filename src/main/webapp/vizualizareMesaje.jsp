@@ -159,8 +159,8 @@
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                        <div class="col-lg-6" style="width:800px; margin: 0 auto">
+                            <div class="au-card au-card--no-shadow au-card--no-pad m-b-40" style="width:800px; margin: 0 auto">
                                 <div class="au-card-title" style="background-image:url('${contextPath}/resources/tema/images/bg-title-02.jpg');">
                                     <div class="bg-overlay bg-overlay--blue"></div>
                                     <h3><i class="zmdi zmdi-comment-text"></i>Mesaje</h3>
@@ -182,62 +182,83 @@
 
                                             <div class="au-message__item unread" onclick="goToTrimiteRaspuns(${mesajNecitit.id})">
                                                 <div class="au-message__item-inner">
-                                                    <div class="au-message__item-text">
-                                                        <div class="text">
-                                                            <h5 style="font-weight: bold" class="name">${mesajNecitit.expeditor}</h5>
-                                                            <p style="color: #0a3c93">Subiect: ${mesajNecitit.subiect}</p>
+                                                    <table>
+                                                        <tr>
 
-                                                            <c:if test="${mesajNecitit.continut.length() gt 21}">
-                                                                <p>${mesajNecitit.continut.substring(0,20)}...</p>
-                                                            </c:if>
-                                                            <c:if test="${mesajNecitit.continut.length() le 21}">
-                                                                <p>${mesajNecitit.continut}</p>
-                                                            </c:if>
-                                                        </div>
-                                                    </div>
-                                                    <div class="au-message__item-time">
-                                                        <span>${mesajNecitit.data}</span>
-                                                    </div>
+                                                            <td width="300">
+                                                                <div class="au-message__item-text">
+                                                                    <div class="text">
+                                                                        <h5 style="font-weight: bold" class="name">${mesajNecitit.expeditor}</h5>
+                                                                        <p style="color: #0a3c93">Subiect: ${mesajNecitit.subiect}</p>
+
+                                                                        <c:if test="${mesajNecitit.continut.length() gt 21}">
+                                                                            <p>${mesajNecitit.continut.substring(0,20)}...</p>
+                                                                        </c:if>
+                                                                        <c:if test="${mesajNecitit.continut.length() le 21}">
+                                                                            <p>${mesajNecitit.continut}</p>
+                                                                        </c:if>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+
+                                                            <td width="150">
+                                                                <div class="au-message__item-time">
+                                                                    <span>${mesajNecitit.data}</span>
+                                                                </div>
+                                                            </td>
+
+                                                        </tr>
+
+                                                    </table>
+
+
                                                 </div>
                                             </div>
                                             </c:forEach>
                                             <c:forEach var="mesajCitit" items="${listaMesajeCitite}">
                                             <div class="au-message__item" onclick="goToTrimiteRaspuns(${mesajCitit.id})">
                                                 <div class="au-message__item-inner">
-                                                    <div class="au-message__item-text">
-                                                        <div class="text">
-                                                            <h5 style="font-weight: bold" class="name">${mesajCitit.expeditor}</h5>
-                                                            <p style="color: #0a3c93">Subiect: ${mesajCitit.subiect}</p>
-                                                            <c:if test="${mesajCitit.continut.length() gt 21}">
-                                                                <p>${mesajCitit.continut.substring(0,20)}...</p>
-                                                            </c:if>
-                                                            <c:if test="${mesajCitit.continut.length() le 21}">
-                                                                <p>${mesajCitit.continut}</p>
-                                                            </c:if>
-                                                        </div>
-                                                    </div>
-                                                    <div class="au-message__item-time">
-                                                        <span>${mesajCitit.data}</span>
-                                                    </div>
-                                                    <c:if test="${not empty mesajCitit.continutRaspuns}">
-                                                        <span style="color: red">Ai raspuns la acest mesaj!</span>
-                                                    </c:if>
+                                                    <table>
+
+                                                        <tr>
+
+                                                            <td width="300">
+                                                                <div class="au-message__item-text">
+                                                                    <div class="text">
+                                                                        <h5 style="font-weight: bold" class="name">${mesajCitit.expeditor}</h5>
+                                                                        <p style="color: #0a3c93">Subiect: ${mesajCitit.subiect}</p>
+                                                                        <c:if test="${mesajCitit.continut.length() gt 21}">
+                                                                            <p>${mesajCitit.continut.substring(0,20)}...</p>
+                                                                        </c:if>
+                                                                        <c:if test="${mesajCitit.continut.length() le 21}">
+                                                                            <p>${mesajCitit.continut}</p>
+                                                                        </c:if>
+                                                                    </div>
+                                                                </div>
+
+                                                            </td>
+                                                            <td width="150">
+                                                                    <span>${mesajCitit.data}</span>
+                                                            </td>
+                                                            <td width="250">
+                                                                <c:if test="${not empty mesajCitit.continutRaspuns}">
+                                                                    <span style="color: red">Ai raspuns la acest mesaj!</span>
+                                                                </c:if>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
                                                 </div>
                                             </div>
                                             </c:forEach>
 
                                         <div class="au-message__footer">
-                                            <button class="au-btn au-btn-load js-load-btn" id="load-btn" <%--onclick="citesteUrmatoarele()--%>>Vezi mai multe</button>
-                                         <%--   <p type="hidden" id="numar_urmatoarele">1</p>
-                                            <a type="hidden" href="#" id="citireUrmatoarele"></a>--%>
+                                            <button class="au-btn au-btn-load js-load-btn" id="load-btn">Vezi mai multe</button>
                                         </div>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
-
-
                 </div>
             </div>
         </div>

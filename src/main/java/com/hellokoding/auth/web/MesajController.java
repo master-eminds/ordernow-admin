@@ -31,17 +31,8 @@ public class MesajController {
         ModelAndView model = new ModelAndView("vizualizareMesaje");
         List<Mesaj> listaMesajeNecitite=mesajService.findAllByStare("necitit");
         List<Mesaj> listaMesajeCitite=mesajService.findAllByStare("citit");
-       /* List<Mesaj> listaMesajeNecitite=new ArrayList<>();
-        List<Mesaj> listaMesajeCitite=new ArrayList<>();
 
-        List<Mesaj> listaMesajeNoi= mesajService.findAllByLimit(0);
-        for(Mesaj m : listaMesajeNoi){
-            if (m.getStare().equals("citit")){
-                listaMesajeCitite.add(m);
-            }
-            else listaMesajeNecitite.add(m);
-        }*/
-         listaMesajeCitite.sort(Mesaj::compareTo);
+        listaMesajeCitite.sort(Mesaj::compareTo);
         listaMesajeNecitite.sort(Mesaj::compareTo);
         model.addObject("listaMesajeNecitite", listaMesajeNecitite);
         model.addObject("listaMesajeCitite", listaMesajeCitite);
@@ -72,22 +63,5 @@ public class MesajController {
         mesajRepository.updateMesaj( raspunsForm.getContinutRaspuns(),idMesaj);
         return "redirect:/vizualizareMesaje";
     }
-    @RequestMapping(value = "/citesteUrmatoarele/nr", method = RequestMethod.GET)
-    public String citesteUrmatoarele(@ModelAttribute("listaMesajeCitite") List<Mesaj> listaMesajeCitite, @ModelAttribute("listaMesajeNecitite") List<Mesaj> listaMesajeNecitite,@PathVariable("nr") int nrDeCitit, BindingResult bindingResult) throws UnsupportedEncodingException, SQLException {
 
-        if(bindingResult.hasErrors()){
-            return "vizualizareMesaje";
-        }
-        int start=nrDeCitit*10;
-        List<Mesaj> listaMesajeNoi= mesajService.findAllByLimit(start);
-        for(Mesaj m : listaMesajeNoi){
-            if (m.getStare().equals("citit")){
-                listaMesajeCitite.add(m);
-            }
-            else listaMesajeNecitite.add(m);
-        }
-
-        //listaMesajeCitite.addAll(listaMesajeNoi);
-        return "redirect:/vizualizareMesaje";
-    }
 }

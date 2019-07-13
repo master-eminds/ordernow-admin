@@ -10,7 +10,7 @@ public interface MeniuRepository extends JpaRepository<Meniu, Long>{
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE meniuri  set sters=?1 where id= ?2",
+    @Query(value = "UPDATE meniuri  set sters=1 where id= ?1",
             nativeQuery = true)
-    void deleteMeniu( int sters, Long id);
+    void deleteMeniu( Long id);
 }

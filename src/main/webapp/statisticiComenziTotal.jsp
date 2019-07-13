@@ -38,7 +38,7 @@
     <!-- Main CSS-->
     <link href="${contextPath}/resources/tema/css/theme.css" rel="stylesheet" media="all">
 
-    <title>Statistici comenzi</title>
+    <title>Statistici totale comenzi</title>
 </head>
 
 <body>
@@ -66,7 +66,7 @@
     <div class="nav-left-sidebar sidebar-dark">
         <div class="menu-list">
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="d-xl-none d-lg-none" href="#">Gestionare meniuri</a>
+                <a class="d-xl-none d-lg-none" href="#">Meniu</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>

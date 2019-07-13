@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface MasaRepository extends JpaRepository<Masa, Long>{
     @Transactional
     @Modifying
-    @Query(value = "UPDATE mese  set sters=?1 where id= ?2",
+    @Query(value = "UPDATE mese  set sters=1 where id= ?1",
             nativeQuery = true)
-    void deleteMasa( int sters, Long id);
+    void deleteMasa( Long id);
 }

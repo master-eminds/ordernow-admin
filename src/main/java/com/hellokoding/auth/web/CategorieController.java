@@ -39,15 +39,14 @@ private CategorieValidator categorieValidator;
     @RequestMapping(value = "/vizualizareCategorii/{meniu_id}/{vizibilitate}", method = RequestMethod.GET)
             public ModelAndView vizualizareCategorii(@PathVariable ("meniu_id") Long meniu_id, @PathVariable("vizibilitate") String vizibilitate) {
             ModelAndView model = new ModelAndView("vizualizareCategorii");
-          /*  if(Global.mapCategoriiByMeniu==null||Global.mapCategoriiByMeniu.size()==0){
-                for(Meniu m: Global.listaMeniuri){
-                    Global.mapCategoriiByMeniu.put(m.getId(),m.getCategorii());
-                }
-            }
 
-         List<Categorie> listaCategorii=Global.mapCategoriiByMeniu.get(meniu_id);
-        */
-          List<Categorie> listaCategorii=categorieService.findAllByVizibilitate(meniu_id,vizibilitate);
+          List<Categorie> listaCategorii=new ArrayList<>();
+          for(Categorie categorie: Global.mapCategoriiByMeniu.get(meniu_id)){
+              if (categorie.getVizibilitate().equals(vizibilitate)){
+                  listaCategorii.add(categorie);
+              }
+          }
+                  //categorieService.findAllByVizibilitate(meniu_id,vizibilitate);
 
         model.addObject("categorii", listaCategorii);
         model.addObject("meniu_id",meniu_id);
@@ -97,39 +96,21 @@ private CategorieValidator categorieValidator;
             return "administrareCategorie";
         }
         Categorie categorie=categorieService.save(categorieForm);
-        //la modificare categorie
+        //modificare categorie
         if(categorieForm.getId()!=0){
             if (Global.mapCategoriiByMeniu.get(meniu_id)!=null&&Global.mapCategoriiByMeniu.get(meniu_id).size()!=0){
-                List<Categorie> listaVeche= Global.mapCategoriiByMeniu.get(meniu_id);
-
-                int sters=0;
-                for(int i=0;i<listaVeche.size() && sters==0;i++){
-                    Categorie categorie1=listaVeche.get(i);
-                    if(categorie1.getId().equals(categorie.getId())){
-                        listaVeche.remove(i);
-                        sters=1;
-                    }
-                }
+                List<Categorie> listaVeche=  stergeCategorie(meniu_id,categorie);
                 listaVeche.add(categorie);
-                Global.mapCategoriiByMeniu.replace(meniu_id,listaVeche );
+                Global.mapCategoriiByMeniu.replace(meniu_id,listaVeche);
             }
         }
-        // la adaugare categorie
+        //adaugare categorie
         else {
-            //daca exista deja macar o categorie in meniu, stergem categoria veche din lista si o adaugam pe cea noua
+            //daca exista deja macar o categorie in meniu, actualizam lista veche adaugand categoria noua
             if (Global.mapCategoriiByMeniu.get(meniu_id)!=null&&Global.mapCategoriiByMeniu.get(meniu_id).size()!=0){
                 List<Categorie> listaVeche= Global.mapCategoriiByMeniu.get(meniu_id);
-
-                int sters=0;
-                for(int i=0;i<listaVeche.size() && sters==0;i++){
-                    Categorie categorie1=listaVeche.get(i);
-                    if(categorie1.getId().equals(categorie.getId())){
-                        listaVeche.remove(i);
-                        sters=1;
-                    }
-                }
                 listaVeche.add(categorie);
-                Global.mapCategoriiByMeniu.replace(meniu_id,listaVeche );
+                Global.mapCategoriiByMeniu.replace(meniu_id,listaVeche);
             }
             // daca nu exista nicio categorie in meniu, adaugam noi o lista cu categ noua
             else {
@@ -142,14 +123,7 @@ private CategorieValidator categorieValidator;
         return "redirect:/vizualizareCategorii/"+meniu_id;
     }
 
-
-
-    @RequestMapping(value = "/stergeCategorie/{categorie_id}/{meniu_id}", method = RequestMethod.GET)
-
-    public String stergeMeniu(@PathVariable("categorie_id") Long categorie_id,@PathVariable("meniu_id") Long meniu_id) {
-        Categorie categorie=categorieService.findById(categorie_id);
-        categorieRepository.deleteCategorie(1,categorie_id);
-
+    private List<Categorie> stergeCategorie(Long meniu_id, Categorie categorie) {
         List<Categorie> listaVeche= Global.mapCategoriiByMeniu.get(meniu_id);
         int sters=0;
         for(int i=0;i<listaVeche.size() && sters==0;i++){
@@ -159,6 +133,18 @@ private CategorieValidator categorieValidator;
                 sters=1;
             }
         }
+        return listaVeche;
+    }
+
+
+    @RequestMapping(value = "/stergeCategorie/{categorie_id}/{meniu_id}", method = RequestMethod.GET)
+
+    public String stergeMeniu(@PathVariable("categorie_id") Long categorie_id,@PathVariable("meniu_id") Long meniu_id) {
+        Categorie categorie=categorieService.findById(categorie_id);
+        categorieRepository.deleteCategorie(categorie_id);
+
+        List<Categorie> listaVeche=stergeCategorie(meniu_id,categorie);
+       // List<Categorie> listaVeche= Global.mapCategoriiByMeniu.get(meniu_id);
         Global.mapCategoriiByMeniu.replace(meniu_id,listaVeche);
 
         return "redirect:/vizualizareCategorii/"+meniu_id;

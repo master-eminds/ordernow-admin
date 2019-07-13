@@ -3,8 +3,6 @@ package com.hellokoding.auth.web;
 import com.hellokoding.auth.model.Meniu;
 import com.hellokoding.auth.repository.MeniuRepository;
 import com.hellokoding.auth.service.MeniuService;
-import com.hellokoding.auth.service.ProdusService;
-import com.hellokoding.auth.service.SecurityService;
 import com.hellokoding.auth.util.Global;
 import com.hellokoding.auth.validator.MeniuValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,20 +14,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class MeniuController {
     @Autowired
     private MeniuService meniuService;
     @Autowired
     private MeniuRepository meniuRepository;
-    @Autowired
-    private ProdusService produsService;
+
     @Autowired
     private MeniuValidator meniuValidator;
-
-    @Autowired
-    private SecurityService securityService;
-
 
     @RequestMapping(value = "/vizualizareMeniuri", method = RequestMethod.GET)
     public ModelAndView vizualizareMeniuri() {
@@ -44,10 +40,16 @@ public class MeniuController {
     @RequestMapping(value = "/vizualizareMeniuri/{stare}", method = RequestMethod.GET)
     public ModelAndView vizualizareMeniuriByStare(@PathVariable("stare") String stare) {
         ModelAndView model = new ModelAndView("vizualizareMeniuri");
-        /*if(Global.listaMeniuri==null||Global.listaMeniuri.size()==0) {
+        if(Global.listaMeniuri==null||Global.listaMeniuri.size()==0) {
            Global.listaMeniuri = meniuService.findAll();
-        }*/
-        model.addObject("meniuri", meniuService.findAllByStare(stare));
+        }
+        List<Meniu> listaByStare=new ArrayList<>();
+        for(Meniu m: Global.listaMeniuri){
+            if(m.getStare().equals(stare)){
+                listaByStare.add(m);
+            }
+        }
+        model.addObject("meniuri", listaByStare);
 
         return model;
     }
@@ -108,7 +110,7 @@ public class MeniuController {
                 sters=1;
             }
         }
-        meniuRepository.deleteMeniu(1,meniu_id);
+        meniuRepository.deleteMeniu(meniu_id);
 
 
         return "redirect:/vizualizareMeniuri";
