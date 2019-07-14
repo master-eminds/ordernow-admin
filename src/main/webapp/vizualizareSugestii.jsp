@@ -86,7 +86,7 @@
                                 <a href="${contextPath}/statisticiComenziUltimaSaptamana">Comenzi ultima saptamana</a>
                             </li>
                             <li>
-                                <a href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi ultimele 4 luni</a>
+                                <a href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi lunare</a>
                             </li>
                             <li>
                                 <a href="${contextPath}/statisticiComenziTotal">Total comenzi</a>
@@ -139,7 +139,7 @@
                                 <a  href="/statisticiComenziUltimaSaptamana">Ultima saptamana</a>
                             </li>
                             <li >
-                                <a  href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi ultimele 4 luni</a>
+                                <a  href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi  lunare</a>
                             </li>
                             <li >
                                 <a href="${contextPath}/statisticiComenziTotal">Total comenzi</a>

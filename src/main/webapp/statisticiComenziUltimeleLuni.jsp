@@ -102,7 +102,7 @@
                                             <a class="nav-link" href="/statisticiComenziUltimaSaptamana">Ultima saptamana</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi ultimele luni</a>
+                                            <a class="nav-link" href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi lunare</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="${contextPath}/statisticiComenziTotal">Total comenzi</a>
@@ -141,13 +141,13 @@
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="page-header">
-                                <h2 class="pageheader-title">Comenzi ultimele luni</h2>
+                                <h2 class="pageheader-title">Comenzi lunare</h2>
                                 <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
                                 <div class="page-breadcrumb">
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="${contextPath}/welcome" class="breadcrumb-link">Pagina principala</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Comenzi ultimele luni</li>
+                                            <li class="breadcrumb-item active" aria-current="page">Comenzi lunare</li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -158,7 +158,46 @@
                     <!-- end pageheader  -->
                     <!-- ============================================================== -->
 
-                    <div class="row m-t-25" style="width: 100%; height: 100% ;margin: 0 auto;" >
+                    <div class="au-card chart-percent-card" style="margin: 0 auto">
+                        <div class="au-card-inner">
+                            <h3 class="title-2 tm-b-5">Numar comenzi pe luna</h3>
+                            <div class="row no-gutters">
+                                <div class="col-xl-6">
+                                    <div class="chart-note-wrap">
+                                        <label for="inputNrLuni">Introduceti numarul de luni pentru recalculare:</label>
+                                        <input class="au-input" type='text' id='inputNrLuni' />
+                                        <input class="btn btn-danger btn-sm" style="width: 150px" type='button' onclick='incarcaStatistici()' value='Recalculeaza' />
+
+                                        <div ><a href="" id="divNrLuni" target="_blank" ></a></div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12" style="margin: 0 auto">
+                                    <div class="overview-item overview-item--c2" style="max-width: 100%; max-height: 100%">
+                                        <div class="overview__inner">
+                                            <div class="overview-box clearfix">
+                                                <div class="icon">
+                                                    <i class="zmdi zmdi-calendar-note"></i>
+                                                </div>
+                                                <div class="text">
+                                                    <h2>${numarComenzi}</h2>
+                                                    <span id="spanNrLuni" >Numar comenzi din ultimele ${numarLuni} luni</span>
+                                                </div>
+                                            </div>
+                                            <div class="overview-chart">
+                                                <canvas id="widgetChart2"></canvas>
+                                                <input type="hidden" value="${dateChart}" id="dateChart2"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <%--<div class="row m-t-25" style="width: 100%; height: 100% ;margin: 0 auto;" >
                         <div class="col-sm-6 col-lg-3" style="margin: 0 auto"  >
                             <label for="inputNrLuni">Numar luni:</label>
                             <input type='text' id='inputNrLuni' />
@@ -183,7 +222,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
                     <!-- hoverable table -->
                     <!-- ============================================================== -->
                     <div style="max-width: 85%; max-height: 85%; margin: 0 auto"
@@ -275,7 +314,6 @@
     function incarcaStatistici()
     {
         var ip = document.getElementById('inputNrLuni');
-        document.getElementById('divNrLuni').innerHTML = ip.value;
         document.getElementById('divNrLuni').href="${contextPath}/statisticiComenziUltimeleLuni/"+ip.value;
         document.getElementById('divNrLuni').click()
 

@@ -101,7 +101,7 @@
                                             <a class="nav-link" href="/statisticiComenziUltimaSaptamana">Ultima saptamana</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi ultimele 4 luni</a>
+                                            <a class="nav-link" href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi lunare</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="${contextPath}/statisticiComenziTotal">Total comenzi</a>
@@ -140,13 +140,12 @@
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="page-header">
-                                <h2 class="pageheader-title">Comenzi ultimele luni</h2>
-                                <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+                                <h2 class="pageheader-title">Comenzi totale</h2>
                                 <div class="page-breadcrumb">
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="${contextPath}/welcome" class="breadcrumb-link">Pagina principala</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Comenzi ultimele luni</li>
+                                            <li class="breadcrumb-item active" aria-current="page">Comenzi totale</li>
                                         </ol>
                                     </nav>
                                 </div>

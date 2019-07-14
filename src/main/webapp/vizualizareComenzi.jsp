@@ -75,7 +75,7 @@
                                                     <a class="nav-link" href="/statisticiComenziUltimaSaptamana">Ultima saptamana</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi ultimele 4 luni</a>
+                                                    <a class="nav-link" href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi lunare</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="${contextPath}/statisticiComenziTotal">Total comenzi</a>

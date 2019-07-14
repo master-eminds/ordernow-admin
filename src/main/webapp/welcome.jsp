@@ -81,7 +81,7 @@
                                 <a href="${contextPath}/">Comenzi ultima saptamana</a>
                             </li>
                             <li>
-                                <a href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi ultimele 4 luni</a>
+                                <a href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi lunare</a>
                             </li>
                             <li>
                                 <a href="${contextPath}/statisticiComenziTotal">Total comenzi</a>
@@ -135,7 +135,7 @@
                                 <a href="${contextPath}/statisticiComenziUltimaSaptamana">Comenzi ultima saptamana</a>
                             </li>
                             <li>
-                                <a href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi ultimele 4 luni</a>
+                                <a href="${contextPath}/statisticiComenziUltimeleLuni">Comenzi lunare</a>
                             </li>
                             <li>
                                 <a href="${contextPath}/statisticiComenziTotal">Total comenzi</a>
@@ -218,7 +218,10 @@
                                 </div>
                                 <div class="noti__item js-item-menu">
                                     <i class="zmdi zmdi-notifications"></i>
-                                    <span class="quantity">${counterSugestiiNecitite}</span>
+                                    <c:if test="${counterSugestiiNecitite ne 0}">
+                                        <span class="quantity">${counterSugestiiNecitite}</span>
+
+                                    </c:if>
                                     <div class="notifi-dropdown js-dropdown">
 
                                         <div class="notifi__title">
@@ -296,7 +299,8 @@
 
                     <div class="row m-t-25">
                         <div class="col-sm-6 col-lg-3">
-                            <div class="overview-item overview-item--c1">
+                            <div class="overview-item overview-item--c1" onclick="goToStatisticiOspatari('statisticiReviewOspatari')">
+                                <a type="hidden" href="#" id="aStatisticiO"></a>
                                 <div class="overview__inner">
                                     <div class="overview-box clearfix">
                                         <div class="icon">
@@ -312,7 +316,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6 col-lg-3">
-                            <div class="overview-item overview-item--c2" onclick="goToStatisticiLunare('statisticiComenziUltimeleLuni/2')">
+                            <div class="overview-item overview-item--c2" onclick="goToStatisticiLunare('statisticiComenziUltimeleLuni/4')">
                                 <a type="hidden" href="#" id="aStatisticiL"></a>
                                 <div class="overview__inner">
                                     <div class="overview-box clearfix">
@@ -560,6 +564,11 @@
     }
     function goToStatisticiTotale(adresa) {
         var link = document.getElementById("aStatisticiT");
+        link.setAttribute('href','${contextPath}/'+adresa)
+        link.click();
+    }
+    function goToStatisticiOspatari(adresa) {
+        var link = document.getElementById("aStatisticiO");
         link.setAttribute('href','${contextPath}/'+adresa)
         link.click();
     }
