@@ -54,17 +54,15 @@ public class SugestieController {
         ModelAndView model = new ModelAndView("vizualizareSugestii");
         List<Sugestie> listaSugestii=sugestieService.findAllByStare(stare);
         listaSugestii.sort(Sugestie::compareTo);
-        if(stare.equals("citit")){
+        if(stare.equals("necitit")){
             model.addObject("listaSugestiiNoi", listaSugestii);
             model.addObject("counterSugestiiNoi",listaSugestii.size());
             model.addObject("numarSugestii", listaSugestii.size());
 
         }
-        else  if(stare.equals("necitit")){
+        else  if(stare.equals("citit")){
             model.addObject("listaSugestiiVechi", listaSugestii);
             model.addObject("numarSugestii", listaSugestii.size());
-
-
         }
         return model;
     }

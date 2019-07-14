@@ -299,7 +299,7 @@
 
                     <div class="row m-t-25">
                         <div class="col-sm-6 col-lg-3">
-                            <div class="overview-item overview-item--c1" onclick="goToStatisticiOspatari('statisticiReviewOspatari')">
+                            <div class="overview-item overview-item--c4" onclick="goToStatisticiOspatari('statisticiReviewOspatari')">
                                 <a type="hidden" href="#" id="aStatisticiO"></a>
                                 <div class="overview__inner">
                                     <div class="overview-box clearfix">
@@ -354,7 +354,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6 col-lg-3">
-                                <div class="overview-item overview-item--c4" onclick="goToStatisticiTotale('statisticiComenziTotal')">
+                                <div class="overview-item overview-item--c1" onclick="goToStatisticiTotale('statisticiComenziTotal')">
                                     <a type="hidden" href="#" id="aStatisticiT"></a>
 
                                     <div class="overview__inner">

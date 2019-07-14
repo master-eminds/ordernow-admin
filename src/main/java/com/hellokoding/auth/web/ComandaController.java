@@ -69,9 +69,7 @@ public class ComandaController {
         List<Comanda> comenziNr=DateNecesare.listaComenziUltimeleLuni(Global.listaComenziUltimeleLuni,numarLuni);
         comenziNr.sort(Comanda::compareTo);
         String date= dateChartULNr(comenziNr,numarLuni);
-      /*  if(Global.dateChartComenziUL==null||Global.dateChartComenziUL.isEmpty()||Global.dateChartComenziUL.trim().length()==0){
-            Global.dateChartComenziUL= dateChartUL(Global.listaComenziUltimeleLuni,numarLuni);
-        }*/
+
         model.addObject("dateChart", date);
         model.addObject("listaComenzi", comenziNr);
         model.addObject("numarComenzi", comenziNr.size());
