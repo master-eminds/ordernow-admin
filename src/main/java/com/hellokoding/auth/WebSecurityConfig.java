@@ -27,6 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/resources/**", "/registration").permitAll()
                     .antMatchers("/resources/**","/adaugaUser").permitAll()
+                    .antMatchers("/resources/**","/mitza").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
